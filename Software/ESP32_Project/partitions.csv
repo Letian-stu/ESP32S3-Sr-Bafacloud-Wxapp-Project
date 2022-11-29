@@ -1,0 +1,5 @@
+# ESP-IDF Partition Table
+# Name  ,  Type  , SubType , Offset ,  Size     , Flags
+nvs     ,  data  , nvs     ,        ,  100K     ,
+storage ,  data  , spiffs  ,        ,  800K     ,
+factory ,  app   , factory ,        ,  3M       ,

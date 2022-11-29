@@ -1,0 +1,21 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "idf.portWin": "COM5",
+  "idf.adapterTargetName": "esp32s3",
+  "idf.openOcdConfigs": [
+    "interface/ftdi/esp32_devkitj_v1.cfg",
+    "target/esp32s3.cfg"
+  ],
+  "files.associations": {
+    "esp_system.h": "c",
+    "nvs_flash.h": "c",
+    "*.inc": "c",
+    "initconfig.h": "c",
+    "esp_log.h": "c",
+    "freertos.h": "c",
+    "task.h": "c",
+    "config.h": "c",
+    "nvs.h": "c",
+    "baseconfig.h": "c"
+  }
+}
