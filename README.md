@@ -1,4 +1,4 @@
-# Letian-stu-ESP32S3Mini-Sr-Bafacloud-Wxapp-Project
+# ESP32S3Mini-Sr-Bafacloud-Wxapp-Project
 this is my graduation project in nbut
 
 这是我在nbut做的一个毕业设计
