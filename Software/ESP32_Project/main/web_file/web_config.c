@@ -17,15 +17,13 @@ httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 char recvwifiname[32] = {'\0'};
 char recvwifissid[32] = {'\0'};
 
-/* Max length a file path can have on storage */
+
 #define FILE_PATH_MAX (ESP_VFS_PATH_MAX + CONFIG_SPIFFS_OBJ_NAME_LEN)
-/* Scratch buffer size */
+
 #define SCRATCH_BUFSIZE 8192
 struct file_server_data
 {
-    /* Base path of file storage */
     char base_path[ESP_VFS_PATH_MAX + 1];
-    /* Scratch buffer for temporary storage during file transfer */
     char scratch[SCRATCH_BUFSIZE];
 };
 
@@ -38,8 +36,6 @@ static esp_err_t http_resp_dir_html(httpd_req_t *req, const char *dirpath)
     return ESP_OK;
 }
 
-/* Copies the full path into destination buffer and returns
- * pointer to path (skipping the preceding base path) */
 static const char *get_path_from_uri(char *dest, const char *base_path, const char *uri, size_t destsize)
 {
     const size_t base_pathlen = strlen(base_path);
@@ -56,13 +52,10 @@ static const char *get_path_from_uri(char *dest, const char *base_path, const ch
     }
     if (base_pathlen + pathlen + 1 > destsize)
     {
-        /* Full path string won't fit into destination buffer */
         return NULL;
     }
-    /* Construct full path (base + path) */
     strcpy(dest, base_path);
     strlcpy(dest + base_pathlen, uri, pathlen + 1);
-    /* Return pointer to path, skipping the base */
     return dest + base_pathlen;
 }
 
@@ -70,7 +63,7 @@ static esp_err_t index_get_handler(httpd_req_t *req)
 {
     char filepath[FILE_PATH_MAX];
     const char *filename = get_path_from_uri(filepath, ((struct file_server_data *)req->user_ctx)->base_path,
-                                             req->uri, sizeof(filepath));
+                                            req->uri, sizeof(filepath));
     if (!filename)
     {
         ESP_LOGE(TAG, "Filename is too long");
@@ -153,16 +146,6 @@ static esp_err_t wificonfig_handler(httpd_req_t *req)
 
     //发送配置事件,切换到STA模式
     xEventGroupSetBits(Event_Group, CONFIGWIFIOK);
-
-    // // Restart module
-    // for (int i = 3; i >= 0; i--) {
-    //     printf("Restarting in %d seconds...\n", i);
-    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
-    // }
-    // printf("Restarting now.\n");
-    // fflush(stdout);
-    // esp_restart();
-
     return ESP_OK;
 }
 
