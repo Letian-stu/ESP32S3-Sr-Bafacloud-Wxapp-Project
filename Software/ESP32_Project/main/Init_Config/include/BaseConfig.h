@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2022-11-29 15:12
- * @FilePath: \sample_project\main\Init_Config\include\BaseConfig.h
+ * @LastEditTime: 2022-11-30 09:16
+ * @FilePath: \espbysj\project\main\Init_Config\include\BaseConfig.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -25,6 +25,9 @@
 #include "esp_vfs_fat.h"
 #include "esp_spiffs.h"
 #include "driver/spi_common.h"
+
+//add by tian
+#include "web_config.h"
 
 #define ESP_FS_PATH        "/fs"
 

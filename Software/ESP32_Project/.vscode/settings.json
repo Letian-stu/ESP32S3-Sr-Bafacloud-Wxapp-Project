@@ -1,6 +1,6 @@
 {
   "C_Cpp.intelliSenseEngine": "Tag Parser",
-  "idf.portWin": "COM5",
+  "idf.portWin": "COM3",
   "idf.adapterTargetName": "esp32s3",
   "idf.openOcdConfigs": [
     "interface/ftdi/esp32_devkitj_v1.cfg",
@@ -16,6 +16,18 @@
     "task.h": "c",
     "config.h": "c",
     "nvs.h": "c",
-    "baseconfig.h": "c"
+    "baseconfig.h": "c",
+    "web_config.h": "c",
+    "unistd.h": "c",
+    "esp_http_server.h": "c",
+    "array": "c",
+    "bitset": "c",
+    "string_view": "c",
+    "initializer_list": "c",
+    "regex": "c",
+    "utility": "c",
+    "future": "c",
+    "system_error": "c",
+    "stat.h": "c"
   }
 }
