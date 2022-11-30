@@ -1,3 +1,12 @@
+<!--
+ * @Author: letian
+ * @Date: 2022-11-29 14:40
+ * @LastEditors: letian
+ * @LastEditTime: 2022-11-30 21:09
+ * @FilePath: \project\spiffs\config.html
+ * @Description: 
+ * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
+-->
 <!DOCTYPE html>
     <head>
         <title>WIFI配网界面</title>
@@ -37,7 +46,7 @@ function send_wifi() {
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4) {
                 if (xhttp.status == 200) {
-                    alert("WIFI配置完成,设备将会重启!!!");
+                    alert("WIFI配置完成,设备连接中!!!");
                     console.log(xhttp.responseText);
                 } else if (xhttp.status == 0) {
                     alert("Server closed the connection abruptly!");

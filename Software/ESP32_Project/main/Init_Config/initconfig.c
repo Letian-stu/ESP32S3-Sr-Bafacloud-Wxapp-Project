@@ -2,14 +2,14 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2022-11-30 11:41
+ * @LastEditTime: 2022-11-30 21:40
  * @FilePath: \project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
 #include "BaseConfig.h"
 
-#define TAG "INIT"
+#define TAG "init"
 
 uint8_t readnamelen = 0;
 char readwifiname[32]={'\0'};
@@ -22,7 +22,7 @@ void Init_Config(void)
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    
+
     esp_err_t err = nvs_open("nvs", NVS_READWRITE, &wifi_config);
     if (err != ESP_OK)
     {
@@ -31,17 +31,17 @@ void Init_Config(void)
     else
     {
         //read
-        ESP_LOGI(TAG, "========wifi config data=========");
+        ESP_LOGI(TAG, "=========nvs read data==========");
         err = nvs_get_u8(wifi_config, WIFINAMELEN, &readnamelen);
         if(err != ESP_OK)
             ESP_LOGE(TAG, "read len Failed!\n");
-        err = nvs_get_str(wifi_config, WIFINAME, readwifiname, (size_t)(&readnamelen));
+        err = nvs_get_str(wifi_config, WIFINAME, readwifiname, (size_t*)(&readnamelen));
         if(err != ESP_OK)
             ESP_LOGE(TAG, "read name Failed!\n");
         err = nvs_get_u8(wifi_config, WIFISSIDLEN, &readssidlen);
         if(err != ESP_OK)
             ESP_LOGE(TAG, "read len Failed!\n");
-        err = nvs_get_str(wifi_config, WIFISSID, readwifissid, (size_t)(&readssidlen));
+        err = nvs_get_str(wifi_config, WIFISSID, readwifissid, (size_t*)(&readssidlen));
         if(err != ESP_OK)
             ESP_LOGE(TAG, "read ssid Failed!\n");
         ESP_LOGI(TAG, "wifiname:len=%d,data=%s",readnamelen,readwifiname);
@@ -54,6 +54,12 @@ void Init_Config(void)
     wifi_init_softap();
     mount_storage(ESP_FS_PATH);
     start_wifi_config_server(ESP_FS_PATH);
+
+    //start os task
+    Event_Init();
+    Times_Init();
+    Tasks_Init();
+    //vTaskStartScheduler(); 
 
     ESP_LOGI(TAG,"Start Succrss");
 }

@@ -28,6 +28,13 @@
     "utility": "c",
     "future": "c",
     "system_error": "c",
-    "stat.h": "c"
+    "stat.h": "c",
+    "app_task.h": "c",
+    "timers.h": "c",
+    "queue.h": "c",
+    "esp_wifi.h": "c",
+    "semphr.h": "c",
+    "spi_common.h": "c",
+    "event_groups.h": "c"
   }
 }

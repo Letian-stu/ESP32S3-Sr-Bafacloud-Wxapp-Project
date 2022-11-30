@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 09:21
  * @LastEditors: letian
- * @LastEditTime: 2022-11-30 11:39
+ * @LastEditTime: 2022-11-30 21:12
  * @FilePath: \project\main\web_file\web_config.c
  * @Description: )
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -12,6 +12,8 @@
 #define TAG "webconfig"
 
 nvs_handle_t wifi_config;
+httpd_handle_t server = NULL;
+httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 char recvwifiname[32] = {'\0'};
 char recvwifissid[32] = {'\0'};
 
@@ -149,15 +151,17 @@ static esp_err_t wificonfig_handler(httpd_req_t *req)
     cJSON_Delete(root);
     httpd_resp_sendstr(req, "Link wifi successfully");
 
+    //发送配置事件,切换到STA模式
+    xEventGroupSetBits(Event_Group, CONFIGWIFIOK);
 
-    // Restart module
-    for (int i = 3; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
+    // // Restart module
+    // for (int i = 3; i >= 0; i--) {
+    //     printf("Restarting in %d seconds...\n", i);
+    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+    // }
+    // printf("Restarting now.\n");
+    // fflush(stdout);
+    // esp_restart();
 
     return ESP_OK;
 }
@@ -182,9 +186,6 @@ esp_err_t start_wifi_config_server(const char *base_path)
     }
     strlcpy(server_data->base_path, base_path,
             sizeof(server_data->base_path));
-
-    httpd_handle_t server = NULL;
-    httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 
     /* Use the URI wildcard matching function in order to
      * allow the same handler to respond to multiple different
