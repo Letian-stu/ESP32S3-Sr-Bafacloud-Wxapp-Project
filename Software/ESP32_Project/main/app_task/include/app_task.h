@@ -13,8 +13,7 @@
 //add by tian
 #include "BaseConfig.h"
 #include "web_config.h"
-
-
+#include "tcp_mqtt.h"
 
 
 //task
@@ -25,9 +24,12 @@ extern TimerHandle_t Wifi_Config_Time_Handle;
 void Times_Init(void);
 
 //sem
-
+extern SemaphoreHandle_t Reav_Mqtt_Buff_Handle;
+void Sem_Init(void);
 //queue
 
+// extern QueueHandle_t Mqtt_Event_Queue;
+void Queue_Init(void);
 //event
 extern EventGroupHandle_t   Event_Group;
 #define WIFITIMEOVER (1<<0)

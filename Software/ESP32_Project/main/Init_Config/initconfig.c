@@ -57,6 +57,8 @@ void Init_Config(void)
 
     //start os task
     Event_Init();
+    Sem_Init();
+    Queue_Init();
     Times_Init();
     Tasks_Init();
     //vTaskStartScheduler(); 

@@ -1,0 +1,70 @@
+<!--index.wxml-->
+<!-- add by tian -->
+<swiper class="swiper-container" indicator-dots="true" autoplay="true" interval="4000" circular="true" >
+    <swiper-item>
+        <image src="/utils/img/nbut.png" style="width: 100%"  mode="widthFix">  </image> 
+    </swiper-item>
+    <swiper-item>
+        <image src="/utils/img/esp32.png" style="width: 100%"  mode="widthFix">  </image> 
+    </swiper-item>
+    <swiper-item>
+        <image src="/utils/img/letian.png" style="width: 100%"  mode="widthFix">  </image> 
+    </swiper-item>
+</swiper>
+<!-- end -->
+
+<view >
+    <view class="head">
+        <view class="title">毕业设计</view>
+        <van-cell title="设备状态" value="{{device_status}}" />
+    </view>
+    <view class="tempbox">
+        <view  class="temp1">
+            <view class="pic">
+                <van-col span="12"><van-icon  size="120rpx" name="/utils/img/shidu.png" /></van-col>
+            </view>
+            <view class="zhiti">
+            <view class="zhiti">湿度：{{shidu}} %</view>
+            </view>
+        </view>
+        <view  class="temp2">
+            <view class="pic">
+                <van-col  span="12"><van-icon  size="120rpx" name="/utils/img/wendu.png" /></van-col>
+            </view>
+            <view class="zhiti">
+            <view class="zhiti">温度：{{wendu}} ℃</view>
+            </view>            
+        </view>
+    </view>
+    <!--控制灯-->
+    <view  class="btnbox">
+        <view  class="btn1">
+            <image class="photo" size="120rpx" src="/utils/img/led.png">  </image> 
+            <view class="lab">电灯</view>
+            <view  class="sw">
+                <van-switch checked="{{ SWLED1 }}" bind:change="SWLED1Handler" /> 
+            </view>
+        </view>  
+        <view  class="btn2">
+            <image class="photo" size="120rpx" src="/utils/img/fan.png">  </image> 
+            <view class="lab">风扇</view>
+            <view  class="sw">
+                <van-switch checked="{{ SWLED2 }}" bind:change="SWLED2Handler" /> 
+            </view>
+        </view>  
+        <view  class="btn3">
+            <image class="photo" size="120rpx" src="/utils/img/key.png">  </image> 
+            <view class="lab">门锁</view>
+            <view  class="sw">
+                <van-switch checked="{{ SWLED3 }}" bind:change="SWLED3Handler" /> 
+            </view>
+        </view>  
+    </view>
+
+
+</view>
+
+<view class="footer">
+        <view class="footer_1">Copyright © 2001-2099 Stuletian</view>
+</view>
+
