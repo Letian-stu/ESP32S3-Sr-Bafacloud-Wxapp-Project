@@ -1,10 +1,24 @@
-# ESP32S3Mini-Sr-Bafacloud-Wxapp-Project
-this is my graduation project in nbut
+# a esp32s3 project
 
-这是我在nbut做的一个毕业设计
+## 1.项目介绍
 
-## 预计实现功能如下
-语言识别
-连接巴法云
-WiFi配网
+这是我在nbut做的毕业设计，虽然还没没有毕业，为明年做准备吧！
 
+- 22/11/29	创建项目，确定基本目标
+- 22/11/30	nvs存储上次配网信息，web配网
+- 22/12/01    连接巴法云，数据同步
+
+## 2.希望实现功能
+
+- [x] WIFI配网	通过ap在浏览器输入ip配置WiFi账户和密码，将密码存储在nvs中
+- [ ] 语音识别
+- [x] 连接巴法云
+- [ ] 小程序控制
+- [ ] 播放音频
+- [ ] 使用lvgl
+- [ ] 。。。。
+
+### 3.开发环境及其他
+
+- vscode+espidf4.4.2
+- esp32s3-mini-n4r2
