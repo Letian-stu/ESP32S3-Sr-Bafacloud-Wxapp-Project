@@ -2053,6 +2053,2312 @@
                 "children": [
                     {
                         "children": [],
+                        "depends_on": "<choice SR_MODEL_SEL>",
+                        "help": null,
+                        "id": "SR_MODEL_WN3_QUANT",
+                        "name": "SR_MODEL_WN3_QUANT",
+                        "range": null,
+                        "title": "WakeNet 3 (quantized)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice SR_MODEL_SEL>",
+                        "help": null,
+                        "id": "SR_MODEL_WN4_QUANT",
+                        "name": "SR_MODEL_WN4_QUANT",
+                        "range": null,
+                        "title": "WakeNet 4 (quantized)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice SR_MODEL_SEL>",
+                        "help": null,
+                        "id": "SR_MODEL_WN5_QUANT",
+                        "name": "SR_MODEL_WN5_QUANT",
+                        "range": null,
+                        "title": "WakeNet 5 (quantized)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice SR_MODEL_SEL>",
+                        "help": null,
+                        "id": "SR_MODEL_WN6_QUANT",
+                        "name": "SR_MODEL_WN6_QUANT",
+                        "range": null,
+                        "title": "WakeNet 6 (quantized)",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "help": "Select the Wake Word Engine to be used.",
+                "id": "esp-speech-recognition-wake-word-engine",
+                "name": "SR_MODEL_SEL",
+                "title": "Wake word engine",
+                "type": "choice"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "SR_MODEL_WN3_QUANT && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN3_HILEXIN",
+                        "name": "SR_WN3_HILEXIN",
+                        "range": null,
+                        "title": "hilexin (WakeNet3)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_MODEL_WN4_QUANT && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN4_HILEXIN",
+                        "name": "SR_WN4_HILEXIN",
+                        "range": null,
+                        "title": "hilexin (WakeNet4)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5_HILEXIN",
+                        "name": "SR_WN5_HILEXIN",
+                        "range": null,
+                        "title": "hilexin (WakeNet5)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5X2_HILEXIN",
+                        "name": "SR_WN5X2_HILEXIN",
+                        "range": null,
+                        "title": "hilexin (WakeNet5X2)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5X3_HILEXIN",
+                        "name": "SR_WN5X3_HILEXIN",
+                        "range": null,
+                        "title": "hilexin (WakeNet5X3)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5_NIHAOXIAOZHI",
+                        "name": "SR_WN5_NIHAOXIAOZHI",
+                        "range": null,
+                        "title": "nihaoxiaozhi (WakeNet5)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5X2_NIHAOXIAOZHI",
+                        "name": "SR_WN5X2_NIHAOXIAOZHI",
+                        "range": null,
+                        "title": "nihaoxiaozhi (WakeNet5X2)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5X3_NIHAOXIAOZHI",
+                        "name": "SR_WN5X3_NIHAOXIAOZHI",
+                        "range": null,
+                        "title": "nihaoxiaozhi (WakeNet5X3)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5X3_HIJESON",
+                        "name": "SR_WN5X3_HIJESON",
+                        "range": null,
+                        "title": "hi jeson (WakeNet5X3)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5X3_NIHAOXIAOXIN",
+                        "name": "SR_WN5X3_NIHAOXIAOXIN",
+                        "range": null,
+                        "title": "nihaoxiaoxin (WakeNet5X3)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN5_QUANT || SR_MODEL_WN5_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN5_CUSTOMIZED_WORD",
+                        "name": "SR_WN5_CUSTOMIZED_WORD",
+                        "range": null,
+                        "title": "customized word (WakeNet5)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_MODEL_WN6_QUANT && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN6_NIHAOXIAOXIN",
+                        "name": "SR_WN6_NIHAOXIAOXIN",
+                        "range": null,
+                        "title": "nihaoxiaoxin (WakeNet6)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(SR_MODEL_WN6_QUANT || SR_MODEL_WN6_FLOAT) && <choice SR_WAKE_WORD_SEL>",
+                        "help": null,
+                        "id": "SR_WN6_CUSTOMIZED_WORD",
+                        "name": "SR_WN6_CUSTOMIZED_WORD",
+                        "range": null,
+                        "title": "customized word (WakeNet6)",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "help": "Select the wake word to be used.",
+                "id": "esp-speech-recognition-wake-word-name",
+                "name": "SR_WAKE_WORD_SEL",
+                "title": "Wake word name",
+                "type": "choice"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "<choice SR_RUN_WN6_CORE>",
+                        "help": null,
+                        "id": "SR_RUN_WN6_CORE0",
+                        "name": "SR_RUN_WN6_CORE0",
+                        "range": null,
+                        "title": "core 0",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice SR_RUN_WN6_CORE>",
+                        "help": null,
+                        "id": "SR_RUN_WN6_CORE1",
+                        "name": "SR_RUN_WN6_CORE1",
+                        "range": null,
+                        "title": "core 1",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": "SR_MODEL_WN6_QUANT || SR_MODEL_WN6_FLOAT",
+                "help": "Select one ESP32 core to run WakeNet6.",
+                "id": "esp-speech-recognition-esp32-core-to-run-wakenet6",
+                "name": "SR_RUN_WN6_CORE",
+                "title": "ESP32 core to run WakeNet6",
+                "type": "choice"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "<choice SR_MN_MODEL_SEL>",
+                        "help": null,
+                        "id": "SINGLE_RECOGNITION",
+                        "name": "SINGLE_RECOGNITION",
+                        "range": null,
+                        "title": "Single recognition",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice SR_MN_MODEL_SEL>",
+                        "help": null,
+                        "id": "CONTINUOUS_RECOGNITION",
+                        "name": "CONTINUOUS_RECOGNITION",
+                        "range": null,
+                        "title": "Continuous recognition",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "help": "Select the mode to be used.",
+                "id": "esp-speech-recognition-speech-commands-recognition-mode-after-wake-up",
+                "name": "SR_MN_MODEL_SEL",
+                "title": "speech commands recognition mode after wake up",
+                "type": "choice"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "(SINGLE_RECOGNITION || CONTINUOUS_RECOGNITION) && <choice SR_LANGUAGE_SEL>",
+                        "help": null,
+                        "id": "SR_CHINESE",
+                        "name": "SR_CHINESE",
+                        "range": null,
+                        "title": "chinese",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SINGLE_RECOGNITION && <choice SR_LANGUAGE_SEL>",
+                        "help": null,
+                        "id": "SR_ENGLISH",
+                        "name": "SR_ENGLISH",
+                        "range": null,
+                        "title": "english",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "help": "Select the language to be used.",
+                "id": "esp-speech-recognition-language",
+                "name": "SR_LANGUAGE_SEL",
+                "title": "language",
+                "type": "choice"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "The number of the speech commands.",
+                "id": "SPEECH_COMMANDS_NUM",
+                "name": "SPEECH_COMMANDS_NUM",
+                "range": null,
+                "title": "The number of speech commands",
+                "type": "int"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID0",
+                        "name": "CN_SPEECH_COMMAND_ID0",
+                        "range": null,
+                        "title": "Wake_ID",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID1",
+                        "name": "CN_SPEECH_COMMAND_ID1",
+                        "range": null,
+                        "title": "ID1",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID2",
+                        "name": "CN_SPEECH_COMMAND_ID2",
+                        "range": null,
+                        "title": "ID2",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID3",
+                        "name": "CN_SPEECH_COMMAND_ID3",
+                        "range": null,
+                        "title": "ID3",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID4",
+                        "name": "CN_SPEECH_COMMAND_ID4",
+                        "range": null,
+                        "title": "ID4",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID5",
+                        "name": "CN_SPEECH_COMMAND_ID5",
+                        "range": null,
+                        "title": "ID5",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID6",
+                        "name": "CN_SPEECH_COMMAND_ID6",
+                        "range": null,
+                        "title": "ID6",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID7",
+                        "name": "CN_SPEECH_COMMAND_ID7",
+                        "range": null,
+                        "title": "ID7",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID8",
+                        "name": "CN_SPEECH_COMMAND_ID8",
+                        "range": null,
+                        "title": "ID8",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID9",
+                        "name": "CN_SPEECH_COMMAND_ID9",
+                        "range": null,
+                        "title": "ID9",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID10",
+                        "name": "CN_SPEECH_COMMAND_ID10",
+                        "range": null,
+                        "title": "ID10",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID11",
+                        "name": "CN_SPEECH_COMMAND_ID11",
+                        "range": null,
+                        "title": "ID11",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID12",
+                        "name": "CN_SPEECH_COMMAND_ID12",
+                        "range": null,
+                        "title": "ID12",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID13",
+                        "name": "CN_SPEECH_COMMAND_ID13",
+                        "range": null,
+                        "title": "ID13",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID14",
+                        "name": "CN_SPEECH_COMMAND_ID14",
+                        "range": null,
+                        "title": "ID14",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID15",
+                        "name": "CN_SPEECH_COMMAND_ID15",
+                        "range": null,
+                        "title": "ID15",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID16",
+                        "name": "CN_SPEECH_COMMAND_ID16",
+                        "range": null,
+                        "title": "ID16",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID17",
+                        "name": "CN_SPEECH_COMMAND_ID17",
+                        "range": null,
+                        "title": "ID17",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID18",
+                        "name": "CN_SPEECH_COMMAND_ID18",
+                        "range": null,
+                        "title": "ID18",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID19",
+                        "name": "CN_SPEECH_COMMAND_ID19",
+                        "range": null,
+                        "title": "ID19",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID20",
+                        "name": "CN_SPEECH_COMMAND_ID20",
+                        "range": null,
+                        "title": "ID20",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID21",
+                        "name": "CN_SPEECH_COMMAND_ID21",
+                        "range": null,
+                        "title": "ID21",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID22",
+                        "name": "CN_SPEECH_COMMAND_ID22",
+                        "range": null,
+                        "title": "ID22",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID23",
+                        "name": "CN_SPEECH_COMMAND_ID23",
+                        "range": null,
+                        "title": "ID23",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID24",
+                        "name": "CN_SPEECH_COMMAND_ID24",
+                        "range": null,
+                        "title": "ID24",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID25",
+                        "name": "CN_SPEECH_COMMAND_ID25",
+                        "range": null,
+                        "title": "ID25",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID26",
+                        "name": "CN_SPEECH_COMMAND_ID26",
+                        "range": null,
+                        "title": "ID26",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID27",
+                        "name": "CN_SPEECH_COMMAND_ID27",
+                        "range": null,
+                        "title": "ID27",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID28",
+                        "name": "CN_SPEECH_COMMAND_ID28",
+                        "range": null,
+                        "title": "ID28",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID29",
+                        "name": "CN_SPEECH_COMMAND_ID29",
+                        "range": null,
+                        "title": "ID29",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID30",
+                        "name": "CN_SPEECH_COMMAND_ID30",
+                        "range": null,
+                        "title": "ID30",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID31",
+                        "name": "CN_SPEECH_COMMAND_ID31",
+                        "range": null,
+                        "title": "ID31",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID32",
+                        "name": "CN_SPEECH_COMMAND_ID32",
+                        "range": null,
+                        "title": "ID32",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID33",
+                        "name": "CN_SPEECH_COMMAND_ID33",
+                        "range": null,
+                        "title": "ID33",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID34",
+                        "name": "CN_SPEECH_COMMAND_ID34",
+                        "range": null,
+                        "title": "ID34",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID35",
+                        "name": "CN_SPEECH_COMMAND_ID35",
+                        "range": null,
+                        "title": "ID35",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID36",
+                        "name": "CN_SPEECH_COMMAND_ID36",
+                        "range": null,
+                        "title": "ID36",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID37",
+                        "name": "CN_SPEECH_COMMAND_ID37",
+                        "range": null,
+                        "title": "ID37",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID38",
+                        "name": "CN_SPEECH_COMMAND_ID38",
+                        "range": null,
+                        "title": "ID38",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID39",
+                        "name": "CN_SPEECH_COMMAND_ID39",
+                        "range": null,
+                        "title": "ID39",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID40",
+                        "name": "CN_SPEECH_COMMAND_ID40",
+                        "range": null,
+                        "title": "ID40",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID41",
+                        "name": "CN_SPEECH_COMMAND_ID41",
+                        "range": null,
+                        "title": "ID41",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID42",
+                        "name": "CN_SPEECH_COMMAND_ID42",
+                        "range": null,
+                        "title": "ID42",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID43",
+                        "name": "CN_SPEECH_COMMAND_ID43",
+                        "range": null,
+                        "title": "ID43",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID44",
+                        "name": "CN_SPEECH_COMMAND_ID44",
+                        "range": null,
+                        "title": "ID44",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID45",
+                        "name": "CN_SPEECH_COMMAND_ID45",
+                        "range": null,
+                        "title": "ID45",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID46",
+                        "name": "CN_SPEECH_COMMAND_ID46",
+                        "range": null,
+                        "title": "ID46",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID47",
+                        "name": "CN_SPEECH_COMMAND_ID47",
+                        "range": null,
+                        "title": "ID47",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID48",
+                        "name": "CN_SPEECH_COMMAND_ID48",
+                        "range": null,
+                        "title": "ID48",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID49",
+                        "name": "CN_SPEECH_COMMAND_ID49",
+                        "range": null,
+                        "title": "ID49",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID50",
+                        "name": "CN_SPEECH_COMMAND_ID50",
+                        "range": null,
+                        "title": "ID50",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID51",
+                        "name": "CN_SPEECH_COMMAND_ID51",
+                        "range": null,
+                        "title": "ID51",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID52",
+                        "name": "CN_SPEECH_COMMAND_ID52",
+                        "range": null,
+                        "title": "ID52",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID53",
+                        "name": "CN_SPEECH_COMMAND_ID53",
+                        "range": null,
+                        "title": "ID53",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID54",
+                        "name": "CN_SPEECH_COMMAND_ID54",
+                        "range": null,
+                        "title": "ID54",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID55",
+                        "name": "CN_SPEECH_COMMAND_ID55",
+                        "range": null,
+                        "title": "ID55",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID56",
+                        "name": "CN_SPEECH_COMMAND_ID56",
+                        "range": null,
+                        "title": "ID56",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID57",
+                        "name": "CN_SPEECH_COMMAND_ID57",
+                        "range": null,
+                        "title": "ID57",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID58",
+                        "name": "CN_SPEECH_COMMAND_ID58",
+                        "range": null,
+                        "title": "ID58",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID59",
+                        "name": "CN_SPEECH_COMMAND_ID59",
+                        "range": null,
+                        "title": "ID59",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID60",
+                        "name": "CN_SPEECH_COMMAND_ID60",
+                        "range": null,
+                        "title": "ID60",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID61",
+                        "name": "CN_SPEECH_COMMAND_ID61",
+                        "range": null,
+                        "title": "ID61",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID62",
+                        "name": "CN_SPEECH_COMMAND_ID62",
+                        "range": null,
+                        "title": "ID62",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID63",
+                        "name": "CN_SPEECH_COMMAND_ID63",
+                        "range": null,
+                        "title": "ID63",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID64",
+                        "name": "CN_SPEECH_COMMAND_ID64",
+                        "range": null,
+                        "title": "ID64",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID65",
+                        "name": "CN_SPEECH_COMMAND_ID65",
+                        "range": null,
+                        "title": "ID65",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID66",
+                        "name": "CN_SPEECH_COMMAND_ID66",
+                        "range": null,
+                        "title": "ID66",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID67",
+                        "name": "CN_SPEECH_COMMAND_ID67",
+                        "range": null,
+                        "title": "ID67",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID68",
+                        "name": "CN_SPEECH_COMMAND_ID68",
+                        "range": null,
+                        "title": "ID68",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID69",
+                        "name": "CN_SPEECH_COMMAND_ID69",
+                        "range": null,
+                        "title": "ID69",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID70",
+                        "name": "CN_SPEECH_COMMAND_ID70",
+                        "range": null,
+                        "title": "ID70",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID71",
+                        "name": "CN_SPEECH_COMMAND_ID71",
+                        "range": null,
+                        "title": "ID71",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID72",
+                        "name": "CN_SPEECH_COMMAND_ID72",
+                        "range": null,
+                        "title": "ID72",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID73",
+                        "name": "CN_SPEECH_COMMAND_ID73",
+                        "range": null,
+                        "title": "ID73",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID74",
+                        "name": "CN_SPEECH_COMMAND_ID74",
+                        "range": null,
+                        "title": "ID74",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID75",
+                        "name": "CN_SPEECH_COMMAND_ID75",
+                        "range": null,
+                        "title": "ID75",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID76",
+                        "name": "CN_SPEECH_COMMAND_ID76",
+                        "range": null,
+                        "title": "ID76",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID77",
+                        "name": "CN_SPEECH_COMMAND_ID77",
+                        "range": null,
+                        "title": "ID77",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID78",
+                        "name": "CN_SPEECH_COMMAND_ID78",
+                        "range": null,
+                        "title": "ID78",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID79",
+                        "name": "CN_SPEECH_COMMAND_ID79",
+                        "range": null,
+                        "title": "ID79",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID80",
+                        "name": "CN_SPEECH_COMMAND_ID80",
+                        "range": null,
+                        "title": "ID80",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID81",
+                        "name": "CN_SPEECH_COMMAND_ID81",
+                        "range": null,
+                        "title": "ID81",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID82",
+                        "name": "CN_SPEECH_COMMAND_ID82",
+                        "range": null,
+                        "title": "ID82",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID83",
+                        "name": "CN_SPEECH_COMMAND_ID83",
+                        "range": null,
+                        "title": "ID83",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID84",
+                        "name": "CN_SPEECH_COMMAND_ID84",
+                        "range": null,
+                        "title": "ID84",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID85",
+                        "name": "CN_SPEECH_COMMAND_ID85",
+                        "range": null,
+                        "title": "ID85",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID86",
+                        "name": "CN_SPEECH_COMMAND_ID86",
+                        "range": null,
+                        "title": "ID86",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID87",
+                        "name": "CN_SPEECH_COMMAND_ID87",
+                        "range": null,
+                        "title": "ID87",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID88",
+                        "name": "CN_SPEECH_COMMAND_ID88",
+                        "range": null,
+                        "title": "ID88",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID89",
+                        "name": "CN_SPEECH_COMMAND_ID89",
+                        "range": null,
+                        "title": "ID89",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID90",
+                        "name": "CN_SPEECH_COMMAND_ID90",
+                        "range": null,
+                        "title": "ID90",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID91",
+                        "name": "CN_SPEECH_COMMAND_ID91",
+                        "range": null,
+                        "title": "ID91",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID92",
+                        "name": "CN_SPEECH_COMMAND_ID92",
+                        "range": null,
+                        "title": "ID92",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID93",
+                        "name": "CN_SPEECH_COMMAND_ID93",
+                        "range": null,
+                        "title": "ID93",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID94",
+                        "name": "CN_SPEECH_COMMAND_ID94",
+                        "range": null,
+                        "title": "ID94",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID95",
+                        "name": "CN_SPEECH_COMMAND_ID95",
+                        "range": null,
+                        "title": "ID95",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID96",
+                        "name": "CN_SPEECH_COMMAND_ID96",
+                        "range": null,
+                        "title": "ID96",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID97",
+                        "name": "CN_SPEECH_COMMAND_ID97",
+                        "range": null,
+                        "title": "ID97",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID98",
+                        "name": "CN_SPEECH_COMMAND_ID98",
+                        "range": null,
+                        "title": "ID98",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_CHINESE",
+                        "help": null,
+                        "id": "CN_SPEECH_COMMAND_ID99",
+                        "name": "CN_SPEECH_COMMAND_ID99",
+                        "range": null,
+                        "title": "ID99",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID0",
+                        "name": "EN_SPEECH_COMMAND_ID0",
+                        "range": null,
+                        "title": "ID0",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID1",
+                        "name": "EN_SPEECH_COMMAND_ID1",
+                        "range": null,
+                        "title": "ID1",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID2",
+                        "name": "EN_SPEECH_COMMAND_ID2",
+                        "range": null,
+                        "title": "ID2",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID3",
+                        "name": "EN_SPEECH_COMMAND_ID3",
+                        "range": null,
+                        "title": "ID3",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID4",
+                        "name": "EN_SPEECH_COMMAND_ID4",
+                        "range": null,
+                        "title": "ID4",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID5",
+                        "name": "EN_SPEECH_COMMAND_ID5",
+                        "range": null,
+                        "title": "ID5",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID6",
+                        "name": "EN_SPEECH_COMMAND_ID6",
+                        "range": null,
+                        "title": "ID6",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID7",
+                        "name": "EN_SPEECH_COMMAND_ID7",
+                        "range": null,
+                        "title": "ID7",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID8",
+                        "name": "EN_SPEECH_COMMAND_ID8",
+                        "range": null,
+                        "title": "ID8",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID9",
+                        "name": "EN_SPEECH_COMMAND_ID9",
+                        "range": null,
+                        "title": "ID9",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID10",
+                        "name": "EN_SPEECH_COMMAND_ID10",
+                        "range": null,
+                        "title": "ID10",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID11",
+                        "name": "EN_SPEECH_COMMAND_ID11",
+                        "range": null,
+                        "title": "ID11",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID12",
+                        "name": "EN_SPEECH_COMMAND_ID12",
+                        "range": null,
+                        "title": "ID12",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID13",
+                        "name": "EN_SPEECH_COMMAND_ID13",
+                        "range": null,
+                        "title": "ID13",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID14",
+                        "name": "EN_SPEECH_COMMAND_ID14",
+                        "range": null,
+                        "title": "ID14",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID15",
+                        "name": "EN_SPEECH_COMMAND_ID15",
+                        "range": null,
+                        "title": "ID15",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID16",
+                        "name": "EN_SPEECH_COMMAND_ID16",
+                        "range": null,
+                        "title": "ID16",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID17",
+                        "name": "EN_SPEECH_COMMAND_ID17",
+                        "range": null,
+                        "title": "ID17",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID18",
+                        "name": "EN_SPEECH_COMMAND_ID18",
+                        "range": null,
+                        "title": "ID18",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID19",
+                        "name": "EN_SPEECH_COMMAND_ID19",
+                        "range": null,
+                        "title": "ID19",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID20",
+                        "name": "EN_SPEECH_COMMAND_ID20",
+                        "range": null,
+                        "title": "ID20",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID21",
+                        "name": "EN_SPEECH_COMMAND_ID21",
+                        "range": null,
+                        "title": "ID21",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID22",
+                        "name": "EN_SPEECH_COMMAND_ID22",
+                        "range": null,
+                        "title": "ID22",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID23",
+                        "name": "EN_SPEECH_COMMAND_ID23",
+                        "range": null,
+                        "title": "ID23",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID24",
+                        "name": "EN_SPEECH_COMMAND_ID24",
+                        "range": null,
+                        "title": "ID24",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID25",
+                        "name": "EN_SPEECH_COMMAND_ID25",
+                        "range": null,
+                        "title": "ID25",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID26",
+                        "name": "EN_SPEECH_COMMAND_ID26",
+                        "range": null,
+                        "title": "ID26",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID27",
+                        "name": "EN_SPEECH_COMMAND_ID27",
+                        "range": null,
+                        "title": "ID27",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID28",
+                        "name": "EN_SPEECH_COMMAND_ID28",
+                        "range": null,
+                        "title": "ID28",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID29",
+                        "name": "EN_SPEECH_COMMAND_ID29",
+                        "range": null,
+                        "title": "ID29",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID30",
+                        "name": "EN_SPEECH_COMMAND_ID30",
+                        "range": null,
+                        "title": "ID30",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID31",
+                        "name": "EN_SPEECH_COMMAND_ID31",
+                        "range": null,
+                        "title": "ID31",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID32",
+                        "name": "EN_SPEECH_COMMAND_ID32",
+                        "range": null,
+                        "title": "ID32",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID33",
+                        "name": "EN_SPEECH_COMMAND_ID33",
+                        "range": null,
+                        "title": "ID33",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID34",
+                        "name": "EN_SPEECH_COMMAND_ID34",
+                        "range": null,
+                        "title": "ID34",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID35",
+                        "name": "EN_SPEECH_COMMAND_ID35",
+                        "range": null,
+                        "title": "ID35",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID36",
+                        "name": "EN_SPEECH_COMMAND_ID36",
+                        "range": null,
+                        "title": "ID36",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID37",
+                        "name": "EN_SPEECH_COMMAND_ID37",
+                        "range": null,
+                        "title": "ID37",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID38",
+                        "name": "EN_SPEECH_COMMAND_ID38",
+                        "range": null,
+                        "title": "ID38",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID39",
+                        "name": "EN_SPEECH_COMMAND_ID39",
+                        "range": null,
+                        "title": "ID39",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID40",
+                        "name": "EN_SPEECH_COMMAND_ID40",
+                        "range": null,
+                        "title": "ID40",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID41",
+                        "name": "EN_SPEECH_COMMAND_ID41",
+                        "range": null,
+                        "title": "ID41",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID42",
+                        "name": "EN_SPEECH_COMMAND_ID42",
+                        "range": null,
+                        "title": "ID42",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID43",
+                        "name": "EN_SPEECH_COMMAND_ID43",
+                        "range": null,
+                        "title": "ID43",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID44",
+                        "name": "EN_SPEECH_COMMAND_ID44",
+                        "range": null,
+                        "title": "ID44",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID45",
+                        "name": "EN_SPEECH_COMMAND_ID45",
+                        "range": null,
+                        "title": "ID45",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID46",
+                        "name": "EN_SPEECH_COMMAND_ID46",
+                        "range": null,
+                        "title": "ID46",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID47",
+                        "name": "EN_SPEECH_COMMAND_ID47",
+                        "range": null,
+                        "title": "ID47",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID48",
+                        "name": "EN_SPEECH_COMMAND_ID48",
+                        "range": null,
+                        "title": "ID48",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID49",
+                        "name": "EN_SPEECH_COMMAND_ID49",
+                        "range": null,
+                        "title": "ID49",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID50",
+                        "name": "EN_SPEECH_COMMAND_ID50",
+                        "range": null,
+                        "title": "ID50",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID51",
+                        "name": "EN_SPEECH_COMMAND_ID51",
+                        "range": null,
+                        "title": "ID51",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID52",
+                        "name": "EN_SPEECH_COMMAND_ID52",
+                        "range": null,
+                        "title": "ID52",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID53",
+                        "name": "EN_SPEECH_COMMAND_ID53",
+                        "range": null,
+                        "title": "ID53",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID54",
+                        "name": "EN_SPEECH_COMMAND_ID54",
+                        "range": null,
+                        "title": "ID54",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID55",
+                        "name": "EN_SPEECH_COMMAND_ID55",
+                        "range": null,
+                        "title": "ID55",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID56",
+                        "name": "EN_SPEECH_COMMAND_ID56",
+                        "range": null,
+                        "title": "ID56",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID57",
+                        "name": "EN_SPEECH_COMMAND_ID57",
+                        "range": null,
+                        "title": "ID57",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID58",
+                        "name": "EN_SPEECH_COMMAND_ID58",
+                        "range": null,
+                        "title": "ID58",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID59",
+                        "name": "EN_SPEECH_COMMAND_ID59",
+                        "range": null,
+                        "title": "ID59",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID60",
+                        "name": "EN_SPEECH_COMMAND_ID60",
+                        "range": null,
+                        "title": "ID60",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID61",
+                        "name": "EN_SPEECH_COMMAND_ID61",
+                        "range": null,
+                        "title": "ID61",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID62",
+                        "name": "EN_SPEECH_COMMAND_ID62",
+                        "range": null,
+                        "title": "ID62",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID63",
+                        "name": "EN_SPEECH_COMMAND_ID63",
+                        "range": null,
+                        "title": "ID63",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID64",
+                        "name": "EN_SPEECH_COMMAND_ID64",
+                        "range": null,
+                        "title": "ID64",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID65",
+                        "name": "EN_SPEECH_COMMAND_ID65",
+                        "range": null,
+                        "title": "ID65",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID66",
+                        "name": "EN_SPEECH_COMMAND_ID66",
+                        "range": null,
+                        "title": "ID66",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID67",
+                        "name": "EN_SPEECH_COMMAND_ID67",
+                        "range": null,
+                        "title": "ID67",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID68",
+                        "name": "EN_SPEECH_COMMAND_ID68",
+                        "range": null,
+                        "title": "ID68",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID69",
+                        "name": "EN_SPEECH_COMMAND_ID69",
+                        "range": null,
+                        "title": "ID69",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID70",
+                        "name": "EN_SPEECH_COMMAND_ID70",
+                        "range": null,
+                        "title": "ID70",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID71",
+                        "name": "EN_SPEECH_COMMAND_ID71",
+                        "range": null,
+                        "title": "ID71",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID72",
+                        "name": "EN_SPEECH_COMMAND_ID72",
+                        "range": null,
+                        "title": "ID72",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID73",
+                        "name": "EN_SPEECH_COMMAND_ID73",
+                        "range": null,
+                        "title": "ID73",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID74",
+                        "name": "EN_SPEECH_COMMAND_ID74",
+                        "range": null,
+                        "title": "ID74",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID75",
+                        "name": "EN_SPEECH_COMMAND_ID75",
+                        "range": null,
+                        "title": "ID75",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID76",
+                        "name": "EN_SPEECH_COMMAND_ID76",
+                        "range": null,
+                        "title": "ID76",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID77",
+                        "name": "EN_SPEECH_COMMAND_ID77",
+                        "range": null,
+                        "title": "ID77",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID78",
+                        "name": "EN_SPEECH_COMMAND_ID78",
+                        "range": null,
+                        "title": "ID78",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID79",
+                        "name": "EN_SPEECH_COMMAND_ID79",
+                        "range": null,
+                        "title": "ID79",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID80",
+                        "name": "EN_SPEECH_COMMAND_ID80",
+                        "range": null,
+                        "title": "ID80",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID81",
+                        "name": "EN_SPEECH_COMMAND_ID81",
+                        "range": null,
+                        "title": "ID81",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID82",
+                        "name": "EN_SPEECH_COMMAND_ID82",
+                        "range": null,
+                        "title": "ID82",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID83",
+                        "name": "EN_SPEECH_COMMAND_ID83",
+                        "range": null,
+                        "title": "ID83",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID84",
+                        "name": "EN_SPEECH_COMMAND_ID84",
+                        "range": null,
+                        "title": "ID84",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID85",
+                        "name": "EN_SPEECH_COMMAND_ID85",
+                        "range": null,
+                        "title": "ID85",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID86",
+                        "name": "EN_SPEECH_COMMAND_ID86",
+                        "range": null,
+                        "title": "ID86",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID87",
+                        "name": "EN_SPEECH_COMMAND_ID87",
+                        "range": null,
+                        "title": "ID87",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID88",
+                        "name": "EN_SPEECH_COMMAND_ID88",
+                        "range": null,
+                        "title": "ID88",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID89",
+                        "name": "EN_SPEECH_COMMAND_ID89",
+                        "range": null,
+                        "title": "ID89",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID90",
+                        "name": "EN_SPEECH_COMMAND_ID90",
+                        "range": null,
+                        "title": "ID90",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID91",
+                        "name": "EN_SPEECH_COMMAND_ID91",
+                        "range": null,
+                        "title": "ID91",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID92",
+                        "name": "EN_SPEECH_COMMAND_ID92",
+                        "range": null,
+                        "title": "ID92",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID93",
+                        "name": "EN_SPEECH_COMMAND_ID93",
+                        "range": null,
+                        "title": "ID93",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID94",
+                        "name": "EN_SPEECH_COMMAND_ID94",
+                        "range": null,
+                        "title": "ID94",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID95",
+                        "name": "EN_SPEECH_COMMAND_ID95",
+                        "range": null,
+                        "title": "ID95",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID96",
+                        "name": "EN_SPEECH_COMMAND_ID96",
+                        "range": null,
+                        "title": "ID96",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID97",
+                        "name": "EN_SPEECH_COMMAND_ID97",
+                        "range": null,
+                        "title": "ID97",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID98",
+                        "name": "EN_SPEECH_COMMAND_ID98",
+                        "range": null,
+                        "title": "ID98",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SR_ENGLISH",
+                        "help": null,
+                        "id": "EN_SPEECH_COMMAND_ID99",
+                        "name": "EN_SPEECH_COMMAND_ID99",
+                        "range": null,
+                        "title": "ID99",
+                        "type": "string"
+                    }
+                ],
+                "depends_on": null,
+                "id": "esp-speech-recognition-add-speech-commands",
+                "title": "Add speech commands",
+                "type": "menu"
+            }
+        ],
+        "depends_on": null,
+        "id": "esp-speech-recognition",
+        "title": "ESP Speech Recognition",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
+                "children": [
+                    {
+                        "children": [],
                         "depends_on": "<choice COMPILER_OPTIMIZATION>",
                         "help": null,
                         "id": "COMPILER_OPTIMIZATION_DEFAULT",

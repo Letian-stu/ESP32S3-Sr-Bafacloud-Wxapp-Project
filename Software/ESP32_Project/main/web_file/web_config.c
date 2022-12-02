@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-30 09:21
  * @LastEditors: letian
- * @LastEditTime: 2022-11-30 21:12
- * @FilePath: \project\main\web_file\web_config.c
+ * @LastEditTime: 2022-12-02 16:19
+ * @FilePath: \ESP32_Project\main\web_file\web_config.c
  * @Description: )
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
  */
@@ -104,7 +104,7 @@ static esp_err_t wificonfig_handler(httpd_req_t *req)
         cur_len += received;
     }
 
-    ESP_LOGI(TAG, "recv len = %d data = \n%s\n", total_len, buf);
+    ESP_LOGI(TAG, "recv len = %d data = %s", total_len, buf);
     cJSON *root = cJSON_Parse(buf);
 
     char *wifi_name = cJSON_GetObjectItem(root, "wifi_name")->valuestring;

@@ -1,3 +1,12 @@
+/*
+ * @Author: letian
+ * @Date: 2022-11-30 22:22
+ * @LastEditors: letian
+ * @LastEditTime: 2022-12-02 16:09
+ * @FilePath: \ESP32_Project\main\app_task\include\app_task.h
+ * @Description: 
+ * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
+ */
 #ifndef _APP_TASK_H
 #define _APP_TASK_H
 
@@ -14,7 +23,7 @@
 #include "BaseConfig.h"
 #include "web_config.h"
 #include "tcp_mqtt.h"
-
+#include "speech_if.h"
 
 //task
 void Tasks_Init(void);
@@ -25,6 +34,7 @@ void Times_Init(void);
 
 //sem
 extern SemaphoreHandle_t Reav_Mqtt_Buff_Handle;
+extern SemaphoreHandle_t SpeechMutex;
 void Sem_Init(void);
 //queue
 

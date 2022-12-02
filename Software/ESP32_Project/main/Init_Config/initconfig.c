@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2022-11-30 21:40
- * @FilePath: \project\main\Init_Config\initconfig.c
+ * @LastEditTime: 2022-12-02 17:29
+ * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -54,14 +54,14 @@ void Init_Config(void)
     wifi_init_softap();
     mount_storage(ESP_FS_PATH);
     start_wifi_config_server(ESP_FS_PATH);
-
+    
     //start os task
     Event_Init();
     Sem_Init();
     Queue_Init();
     Times_Init();
     Tasks_Init();
-    //vTaskStartScheduler(); 
+    speech_recognition_init();
 
     ESP_LOGI(TAG,"Start Succrss");
 }

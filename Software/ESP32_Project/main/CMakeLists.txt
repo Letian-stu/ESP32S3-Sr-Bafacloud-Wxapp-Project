@@ -6,6 +6,7 @@ SRCS        "main.c"
 
             "web_file/web_config.c"
             "mqtt_bafa/tcp_mqtt.c"
+			"speech_rec/speech_rec.c"
 
             "app_task/app_task.c"
             "app_task/app_timer.c"
@@ -19,6 +20,7 @@ INCLUDE_DIRS    "."
                 "web_file/include"
                 "app_task/include"
                 "mqtt_bafa/include"
+				"speech_rec/include"
 
 EMBED_FILES "../spiffs/config.html"
 )

@@ -1,6 +1,6 @@
 {
   "C_Cpp.intelliSenseEngine": "Tag Parser",
-  "idf.portWin": "COM4",
+  "idf.portWin": "COM3",
   "idf.adapterTargetName": "esp32s3",
   "idf.openOcdConfigs": [
     "interface/ftdi/esp32_devkitj_v1.cfg",
@@ -43,6 +43,15 @@
     "dns.h": "c",
     "netdb.h": "c",
     "stdint.h": "c",
-    "*.ipp": "c"
+    "*.ipp": "c",
+    "speech_if.h": "c",
+    "chrono": "c",
+    "functional": "c",
+    "istream": "c",
+    "ostream": "c",
+    "ratio": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "app_speech_if.h": "c"
   }
 }

@@ -683,3 +683,17 @@ D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/buil
 D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/main/CMakeFiles/install.dir
 D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/main/CMakeFiles/install/local.dir
 D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/main/CMakeFiles/install/strip.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/CMakeFiles/__idf_speech_recognition.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/CMakeFiles/edit_cache.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/CMakeFiles/rebuild_cache.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/CMakeFiles/list_install_components.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/CMakeFiles/install.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/CMakeFiles/install/local.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/CMakeFiles/install/strip.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/CMakeFiles/__idf_button.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/CMakeFiles/edit_cache.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/CMakeFiles/rebuild_cache.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/CMakeFiles/list_install_components.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/CMakeFiles/install.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/CMakeFiles/install/local.dir
+D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/CMakeFiles/install/strip.dir

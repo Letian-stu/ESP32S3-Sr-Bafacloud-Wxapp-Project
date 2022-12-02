@@ -104,12 +104,13 @@ swiper-item:nth-child(3) .item{
     /* margin-top: 10rpx; */
 }
 .photo{
-    height:150rpx;
-    width: 150rpx; 
+    height:170rpx;
+    width: 170rpx; 
+    margin-left: -10rpx;
 }
 .lab{
-    margin-top: 10rpx;
-    margin-left: 100rpx;
+    margin-top: -20rpx;
+    margin-left: 90rpx;
 }
 .sw{
     margin-top: 10rpx;

@@ -54,7 +54,7 @@
         </view>  
         <view  class="btn3">
             <image class="photo" size="120rpx" src="/utils/img/key.png">  </image> 
-            <view class="lab">门锁</view>
+            <view class="lab">开关</view>
             <view  class="sw">
                 <van-switch checked="{{ SWLED3 }}" bind:change="SWLED3Handler" /> 
             </view>

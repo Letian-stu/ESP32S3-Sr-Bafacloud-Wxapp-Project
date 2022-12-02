@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 15:38
  * @LastEditors: letian
- * @LastEditTime: 2022-12-01 18:39
+ * @LastEditTime: 2022-12-02 17:29
  * @FilePath: \ESP32_Project\main\app_task\app_task.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -11,10 +11,19 @@
 
 #define TAG "task"
 
-TaskHandle_t while_Handle;
+TaskHandle_t WifiSet_Handle;
 TaskHandle_t Mqtt_Handle;
+TaskHandle_t AHT_Handle;
 
-void While_Task(void *p)
+void AHT_Task(void *p)
+{
+    while (1)
+    {
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+
+void WifiSet_Task(void *p)
 {
     static EventBits_t EventValue;
     esp_err_t err;
@@ -29,6 +38,7 @@ void While_Task(void *p)
             esp_wifi_deinit();
             wifi_init_sta(0);
             mqtt_app_start();
+
             ESP_LOGI(TAG, "Time over ap to sta form nvsdata");
             break;
         case CONFIGWIFIOK:
@@ -37,6 +47,7 @@ void While_Task(void *p)
             esp_wifi_deinit();
             wifi_init_sta(1);
             mqtt_app_start();
+
             ESP_LOGI(TAG, "Time over ap to sta form webconfig");
             break;
         case CONFIGWIFITIMEDEL:
@@ -64,11 +75,11 @@ void Mqtt_Task(void *p)
         if (err == pdTRUE)
         {
             ESP_LOGI(TAG, "=======================");
-            ESP_LOGI(TAG, " topic:len=%d data=%s", mqtt_buff.topiclen,mqtt_buff.topic);
+            ESP_LOGI(TAG, " topic:len=%d data=%s", mqtt_buff.topiclen, mqtt_buff.topic);
             ESP_LOGI(TAG, " data:len=%d data=%s", mqtt_buff.datalen, mqtt_buff.data);
             ESP_LOGI(TAG, "=======================");
         }
-        if (!strcmp( mqtt_buff.topic, TOPIC_LED))
+        if (!strcmp(mqtt_buff.topic, TOPIC_LED))
         {
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
@@ -113,12 +124,15 @@ void Mqtt_Task(void *p)
                 ESP_LOGI(TAG, "buff err");
             }
         }
+
     }
 }
 
 void Tasks_Init(void)
 {
     ESP_LOGI(TAG, "Init Task");
-    xTaskCreate(While_Task, "while", 1024 * 4, (void *)NULL, 1, &while_Handle);
+    xTaskCreate(AHT_Task, "AHT", 1024 * 2, (void *)NULL, 1, &AHT_Handle);
+    xTaskCreate(WifiSet_Task, "WifiSet", 1024 * 4, (void *)NULL, 1, &WifiSet_Handle);
     xTaskCreate(Mqtt_Task, "Mqtt", 1024 * 4, (void *)NULL, 1, &Mqtt_Handle);
+    
 }

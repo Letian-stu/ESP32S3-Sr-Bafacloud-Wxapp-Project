@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2022-11-30 22:03
- * @FilePath: \project\main\Init_Config\include\BaseConfig.h
+ * @LastEditTime: 2022-12-02 16:08
+ * @FilePath: \ESP32_Project\main\Init_Config\include\BaseConfig.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -29,6 +29,7 @@
 //add by tian
 #include "web_config.h"
 #include "app_task.h"
+#include "speech_if.h"
 
 
 #define ESP_FS_PATH        "/fs"
