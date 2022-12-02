@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-12-01 09:25
  * @LastEditors: letian
- * @LastEditTime: 2022-12-01 17:12
+ * @LastEditTime: 2022-12-02 17:59
  * @FilePath: \ESP32_Project\main\mqtt_bafa\tcp_mqtt.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -12,6 +12,7 @@
 #define TAG "mqtt"
 
 mqtt_data mqtt_buff;
+esp_mqtt_client_handle_t mqtt_client;
 
 void log_error_if_nonzero(const char *message, int error_code)
 {
@@ -100,10 +101,10 @@ void mqtt_app_start(void)
         .client_id = "6bf959ef20e34a08a876c765108576a8",
         .uri = "mqtt://bemfa.com:9501",
     };
-    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
+    mqtt_client = esp_mqtt_client_init(&mqtt_cfg);
 
-    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
-    esp_mqtt_client_start(client);
+    esp_mqtt_client_register_event(mqtt_client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
+    esp_mqtt_client_start(mqtt_client);
 }
 
 

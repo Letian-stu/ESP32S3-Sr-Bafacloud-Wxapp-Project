@@ -52,6 +52,7 @@
     "ratio": "c",
     "tuple": "c",
     "type_traits": "c",
-    "app_speech_if.h": "c"
+    "app_speech_if.h": "c",
+    "esp_mn_models.h": "c"
   }
 }

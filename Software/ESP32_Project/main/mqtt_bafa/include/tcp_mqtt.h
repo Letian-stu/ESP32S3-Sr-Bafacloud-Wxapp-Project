@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-12-01 09:26
  * @LastEditors: letian
- * @LastEditTime: 2022-12-01 17:11
+ * @LastEditTime: 2022-12-02 17:59
  * @FilePath: \ESP32_Project\main\mqtt_bafa\include\tcp_mqtt.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -33,6 +33,7 @@ typedef struct
     char data[32];
 }mqtt_data;
 
+extern esp_mqtt_client_handle_t mqtt_client;
 extern mqtt_data mqtt_buff;
 
 void mqtt_app_start(void);

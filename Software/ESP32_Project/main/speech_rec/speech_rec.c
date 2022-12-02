@@ -26,19 +26,19 @@
 #include "esp_mn_iface.h"
 #include "esp_mn_models.h"
 #include "speech_if.h"
+#include "tcp_mqtt.h"
 
 #define BOARD_DMIC_I2S_SCK 18
 #define BOARD_DMIC_I2S_WS 17
 #define BOARD_DMIC_I2S_SDO 8
 
-
 static const esp_mn_iface_t *g_multinet = &MULTINET_MODEL;
 static model_iface_data_t *g_model_mn_data = NULL;
 static const model_coeff_getter_t *g_model_mn_coeff_getter = &MULTINET_COEFF;
 
-static const esp_wn_iface_t *g_wakenet = &WAKENET_MODEL;
-static model_iface_data_t *g_model_wn_data = NULL;
-static const model_coeff_getter_t *g_model_wn_coeff_getter = &WAKENET_COEFF;
+// static const esp_wn_iface_t *g_wakenet = &WAKENET_MODEL;
+// static model_iface_data_t *g_model_wn_data = NULL;
+// static const model_coeff_getter_t *g_model_wn_coeff_getter = &WAKENET_COEFF;
 
 static const char *TAG = "speeech recognition";
 
@@ -75,7 +75,8 @@ static void i2s_init(void)
 
 void recsrcTask(void *arg)
 {
-    // Initialize NN model
+#ifdef WAKE
+    Initialize NN model
     g_model_wn_data = g_wakenet->create(g_model_wn_coeff_getter, DET_MODE_95);
     int wn_num = g_wakenet->get_word_num(g_model_wn_data);
 
@@ -89,6 +90,7 @@ void recsrcTask(void *arg)
     int wn_sample_rate = g_wakenet->get_samp_rate(g_model_wn_data);
     int audio_wn_chunksize = g_wakenet->get_samp_chunksize(g_model_wn_data);
     ESP_LOGI(TAG, "keywords_num = %d, threshold = %f, sample_rate = %d, chunksize = %d, sizeof_uint16 = %d", wn_num, wn_threshold, wn_sample_rate, audio_wn_chunksize, sizeof(int16_t));
+#endif
 
     g_model_mn_data = g_multinet->create(g_model_mn_coeff_getter, 4000);
     int audio_mn_chunksize = g_multinet->get_samp_chunksize(g_model_mn_data);
@@ -96,17 +98,22 @@ void recsrcTask(void *arg)
     int mn_sample_rate = g_multinet->get_samp_rate(g_model_mn_data);
     ESP_LOGI(TAG, "keywords_num = %d , sample_rate = %d, chunksize = %d, sizeof_uint16 = %d", mn_num, mn_sample_rate, audio_mn_chunksize, sizeof(int16_t));
 
+#ifdef WAKE
     int size = audio_wn_chunksize;
 
     if (audio_mn_chunksize > audio_wn_chunksize)
     {
         size = audio_mn_chunksize;
     }
+#else
+    int size = audio_mn_chunksize;
+#endif
+
     int *buffer = (int *)malloc(size * 2 * sizeof(int));
     bool enable_wn = true;
     uint32_t mn_count = 0;
     i2s_init();
-    
+
     size_t read_len = 0;
     printf("=====INIT OK=====\n");
     while (1)
@@ -123,10 +130,10 @@ void recsrcTask(void *arg)
         if (enable_wn)
         {
             int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-            if (command_id == 0)//ID0为唤醒词
+            if (command_id == 0) // ID0为唤醒词
             {
                 ESP_LOGI(TAG, "Wake up id: %d", command_id);
-                
+
                 if (NULL != g_sr_callback_func[SR_CB_TYPE_WAKE].fn)
                 {
                     g_sr_callback_func[SR_CB_TYPE_WAKE].fn(g_sr_callback_func[SR_CB_TYPE_WAKE].args);
@@ -142,7 +149,7 @@ void recsrcTask(void *arg)
         {
             mn_count++;
             int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-            if (command_id > -1)//识别到口令
+            if (command_id > -1) //识别到口令
             {
                 ESP_LOGI(TAG, "MN test successfully, Commands ID: %d", command_id);
                 if (NULL != g_sr_callback_func[SR_CB_TYPE_CMD].fn)
@@ -165,7 +172,7 @@ void recsrcTask(void *arg)
             if (mn_count == mn_num)
             {
                 ESP_LOGW(TAG, "stop multinet");
-                ESP_LOGI(TAG,"Listening time over");
+                ESP_LOGI(TAG, "Listening time over");
                 if (NULL != g_sr_callback_func[SR_CB_TYPE_CMD_EXIT].fn)
                 {
                     g_sr_callback_func[SR_CB_TYPE_CMD_EXIT].fn(g_sr_callback_func[SR_CB_TYPE_CMD_EXIT].args);
@@ -176,7 +183,7 @@ void recsrcTask(void *arg)
         }
 #else
         int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-        if (command_id > -1)//识别到口令
+        if (command_id > -1) //识别到口令
         {
             ESP_LOGI(TAG, "MN test successfully, Commands ID: %d", command_id);
             if (NULL != g_sr_callback_func[SR_CB_TYPE_CMD].fn)
@@ -195,9 +202,8 @@ void recsrcTask(void *arg)
         }
         else
         {
-
         }
-        //vTaskDelay(10/portTICK_PERIOD_MS);
+        // vTaskDelay(10/portTICK_PERIOD_MS);
 #endif
     }
     vTaskDelete(NULL);
@@ -242,7 +248,6 @@ esp_err_t speech_recognition_init(void)
     return ESP_OK;
 }
 
-
 static TaskHandle_t g_breath_light_task_handle = NULL;
 
 static void breath_light_task(void *arg)
@@ -251,7 +256,7 @@ static void breath_light_task(void *arg)
     while (1)
     {
         vTaskDelay(pdMS_TO_TICKS(1000));
-        ESP_LOGI(TAG,"Listening");
+        ESP_LOGI(TAG, "Listening");
     }
 }
 
@@ -264,6 +269,7 @@ void sr_wake(void *arg)
 //命令回调
 void sr_cmd(void *arg)
 {
+    static int msg_id = 0;
     if (NULL != g_breath_light_task_handle)
     {
         vTaskDelete(g_breath_light_task_handle);
@@ -275,15 +281,45 @@ void sr_cmd(void *arg)
     {
     case 0:
         break;
-    case 1:printf("开灯\n");
+    case 1:
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 0, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+
+        printf("开灯\n");
         break;
-    case 2:printf("关灯\n");
+    case 2:
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 0, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+
+        printf("关灯\n");
         break;
-    case 3:printf("打开风扇\n");
+    case 3:
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 0, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+
+        printf("打开风扇\n");
         break;
-    case 4:printf("关闭风扇\n");
+    case 4:
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 0, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+
+        printf("关闭风扇\n");
         break;
-    default:break;
+    case 5:
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 0, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+
+        printf("打开开关\n");
+        break;
+    case 6:
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 0, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+
+        printf("关闭开关\n");
+        break;
+    default:
+        printf("识别错误\n");
+        break;
     }
 }
 //结束回调
