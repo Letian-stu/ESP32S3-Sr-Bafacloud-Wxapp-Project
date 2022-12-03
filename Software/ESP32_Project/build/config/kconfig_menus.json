@@ -2243,36 +2243,6 @@
                 "children": [
                     {
                         "children": [],
-                        "depends_on": "<choice SR_RUN_WN6_CORE>",
-                        "help": null,
-                        "id": "SR_RUN_WN6_CORE0",
-                        "name": "SR_RUN_WN6_CORE0",
-                        "range": null,
-                        "title": "core 0",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "<choice SR_RUN_WN6_CORE>",
-                        "help": null,
-                        "id": "SR_RUN_WN6_CORE1",
-                        "name": "SR_RUN_WN6_CORE1",
-                        "range": null,
-                        "title": "core 1",
-                        "type": "bool"
-                    }
-                ],
-                "depends_on": "SR_MODEL_WN6_QUANT || SR_MODEL_WN6_FLOAT",
-                "help": "Select one ESP32 core to run WakeNet6.",
-                "id": "esp-speech-recognition-esp32-core-to-run-wakenet6",
-                "name": "SR_RUN_WN6_CORE",
-                "title": "ESP32 core to run WakeNet6",
-                "type": "choice"
-            },
-            {
-                "children": [
-                    {
-                        "children": [],
                         "depends_on": "<choice SR_MN_MODEL_SEL>",
                         "help": null,
                         "id": "SINGLE_RECOGNITION",

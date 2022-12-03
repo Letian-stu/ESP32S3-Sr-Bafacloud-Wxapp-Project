@@ -73,3 +73,4 @@ $<TARGET_FILE:__idf_wifi_provisioning>
 $<TARGET_FILE:__idf_main>
 $<TARGET_FILE:__idf_speech_recognition>
 $<TARGET_FILE:__idf_button>
+$<TARGET_FILE:__idf_esp_cmd>

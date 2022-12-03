@@ -53,6 +53,16 @@
     "tuple": "c",
     "type_traits": "c",
     "app_speech_if.h": "c",
-    "esp_mn_models.h": "c"
+    "esp_mn_models.h": "c",
+    "cmd_esp32.h": "c",
+    "esp_vfs_fat.h": "c",
+    "esp_console.h": "c",
+    "string.h": "c",
+    "cmd_init.h": "c",
+    "cmd_nvs.h": "c",
+    "err.h": "c",
+    "cmd_system.h": "c",
+    "esp_spiffs.h": "c",
+    "esp_event.h": "c"
   }
 }

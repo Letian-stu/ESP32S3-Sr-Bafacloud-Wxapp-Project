@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2022-12-02 16:08
+ * @LastEditTime: 2022-12-03 14:39
  * @FilePath: \ESP32_Project\main\Init_Config\include\BaseConfig.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -16,6 +16,7 @@
 #include "esp_system.h"
 #include "nvs_flash.h"
 #include "nvs.h"
+#include "esp_console.h"
 
 #include "esp_wifi.h"
 #include "esp_event.h"
@@ -26,11 +27,14 @@
 #include "esp_spiffs.h"
 #include "driver/spi_common.h"
 
+#include "cmd_wifi.h"
+#include "cmd_nvs.h"
+#include "cmd_system.h"
+
 //add by tian
 #include "web_config.h"
 #include "app_task.h"
 #include "speech_if.h"
-
 
 #define ESP_FS_PATH        "/fs"
 

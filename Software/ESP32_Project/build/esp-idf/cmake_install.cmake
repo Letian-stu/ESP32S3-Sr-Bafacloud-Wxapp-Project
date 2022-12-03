@@ -124,6 +124,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/main/cmake_install.cmake")
   include("D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/cmake_install.cmake")
   include("D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/cmake_install.cmake")
+  include("D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp_cmd/cmake_install.cmake")
 
 endif()
 
