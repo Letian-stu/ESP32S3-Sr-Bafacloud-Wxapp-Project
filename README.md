@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-12-04 17:09
  * @LastEditors: letian
- * @LastEditTime: 2022-12-04 20:58
+ * @LastEditTime: 2022-12-04 22:41
  * @FilePath: \ESP32S3-Sr-Bafacloud-Wxapp-Project\README.md
  * @Description: 
  * Copyright (c) 2022 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -36,6 +36,7 @@
 
 - [ ] 搞个摄像头玩玩
 - [ ] sd卡需要有 存储照片 
+- [ ] 发现好玩的网站 https://www.tianapi.com/ 添加语音获取新闻 热点 笑话 舔狗文案 (添加字库)
 
 ### 3.开发环境及其他
 
