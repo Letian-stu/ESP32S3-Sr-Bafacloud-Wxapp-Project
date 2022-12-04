@@ -1,3 +1,12 @@
+<!--
+ * @Author: letian
+ * @Date: 2022-12-04 17:09
+ * @LastEditors: letian
+ * @LastEditTime: 2022-12-04 20:58
+ * @FilePath: \ESP32S3-Sr-Bafacloud-Wxapp-Project\README.md
+ * @Description: 
+ * Copyright (c) 2022 by letian 1656733975@qq.com, All Rights Reserved. 
+-->
 # a esp32s3 project
 
 ## 1.项目介绍
@@ -18,13 +27,15 @@
 - [x] 语音识别    基本识别没太多问题
 - [x] 连接巴法云    使用mqtt接入
 - [x] 小程序控制    修改bafa的demo
-- [ ] 播放音频
+- [ ] 播放音频(预计回家开始准备)
 - [ ] 尝试发送音频到网站中
 - [ ] 尝试发送图片到网站中
 - [ ] 加入屏幕 然后使用lvgl做一些界面
-- [ ] 摄像头
 - [ ] 是否需要搞个分布式 再搞个从设备 上传个啥数据到云上
-- [ ] 。。。。
+  - [ ] 暂时确定搞个esp32c3的采集温湿度(主要是想画个小板子)
+
+- [ ] 搞个摄像头玩玩
+- [ ] sd卡需要有 存储照片 
 
 ### 3.开发环境及其他
 
