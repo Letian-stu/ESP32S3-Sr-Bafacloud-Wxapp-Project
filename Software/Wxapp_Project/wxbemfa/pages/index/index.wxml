@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <!-- add by tian -->
+
 <swiper class="swiper-container" indicator-dots="true" autoplay="true" interval="4000" circular="true" >
     <swiper-item>
         <image src="/utils/img/nbut.png" style="width: 100%"  mode="widthFix">  </image> 
@@ -14,6 +15,7 @@
 <!-- end -->
 
 <view >
+
     <view class="head">
         <view class="title">毕业设计</view>
         <van-cell title="设备状态" value="{{device_status}}" />
@@ -54,16 +56,18 @@
         </view>  
         <view  class="btn3">
             <image class="photo" size="120rpx" src="/utils/img/key.png">  </image> 
-            <view class="lab">开关</view>
+            <view class="lab">门锁</view>
             <view  class="sw">
                 <van-switch checked="{{ SWLED3 }}" bind:change="SWLED3Handler" /> 
             </view>
         </view>  
-    </view>
-
+    </view> 
 
 </view>
-
+<view class='gotoweb'>
+    <button type="primary" bindtap="gohttpip">本地摄像头</button>
+    <button type="primary" bindtap="gohttp">云摄像头</button>
+</view>
 <view class="footer">
         <view class="footer_1">Copyright © 2001-2099 Stuletian</view>
 </view>

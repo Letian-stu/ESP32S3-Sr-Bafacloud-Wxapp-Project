@@ -1,0 +1,9 @@
+<!--pages/video/video.wxml-->
+
+
+
+<text>pages/httpvideo/httpvideo.wxml</text>
+<view class="video">
+    <web-view src="http://192.168.13.190:8081"></web-view>
+</view>
+

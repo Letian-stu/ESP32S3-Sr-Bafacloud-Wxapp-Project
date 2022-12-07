@@ -1,0 +1,5 @@
+<!--pages/httpvideo/httpvideo.wxml-->
+<text>pages/httpvideo/httpvideo.wxml</text>
+<view>
+  <web-view src="http://xx7nt5.natappfree.cc"></web-view>  
+</view>

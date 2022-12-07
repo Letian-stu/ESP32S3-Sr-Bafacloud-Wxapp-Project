@@ -104,13 +104,12 @@ swiper-item:nth-child(3) .item{
     /* margin-top: 10rpx; */
 }
 .photo{
-    height:170rpx;
-    width: 170rpx; 
-    margin-left: -10rpx;
+    height:150rpx;
+    width: 150rpx; 
 }
 .lab{
-    margin-top: -20rpx;
-    margin-left: 90rpx;
+    margin-top: 10rpx;
+    margin-left: 100rpx;
 }
 .sw{
     margin-top: 10rpx;
@@ -146,7 +145,11 @@ swiper-item:nth-child(3) .item{
 }
 .footer {
     display:flex;
-    justify-content:center;
-    
+    justify-content:center;    
 }
+.gotoweb{
+    display:flex;
+    margin-top: 50rpx;
+}
+
 

@@ -20,6 +20,7 @@ Page({
     SWLED3:false,
   },
 
+
   mqttConnect(){
     var that = this
     //MQTT连接的配置
@@ -310,6 +311,34 @@ Page({
         }
     })    
     },
+    gohttpip(){
+        wx.navigateTo({
+          url:'../video/video', //
+          success:function() {
+            console.log("ok")
+          },       //成功后的回调；
+          fail:function() {
+            console.log("err")
+           },         //失败后的回调；
+          complete:function() { 
+
+          }      //结束后的回调(成功，失败都会执行)
+     })
+    },
+    gohttp(){
+        wx.navigateTo({
+          url:'../httpvideo/httpvideo', //
+          success:function() {
+            console.log("ok")
+          },       //成功后的回调；
+          fail:function() {
+            console.log("err")
+           },         //失败后的回调；
+          complete:function() { 
+
+          }      //结束后的回调(成功，失败都会执行)
+     })
+    },
     getdht11(){
     //获取温湿度值，屏幕初始化时，未订阅收到温湿度时，先去主动获取值
     //api 接口详细说明见巴法云接入文档
@@ -342,3 +371,7 @@ Page({
     })    
   }
 })
+
+
+
+
