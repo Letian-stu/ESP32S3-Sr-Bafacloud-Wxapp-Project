@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader/esp-idf/cmake_install.cmake")
+  include("D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader/esp-idf/cmake_install.cmake")
 
 endif()
 
@@ -51,5 +51,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

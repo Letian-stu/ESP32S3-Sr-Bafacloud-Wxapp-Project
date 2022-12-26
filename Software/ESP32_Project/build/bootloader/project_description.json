@@ -1,8 +1,8 @@
 {
     "project_name":       "bootloader",
     "project_path":       "D:/B_Code/espidf/esp32idf/esp-idf/components/bootloader/subproject",
-    "build_dir":          "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader",
-    "config_file":        "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/sdkconfig",
+    "build_dir":          "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader",
+    "config_file":        "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/sdkconfig",
     "config_defaults":    "",
     "app_elf":            "bootloader.elf",
     "app_bin":            "bootloader.bin",

@@ -5,15 +5,15 @@ cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
   "D:/B_Code/espidf/esp32idf/esp-idf/components/bootloader/subproject"
-  "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader"
-  "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix"
-  "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/tmp"
-  "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp"
-  "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src"
-  "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader"
+  "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix"
+  "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/tmp"
+  "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src"
+  "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()

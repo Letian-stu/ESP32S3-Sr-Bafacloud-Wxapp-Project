@@ -1,4 +1,4 @@
-/* * Data converted from D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/spiffs/config.html
+/* * Data converted from D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/spiffs/config.html
  */
 .data
 .section .rodata.embedded

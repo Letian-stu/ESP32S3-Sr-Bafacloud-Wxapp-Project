@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 14:28
  * @LastEditors: letian
- * @LastEditTime: 2022-11-30 22:04
- * @FilePath: \project\main\Init_Config\wificonfig.c
+ * @LastEditTime: 2022-12-26 21:06
+ * @FilePath: \ESP32_Project\main\Init_Config\wificonfig.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
  */
@@ -137,7 +137,7 @@ void wifi_init_sta(_Bool Datafrom)
             /* Setting a password implies station will connect to all security modes including WEP/WPA.
              * However these modes are deprecated and not advisable to be used. Incase your Access point
              * doesn't support WPA2, these mode can be enabled by commenting below line */
-            .threshold.authmode = WIFI_AUTH_WPA2_WPA3_PSK,
+            .threshold.authmode = WIFI_AUTH_WPA_WPA2_PSK,
         },
     };
     ESP_LOGI(TAG, "========wifi config data=========");
@@ -155,7 +155,8 @@ void wifi_init_sta(_Bool Datafrom)
         }
     }
     ESP_LOGI(TAG, "Data from %s", (Datafrom ? "webrecv" : "nvsread") );
-    ESP_LOGI(TAG, "ssid:%s",wifi_config.sta.ssid);
+
+    ESP_LOGI(TAG, "ssid:%s", wifi_config.sta.ssid);
     ESP_LOGI(TAG, "password:%s",wifi_config.sta.password);
     ESP_LOGI(TAG, "=================================");
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
@@ -176,11 +177,11 @@ void wifi_init_sta(_Bool Datafrom)
      * happened. */
     if (bits & WIFI_CONNECTED_BIT)
     {
-        ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",readwifiname, readwifissid);
+        ESP_LOGI(TAG, "connected to sucess");
     }
     else if (bits & WIFI_FAIL_BIT)
     {
-        ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",readwifiname, readwifissid);
+        ESP_LOGI(TAG, "connected to error");
     }
     else
     {

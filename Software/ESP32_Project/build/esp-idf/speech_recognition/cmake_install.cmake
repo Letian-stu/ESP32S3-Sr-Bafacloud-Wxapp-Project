@@ -1,4 +1,4 @@
-# Install script for directory: D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/components/speech_recognition
+# Install script for directory: D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/components/speech_recognition
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1639,7 +1639,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_esp_cmd_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = D:\B_Code\espidf\idftools\tools\cmake\3.23.1\bin\cmake.exe --regenerate-during-build -SD:\Desktop\github\ESP32S3-Sr-Bafacloud-Wxapp-Project\Software\ESP32_Project -BD:\Desktop\github\ESP32S3-Sr-Bafacloud-Wxapp-Project\Software\ESP32_Project\build
+  command = D:\B_Code\espidf\idftools\tools\cmake\3.23.1\bin\cmake.exe --regenerate-during-build -SD:\C_Github\ESP32S3-Sr-Bafacloud-Wxapp-Project\Software\ESP32_Project -BD:\C_Github\ESP32S3-Sr-Bafacloud-Wxapp-Project\Software\ESP32_Project\build
   description = Re-running CMake...
   generator = 1
 

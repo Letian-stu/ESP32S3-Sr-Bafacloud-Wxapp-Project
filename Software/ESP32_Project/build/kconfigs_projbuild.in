@@ -3,4 +3,4 @@ source "D:/B_Code/espidf/esp32idf/esp-idf/components/bootloader/Kconfig.projbuil
 source "D:/B_Code/espidf/esp32idf/esp-idf/components/esp_rom/Kconfig.projbuild"
 source "D:/B_Code/espidf/esp32idf/esp-idf/components/esptool_py/Kconfig.projbuild"
 source "D:/B_Code/espidf/esp32idf/esp-idf/components/partition_table/Kconfig.projbuild"
-source "D:/Desktop/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/components/speech_recognition/Kconfig.projbuild"
+source "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/components/speech_recognition/Kconfig.projbuild"

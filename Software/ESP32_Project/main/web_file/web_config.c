@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 09:21
  * @LastEditors: letian
- * @LastEditTime: 2022-12-02 16:19
+ * @LastEditTime: 2022-12-26 20:40
  * @FilePath: \ESP32_Project\main\web_file\web_config.c
  * @Description: )
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -118,8 +118,8 @@ static esp_err_t wificonfig_handler(httpd_req_t *req)
     }
     strcpy(recvwifiname, wifi_name);
     strcpy(recvwifissid, wifi_ssid);
-    printf("len=%d name=%s\n", namelen, recvwifiname);
-    printf("len=%d ssid=%s\n", ssidlen, recvwifissid);
+    printf("len=%d name=%s\n", namelen-1, recvwifiname);
+    printf("len=%d ssid=%s\n", ssidlen-1, recvwifissid);
 
     esp_err_t err = nvs_open("nvs", NVS_READWRITE, &wifi_config);
     if (err != ESP_OK)
