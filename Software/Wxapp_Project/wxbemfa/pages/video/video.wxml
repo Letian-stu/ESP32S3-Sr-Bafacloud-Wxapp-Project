@@ -4,6 +4,6 @@
 
 <text>pages/httpvideo/httpvideo.wxml</text>
 <view class="video">
-    <web-view src="http://192.168.13.190:8081"></web-view>
+    <web-view src="http://192.168.0.99:8081"></web-view>
 </view>
 
