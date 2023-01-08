@@ -3,7 +3,7 @@
     "projectname": "wxbemfa",
     "setting": {
         "compileHotReLoad": true,
-        "urlCheck": false,
+        "urlCheck": true,
         "bigPackageSizeSupport": false
     }
 }

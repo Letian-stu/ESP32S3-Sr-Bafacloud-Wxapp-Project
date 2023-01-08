@@ -74,3 +74,7 @@ D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/speech_recognition/libspeech_recognition.a
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/button/libbutton.a
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp_cmd/libesp_cmd.a
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/i2c_master/libi2c_master.a
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/aht20/libaht20.a
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl/liblvgl.a
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_esp32_drivers/liblvgl_esp32_drivers.a

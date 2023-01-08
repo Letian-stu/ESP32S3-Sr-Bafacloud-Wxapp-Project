@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 22:22
  * @LastEditors: letian
- * @LastEditTime: 2022-12-02 16:09
+ * @LastEditTime: 2023-01-08 10:35
  * @FilePath: \ESP32_Project\main\app_task\include\app_task.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -24,7 +24,10 @@
 #include "web_config.h"
 #include "tcp_mqtt.h"
 #include "speech_if.h"
-
+#include "i2c_master.h"
+#include "aht20_driver.h"
+#include "button.h"
+#include "lvgl_init.h"
 //task
 void Tasks_Init(void);
 
@@ -38,7 +41,7 @@ extern SemaphoreHandle_t SpeechMutex;
 void Sem_Init(void);
 //queue
 
-// extern QueueHandle_t Mqtt_Event_Queue;
+extern QueueHandle_t Key_Num_Queue;
 void Queue_Init(void);
 //event
 extern EventGroupHandle_t   Event_Group;

@@ -11,9 +11,10 @@
 
 #define TAG "queue"
 
+QueueHandle_t Key_Num_Queue;
 
 void Queue_Init(void)
 {
-    
+    Key_Num_Queue = xQueueCreate(2, sizeof(uint8_t));    
 }
 

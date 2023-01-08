@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2022-12-03 14:39
+ * @LastEditTime: 2023-01-01 11:11
  * @FilePath: \ESP32_Project\main\Init_Config\include\BaseConfig.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -41,7 +41,7 @@
 #define ESP_WIFI_SSID      "WIFI_Config"
 #define ESP_WIFI_PASS      "wificonfig"
 #define ESP_WIFI_CHANNEL   1
-#define MAX_STA_CONN       4
+#define MAX_STA_CONN       1
 
 extern char readwifiname[32];
 extern char readwifissid[32];

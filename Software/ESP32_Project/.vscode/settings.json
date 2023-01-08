@@ -63,6 +63,11 @@
     "err.h": "c",
     "cmd_system.h": "c",
     "esp_spiffs.h": "c",
-    "esp_event.h": "c"
-  }
+    "esp_event.h": "c",
+    "aht20_driver.h": "c",
+    "sstream": "c",
+    "algorithm": "c",
+    "lvgl_init.h": "c"
+  },
+  "idf.flashType": "UART"
 }

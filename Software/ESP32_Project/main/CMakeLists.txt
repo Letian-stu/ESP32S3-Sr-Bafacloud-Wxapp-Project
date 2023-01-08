@@ -13,7 +13,10 @@ SRCS        "main.c"
             "app_task/app_sem.c"
             "app_task/app_queue.c"
             "app_task/app_event.c"
-
+            
+            "lvgl_task/src/lvgl_init.c" 
+            "lvgl_task/src/gui_guider.c" 
+            "lvgl_task/src/lv_port_indev.c" 
 
 INCLUDE_DIRS    "."
                 "Init_Config/include"
@@ -21,6 +24,7 @@ INCLUDE_DIRS    "."
                 "app_task/include"
                 "mqtt_bafa/include"
 				"speech_rec/include"
+                "lvgl_task/include"
 
 EMBED_FILES "../spiffs/config.html"
 )

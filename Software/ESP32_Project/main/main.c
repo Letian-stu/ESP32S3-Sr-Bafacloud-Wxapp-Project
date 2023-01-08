@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 14:19
  * @LastEditors: letian
- * @LastEditTime: 2022-12-03 14:30
+ * @LastEditTime: 2023-01-08 12:23
  * @FilePath: \ESP32_Project\main\main.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -20,4 +20,11 @@ void app_main(void)
 {
     ESP_LOGI(TAG, "HELLO TIAN");
     Init_Config();
+    // uint32_t count = 0;
+    // while(1)
+    // {
+    //     ESP_LOGI(TAG,"count:%d",count);
+    //     vTaskDelay(1000/portTICK_PERIOD_MS);
+    //     count++;
+    // }
 }

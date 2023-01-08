@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2022-12-03 14:56
+ * @LastEditTime: 2023-01-06 15:11
  * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -71,9 +71,14 @@ static void Init_Cmd(void)
 void Init_Config(void)
 {
     ESP_LOGI(TAG,"Start Init");
-    ESP_ERROR_CHECK(nvs_flash_init());
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    // Initialize NVS
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
+    {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
 
     esp_err_t err = nvs_open("nvs", NVS_READWRITE, &wifi_config);
     if (err != ESP_OK)
@@ -92,6 +97,7 @@ void Init_Config(void)
             ESP_LOGE(TAG, "read name Failed!\n");
         err = nvs_get_u8(wifi_config, WIFISSIDLEN, &readssidlen);
         if(err != ESP_OK)
+        
             ESP_LOGE(TAG, "read len Failed!\n");
         err = nvs_get_str(wifi_config, WIFISSID, readwifissid, (size_t*)(&readssidlen));
         if(err != ESP_OK)
@@ -102,8 +108,7 @@ void Init_Config(void)
         // Close
         nvs_close(wifi_config);
     }
-
-    Init_Cmd();
+    //Init_Cmd();
     wifi_init_softap();
     mount_storage(ESP_FS_PATH);
     start_wifi_config_server(ESP_FS_PATH);

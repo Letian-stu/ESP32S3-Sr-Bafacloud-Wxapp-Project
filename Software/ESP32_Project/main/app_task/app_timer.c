@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 15:38
  * @LastEditors: letian
- * @LastEditTime: 2022-12-01 23:40
+ * @LastEditTime: 2022-12-31 16:28
  * @FilePath: \ESP32_Project\main\app_task\app_timer.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -18,6 +18,7 @@ static void Wifi_Config_Time_Callback(TimerHandle_t xTimer)
 {
     xEventGroupSetBits(Event_Group, WIFITIMEOVER);
     ESP_LOGI(TAG, "Time Over");
+    xTimerDelete(Wifi_Config_Time_Handle, 0);
 }
 
 void Times_Init(void)

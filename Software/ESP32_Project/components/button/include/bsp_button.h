@@ -56,7 +56,7 @@
 #endif
 
 #ifndef BUTTON_LONG_TIME
-#define BUTTON_LONG_TIME 20 /* 持续n秒((n-1)*调用周期 ms)，认为长按事件 */
+#define BUTTON_LONG_TIME 30 /* 持续n秒((n-1)*调用周期 ms)，认为长按事件 */
 #endif
 
 #define TRIGGER_CB(event)            \

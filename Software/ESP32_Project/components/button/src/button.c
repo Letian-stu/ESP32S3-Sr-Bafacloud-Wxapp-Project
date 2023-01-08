@@ -1,13 +1,14 @@
 #include "button.h"
-
 /*******************************************************************
  *                          变量声明                               
  *******************************************************************/
-#define KEY1_IO GPIO_NUM_2
-#define KEY2_IO GPIO_NUM_42
+#define KEY1_IO GPIO_NUM_21
+#define KEY2_IO GPIO_NUM_46
+#define KEY3_IO GPIO_NUM_45
 
 Button_t Button_UP;
 Button_t Button_DOWN;
+Button_t Button_SEL;
 
 uint8_t Button_Value = BT_NONE;
 //按键一单击
@@ -57,6 +58,26 @@ void Btn2_Long_Free_CallBack(void *btn)
 	Button_Value = BT2_LONGFREE;
 	//printf("Button 2 Long_Free!\n");
 }
+///////////////////////////////////////////////////////
+//按键二单击
+void Btn3_Down_CallBack(void *btn)
+{
+	Button_Value = BT3_DOWN;
+}
+//按键一双击
+void Btn3_Double_CallBack(void *btn)
+{
+	Button_Value = BT3_DOUBLE;
+}
+//按键一双击
+void Btn3_Long_CallBack(void *btn)
+{
+	Button_Value = BT3_LONG;
+}
+void Btn3_Long_Free_CallBack(void *btn)
+{
+	Button_Value = BT3_LONGFREE;
+}
 
 uint8_t Read_KEY1_Level(void)
 {
@@ -68,6 +89,12 @@ uint8_t Read_KEY2_Level(void)
 {
 	//printf("IO2:%d\n",gpio_get_level(KEY2_IO));
 	return gpio_get_level(KEY2_IO);
+}
+
+uint8_t Read_KEY3_Level(void)
+{
+	//printf("IO2:%d\n",gpio_get_level(KEY3_IO));
+	return gpio_get_level(KEY3_IO);
 }
 
 void gpio_init(void)
@@ -82,6 +109,8 @@ void gpio_init(void)
     gpio_config(&io_conf);                      // 最后配置使能
 	io_conf.pin_bit_mask = 1ULL << KEY2_IO;  // 配置GPIO_IN寄存器
 	gpio_config(&io_conf);                      // 最后配置使能
+	io_conf.pin_bit_mask = 1ULL << KEY3_IO;  // 配置GPIO_IN寄存器
+	gpio_config(&io_conf);                      // 最后配置使能
 }
 
 void Button_Init(void)
@@ -93,7 +122,7 @@ void Button_Init(void)
 				  Read_KEY1_Level,//按键电平检测函数接口
 				  KEY_OFF);//触发电平
 	Button_Attach(&Button_UP, BUTTON_DOWN, Btn1_Down_CallBack);			//单击
-	Button_Attach(&Button_UP, BUTTON_DOUBLE, Btn1_Double_CallBack);		//双击
+	//Button_Attach(&Button_UP, BUTTON_DOUBLE, Btn1_Double_CallBack);		//双击
 	Button_Attach(&Button_UP, BUTTON_LONG, Btn1_Long_CallBack);			//长按按下
 	//Button_Attach(&Button_UP, BUTTON_LONG_FREE, Btn1_Long_Free_CallBack); //长按松开
 
@@ -102,10 +131,19 @@ void Button_Init(void)
 				  Read_KEY2_Level,
 				  KEY_OFF);
 	Button_Attach(&Button_DOWN, BUTTON_DOWN, Btn2_Down_CallBack);			//单击
-	Button_Attach(&Button_DOWN, BUTTON_DOUBLE, Btn2_Double_CallBack);		//双击
+	//Button_Attach(&Button_DOWN, BUTTON_DOUBLE, Btn2_Double_CallBack);		//双击
 	Button_Attach(&Button_DOWN, BUTTON_LONG, Btn2_Long_CallBack);			//长按按下
 	//Button_Attach(&Button_DOWN, BUTTON_LONG_FREE, Btn2_Long_Free_CallBack); //长按松开
 
+	Button_Create("Button_SEL",
+				  &Button_SEL,
+				  Read_KEY3_Level,
+				  KEY_OFF);
+	Button_Attach(&Button_SEL, BUTTON_DOWN, Btn3_Down_CallBack);			//单击
+	//Button_Attach(&Button_SEL, BUTTON_DOUBLE, Btn3_Double_CallBack);		//双击
+	Button_Attach(&Button_SEL, BUTTON_LONG, Btn3_Long_CallBack);			//长按按下
+
 	Get_Button_Event(&Button_UP);
 	Get_Button_Event(&Button_DOWN);
+	Get_Button_Event(&Button_SEL);
 }

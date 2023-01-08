@@ -28,9 +28,9 @@
 #include "speech_if.h"
 #include "tcp_mqtt.h"
 
-#define BOARD_DMIC_I2S_SCK 18
-#define BOARD_DMIC_I2S_WS 17
-#define BOARD_DMIC_I2S_SDO 8
+#define BOARD_DMIC_I2S_SCK 16
+#define BOARD_DMIC_I2S_SDO 17
+#define BOARD_DMIC_I2S_WS 18
 
 static const esp_mn_iface_t *g_multinet = &MULTINET_MODEL;
 static model_iface_data_t *g_model_mn_data = NULL;
@@ -125,7 +125,7 @@ void recsrcTask(void *arg)
             int s2 = ((buffer[x * 4 + 2] + buffer[x * 4 + 3]) << 3) & 0xFFFF0000;
             buffer[x] = s1 | s2;
         }
-#define CHANGE_WAKE
+// #define CHANGE_WAKE
 #ifdef CHANGE_WAKE
         if (enable_wn)
         {
@@ -276,7 +276,7 @@ void sr_cmd(void *arg)
     }
 
     int32_t cmd_id = (int32_t)arg;
-
+    uint32_t sendcount = 0;
     switch (cmd_id)
     {
     case 0:
@@ -316,6 +316,22 @@ void sr_cmd(void *arg)
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
         printf("关闭开关\n");
+        break;
+
+    case 7:
+        sendcount = 5;
+        xQueueSend(Key_Num_Queue, &sendcount, 100);  
+        printf("up\n");
+        break;
+    case 8:
+        sendcount = 1; 
+        xQueueSend(Key_Num_Queue, &sendcount, 100);    
+        printf("down\n");
+        break;
+    case 9:
+        sendcount = 9;
+        xQueueSend(Key_Num_Queue, &sendcount, 100);  
+        printf("sel\n");
         break;
     default:
         printf("识别错误\n");
