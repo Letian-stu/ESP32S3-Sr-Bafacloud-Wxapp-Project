@@ -321,17 +321,17 @@ void sr_cmd(void *arg)
     case 7:
         sendcount = 5;
         xQueueSend(Key_Num_Queue, &sendcount, 100);  
-        printf("up\n");
+        //printf("up\n");
         break;
     case 8:
         sendcount = 1; 
         xQueueSend(Key_Num_Queue, &sendcount, 100);    
-        printf("down\n");
+        //printf("down\n");
         break;
     case 9:
         sendcount = 9;
         xQueueSend(Key_Num_Queue, &sendcount, 100);  
-        printf("sel\n");
+        //printf("sel\n");
         break;
     default:
         printf("识别错误\n");

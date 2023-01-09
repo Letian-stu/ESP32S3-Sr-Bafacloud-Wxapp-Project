@@ -67,7 +67,12 @@
     "aht20_driver.h": "c",
     "sstream": "c",
     "algorithm": "c",
-    "lvgl_init.h": "c"
+    "lvgl_init.h": "c",
+    "gui_guider.h": "c",
+    "lvgl.h": "c",
+    "lv_bar.h": "c",
+    "random": "c",
+    "lv_obj.h": "c"
   },
   "idf.flashType": "UART"
 }
