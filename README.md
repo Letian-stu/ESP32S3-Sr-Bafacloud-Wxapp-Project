@@ -35,7 +35,13 @@
 - [ ] sd卡需要有 存储照片 
 - [ ] 发现好玩的网站 https://www.tianapi.com/ 添加语音获取新闻 热点 笑话 舔狗文案 (添加字库)
 
-### 3.开发环境及其他
+## 3.开发环境及其他
 
 - vscode+espidf4.4.2
 - esp32s3-mini-n4r2
+
+## 4.图片
+
+![背面](Other\pcb1.jpg)
+
+<img src="Other\pcb2.jpg" alt="正面"  />
