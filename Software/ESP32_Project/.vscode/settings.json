@@ -72,7 +72,13 @@
     "lvgl.h": "c",
     "lv_bar.h": "c",
     "random": "c",
-    "lv_obj.h": "c"
+    "lv_obj.h": "c",
+    "gui_anim.h": "c",
+    "deque": "c",
+    "list": "c",
+    "unordered_map": "c",
+    "unordered_set": "c",
+    "vector": "c"
   },
   "idf.flashType": "UART"
 }

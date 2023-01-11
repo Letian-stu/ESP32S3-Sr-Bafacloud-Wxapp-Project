@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:14
  * @LastEditors: letian
- * @LastEditTime: 2023-01-08 10:33
+ * @LastEditTime: 2023-01-11 16:31
  * @FilePath: \ESP32_Project\main\lvgl_task\src\lvgl_init.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -21,47 +21,7 @@ void lv_tick_task(void *arg)
     lv_tick_inc(LV_TICK_PERIOD_MS);
 }
 
-void Menu_Switch(void)
-{
-    xQueueSend(Key_Num_Queue, &Button_Value, 0);
-    // switch (Button_Value)
-    // {
-    // case BT1_DOWN:
-    //     //ESP_LOGI(TAG, "BT1 one");
-    //     xQueueSend(Key_Num_Queue, &Button_Value, 0);
-    //     break;
-    // case BT2_DOWN:
-    //     //ESP_LOGI(TAG, "BT2 one");
-    //     xQueueSend(Key_Num_Queue, &Button_Value, 0);
-    //     break;
-    // case BT3_DOWN:
-    //     //ESP_LOGI(TAG, "BT2 one");
-    //     xQueueSend(Key_Num_Queue, &Button_Value, 0);
-    //     break;
 
-    // case BT1_LONG:
-    //     //ESP_LOGI(TAG, "BT1 long");
-    //     xQueueSend(Key_Num_Queue, &Button_Value, 0);
-    //     break;
-    // case BT2_LONG:
-    //     //ESP_LOGI(TAG, "BT2 long");
-    //     xQueueSend(Key_Num_Queue, &Button_Value, 0);
-    //     break;
-    // case BT3_LONG:
-    //     //ESP_LOGI(TAG, "BT2 long");
-    //     xQueueSend(Key_Num_Queue, &Button_Value, 0);
-    //     break;
-    // case BT1_DOUBLE:
-    //     ESP_LOGI(TAG, "BT1 two");
-    //     break;
-    // case BT2_DOUBLE:
-    //     ESP_LOGI(TAG, "BT2 two");
-    //     break;
-    // default:
-    //     break;
-    // }
-    Button_Value = 0;
-}
 
 void appguiTask(void *p)
 {
@@ -103,7 +63,6 @@ void appguiTask(void *p)
     while (1)
     {
         lv_task_handler();
-        Menu_Switch();
         vTaskDelay(pdMS_TO_TICKS(10));
     }
     /* A task should NEVER return */

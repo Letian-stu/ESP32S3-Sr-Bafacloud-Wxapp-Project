@@ -319,7 +319,7 @@ static uint32_t keypad_get_key(void)
 {
     /*Your code comes here*/
     static uint32_t recv_key_num;
-    if (xQueueReceive(Key_Num_Queue, &recv_key_num, portMAX_DELAY))
+    if (xQueueReceive(Key_Num_Queue, &recv_key_num, 0))
     {
         //printf("recv key :%d\n", recv_key_num);
         switch (recv_key_num)

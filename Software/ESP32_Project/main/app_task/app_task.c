@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 15:38
  * @LastEditors: letian
- * @LastEditTime: 2023-01-09 21:59
+ * @LastEditTime: 2023-01-10 13:14
  * @FilePath: \ESP32_Project\main\app_task\app_task.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -164,6 +164,6 @@ void Tasks_Init(void)
     //xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
     //xTaskCreate(WifiSet_Task,   "WifiSet",          1024 * 4, NULL, 1, &WifiSet_Handle);
     //xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
-    xTaskCreatePinnedToCore(appguiTask, "App_Gui",  4096 * 4, NULL, 4, NULL, 1);
+    xTaskCreatePinnedToCore(appguiTask, "App_Gui",  4096 * 8, NULL, 4, NULL, 1);
     xTaskCreate(KEYScan_Task,   "Key_Scan",         1024 * 4, NULL, 5, &KeyScan_Handle);
 }

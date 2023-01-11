@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2023-01-09 22:00
+ * @LastEditTime: 2023-01-11 15:48
  * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -109,6 +109,7 @@ void Init_Config(void)
         nvs_close(wifi_config);
     }
     //Init_Cmd();
+    
     wifi_init_softap();
     mount_storage(ESP_FS_PATH);
     start_wifi_config_server(ESP_FS_PATH);

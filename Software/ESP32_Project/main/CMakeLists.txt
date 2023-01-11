@@ -15,6 +15,7 @@ SRCS        "main.c"
             "app_task/app_event.c"
             
             "lvgl_task/src/lvgl_init.c" 
+            "lvgl_task/src/gui_anim.c" 
             "lvgl_task/src/gui_guider.c" 
             "lvgl_task/src/lv_port_indev.c" 
             "lvgl_task/img/img_skew_strip.c" 

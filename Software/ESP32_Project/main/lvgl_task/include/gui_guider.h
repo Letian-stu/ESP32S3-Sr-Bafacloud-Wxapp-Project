@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-09 21:24
+ * @LastEditTime: 2023-01-10 13:15
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -13,13 +13,17 @@
 
 #include "lvgl/lvgl.h"
 
+
 typedef struct
 {
 	lv_group_t *group;
 	lv_obj_t *bg;
-    lv_obj_t *user_img;
-	lv_obj_t *bar;
-	lv_obj_t *bar_img;
+		lv_obj_t *boot;
+			lv_obj_t *user_img;
+			lv_obj_t *bar;
+			lv_obj_t *bar_img;
+		lv_obj_t *home;
+
 	// lv_obj_t *label;
 	// lv_obj_t *btn1;
 	// lv_obj_t *btn2;
