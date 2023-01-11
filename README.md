@@ -42,6 +42,6 @@
 
 ## 4.图片
 
-![背面](Other\pcb1.jpg)
+<img src="Other\pcb1.jpg" alt="背面"  />
 
 <img src="Other\pcb2.jpg" alt="正面"  />
