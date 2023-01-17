@@ -44,8 +44,6 @@
 
 ## 4.图片
 
-<img src="Other\原理图.png" alt="正面"  />
-
 <img src="Other\pcb1.png" alt="背面"  />
 
 <img src="Other\pcb2.png" alt="正面"  />
