@@ -272,16 +272,15 @@ static void keypad_init(void)
 static void keypad_read(lv_indev_drv_t *indev_drv, lv_indev_data_t *data)
 {
     static uint32_t last_key = 0;
-
-    /*Get the current x and y coordinates*/
-    //mouse_get_xy(&data->point.x, &data->point.y);
-
-    /*Get whether the a key is pressed and save the pressed key*/
-    uint32_t act_key = keypad_get_key();
+    uint32_t act_key = 0;
+    if (pdTRUE == xSemaphoreTake(KeyreadMutex, portMAX_DELAY))
+    {
+        act_key = keypad_get_key();
+        xSemaphoreGive(KeyreadMutex);
+    }   
     if (act_key != 0)
     {
         data->state = LV_INDEV_STATE_PR;
-
         /*Translate the keys to LVGL control characters according to your key definitions*/
         switch (act_key)
         {
@@ -313,39 +312,31 @@ static void keypad_read(lv_indev_drv_t *indev_drv, lv_indev_data_t *data)
 
     data->key = last_key;
 }
-extern QueueHandle_t Key_Num_Queue;
+
 /*Get the currently being pressed key.  0 if no key is pressed*/
 static uint32_t keypad_get_key(void)
 {
-    /*Your code comes here*/
-    static uint32_t recv_key_num;
-    if (xQueueReceive(Key_Num_Queue, &recv_key_num, 0))
+    switch (Button_Value)
     {
-        //printf("recv key :%d\n", recv_key_num);
-        switch (recv_key_num)
-        {
-        case BT1_DOWN:
-            //printf("KEY1\n");
-            return 1;
-            break;
-        case BT2_DOWN:
-            //printf("KEY2\n");
-            return 2;
-            break;
-        case BT3_DOWN:
-            //printf("KEY3\n");
-            return 5;
-            break;
-        // case BT1_LONG:
-        //     return 5;
-        //     break;
-        // case BT2_LONG:
-        //     return 5;
-        //     break;
-        default:
-            return 0;
-            break;
-        }
+    case BT1_DOWN:
+        //printf("KEY1\n");
+            Button_Value = 0;
+        return 1;
+        break;
+    case BT2_DOWN:
+        //printf("KEY2\n");
+            Button_Value = 0;
+        return 2;
+        break;
+    case BT3_DOWN:
+        //printf("KEY3\n");
+            Button_Value = 0;
+        return 5;
+        break;
+    default:
+            Button_Value = 0;
+        return 0;
+        break;
     }
     return 0;
 }

@@ -11531,7 +11531,10 @@
                                                 "help": "The PSRAM Clock IO can be any unused GPIO, please refer to your hardware design.",
                                                 "id": "DEFAULT_PSRAM_CLK_IO",
                                                 "name": "DEFAULT_PSRAM_CLK_IO",
-                                                "range": null,
+                                                "range": [
+                                                    0,
+                                                    33
+                                                ],
                                                 "title": "PSRAM CLK IO number",
                                                 "type": "int"
                                             },
@@ -11541,7 +11544,10 @@
                                                 "help": "The PSRAM CS IO can be any unused GPIO, please refer to your hardware design.",
                                                 "id": "DEFAULT_PSRAM_CS_IO",
                                                 "name": "DEFAULT_PSRAM_CS_IO",
-                                                "range": null,
+                                                "range": [
+                                                    0,
+                                                    33
+                                                ],
                                                 "title": "PSRAM CS IO number",
                                                 "type": "int"
                                             }
@@ -11698,7 +11704,10 @@
                                         "help": "If malloc() is capable of also allocating SPI-connected ram, its allocation strategy will prefer to\nallocate chunks less than this size in internal memory, while allocations larger than this will be\ndone from external RAM. If allocation from the preferred region fails, an attempt is made to allocate\nfrom the non-preferred region instead, so malloc() will not suddenly fail when either internal or\nexternal memory is full.",
                                         "id": "SPIRAM_MALLOC_ALWAYSINTERNAL",
                                         "name": "SPIRAM_MALLOC_ALWAYSINTERNAL",
-                                        "range": null,
+                                        "range": [
+                                            0,
+                                            131072
+                                        ],
                                         "title": "Maximum malloc() size, in bytes, to always put in internal memory",
                                         "type": "int"
                                     },
@@ -11718,7 +11727,10 @@
                                         "help": "Because the external/internal RAM allocation strategy is not always perfect, it sometimes may happen\nthat the internal memory is entirely filled up. This causes allocations that are specifically done in\ninternal memory, for example the stack for new tasks or memory to service DMA or have memory that's\nalso available when SPI cache is down, to fail. This option reserves a pool specifically for requests\nlike that; the memory in this pool is not given out when a normal malloc() is called.\n\nSet this to 0 to disable this feature.\n\nNote that because FreeRTOS stacks are forced to internal memory, they will also use this memory pool;\nbe sure to keep this in mind when adjusting this value.\n\nNote also that the DMA reserved pool may not be one single contiguous memory region, depending on the\nconfigured size and the static memory usage of the app.",
                                         "id": "SPIRAM_MALLOC_RESERVE_INTERNAL",
                                         "name": "SPIRAM_MALLOC_RESERVE_INTERNAL",
-                                        "range": null,
+                                        "range": [
+                                            0,
+                                            262144
+                                        ],
                                         "title": "Reserve this amount of bytes for data that specifically needs to be in DMA or internal memory",
                                         "type": "int"
                                     },
@@ -14077,7 +14089,10 @@
                         "help": "Set the number of WiFi static TX buffers. Each buffer takes approximately 1.6KB of RAM.\nThe static RX buffers are allocated when esp_wifi_init() is called, they are not released\nuntil esp_wifi_deinit() is called.\n\nFor each transmitted data frame from the higher layer TCP/IP stack, the WiFi driver makes a\ncopy of it in a TX buffer.  For some applications especially UDP applications, the upper\nlayer can deliver frames faster than WiFi layer can transmit. In these cases, we may run out\nof TX buffers.",
                         "id": "ESP32_WIFI_STATIC_TX_BUFFER_NUM",
                         "name": "ESP32_WIFI_STATIC_TX_BUFFER_NUM",
-                        "range": null,
+                        "range": [
+                            1,
+                            64
+                        ],
                         "title": "Max number of WiFi static TX buffers",
                         "type": "int"
                     },
@@ -14087,7 +14102,10 @@
                         "help": "Set the number of WiFi cache TX buffer number.\n\nFor each TX packet from uplayer, such as LWIP etc, WiFi driver needs to allocate a static TX\nbuffer and makes a copy of uplayer packet. If WiFi driver fails to allocate the static TX buffer,\nit caches the uplayer packets to a dedicated buffer queue, this option is used to configure the\nsize of the cached TX queue.",
                         "id": "ESP32_WIFI_CACHE_TX_BUFFER_NUM",
                         "name": "ESP32_WIFI_CACHE_TX_BUFFER_NUM",
-                        "range": null,
+                        "range": [
+                            16,
+                            128
+                        ],
                         "title": "Max number of WiFi cache TX buffers",
                         "type": "int"
                     },
@@ -14097,10 +14115,7 @@
                         "help": "Set the number of WiFi dynamic TX buffers. The size of each dynamic TX buffer is not fixed,\nit depends on the size of each transmitted data frame.\n\nFor each transmitted frame from the higher layer TCP/IP stack, the WiFi driver makes a copy\nof it in a TX buffer. For some applications, especially UDP applications, the upper layer\ncan deliver frames faster than WiFi layer can transmit. In these cases, we may run out of TX\nbuffers.",
                         "id": "ESP32_WIFI_DYNAMIC_TX_BUFFER_NUM",
                         "name": "ESP32_WIFI_DYNAMIC_TX_BUFFER_NUM",
-                        "range": [
-                            1,
-                            128
-                        ],
+                        "range": null,
                         "title": "Max number of WiFi dynamic TX buffers",
                         "type": "int"
                     },
@@ -21504,11 +21519,11 @@
                     {
                         "children": [],
                         "depends_on": null,
-                        "help": null,
-                        "id": "LV_CONF_SKIP",
-                        "name": "LV_CONF_SKIP",
+                        "help": "Set this option to configure IRAM as LV_ATTRIBUTE_FAST_MEM",
+                        "id": "LV_ATTRIBUTE_FAST_MEM_USE_IRAM",
+                        "name": "LV_ATTRIBUTE_FAST_MEM_USE_IRAM",
                         "range": null,
-                        "title": null,
+                        "title": "Set IRAM as LV_ATTRIBUTE_FAST_MEM",
                         "type": "bool"
                     },
                     {
@@ -21522,12 +21537,22 @@
                         "type": "bool"
                     },
                     {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "LV_CONF_SKIP",
+                        "name": "LV_CONF_SKIP",
+                        "range": null,
+                        "title": null,
+                        "type": "bool"
+                    },
+                    {
                         "children": [
                             {
                                 "children": [
                                     {
                                         "children": [],
-                                        "depends_on": "<choice LV_COLOR_DEPTH>",
+                                        "depends_on": "<choice>",
                                         "help": null,
                                         "id": "LV_COLOR_DEPTH_32",
                                         "name": "LV_COLOR_DEPTH_32",
@@ -21537,7 +21562,7 @@
                                     },
                                     {
                                         "children": [],
-                                        "depends_on": "<choice LV_COLOR_DEPTH>",
+                                        "depends_on": "<choice>",
                                         "help": null,
                                         "id": "LV_COLOR_DEPTH_16",
                                         "name": "LV_COLOR_DEPTH_16",
@@ -21547,7 +21572,7 @@
                                     },
                                     {
                                         "children": [],
-                                        "depends_on": "<choice LV_COLOR_DEPTH>",
+                                        "depends_on": "<choice>",
                                         "help": null,
                                         "id": "LV_COLOR_DEPTH_8",
                                         "name": "LV_COLOR_DEPTH_8",
@@ -21557,7 +21582,7 @@
                                     },
                                     {
                                         "children": [],
-                                        "depends_on": "<choice LV_COLOR_DEPTH>",
+                                        "depends_on": "<choice>",
                                         "help": null,
                                         "id": "LV_COLOR_DEPTH_1",
                                         "name": "LV_COLOR_DEPTH_1",
@@ -21569,7 +21594,7 @@
                                 "depends_on": null,
                                 "help": "Color depth to be used.",
                                 "id": "component-config-lvgl-configuration-color-settings-color-depth-",
-                                "name": "LV_COLOR_DEPTH",
+                                "name": null,
                                 "title": "Color depth.",
                                 "type": "choice"
                             },
@@ -21590,7 +21615,7 @@
                                 "id": "LV_COLOR_16_SWAP",
                                 "name": "LV_COLOR_16_SWAP",
                                 "range": null,
-                                "title": "Swap the 2 bytes of RGB565 color. Useful if the display has an 8-bit interface (e.g. SPI).",
+                                "title": "Swap the 2 bytes of RGB565 color. Useful if the display has a 8 bit interface (e.g. SPI).",
                                 "type": "bool"
                             },
                             {
@@ -21602,19 +21627,6 @@
                                 "range": null,
                                 "title": "Enable more complex drawing routines to manage screens transparency.",
                                 "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": "0: no adjustment, get the integer part of the result (round down)\n64: round up from x.75\n128: round up from half\n192: round up from x.25\n254: round up",
-                                "id": "LV_COLOR_MIX_ROUND_OFS",
-                                "name": "LV_COLOR_MIX_ROUND_OFS",
-                                "range": [
-                                    0,
-                                    254
-                                ],
-                                "title": "Adjust color mix functions rounding",
-                                "type": "int"
                             },
                             {
                                 "children": [],
@@ -21662,16 +21674,6 @@
                             },
                             {
                                 "children": [],
-                                "depends_on": "!LV_MEM_CUSTOM",
-                                "help": null,
-                                "id": "LV_MEM_ADDR",
-                                "name": "LV_MEM_ADDR",
-                                "range": null,
-                                "title": "Address for the memory pool instead of allocating it as a normal array",
-                                "type": "hex"
-                            },
-                            {
-                                "children": [],
                                 "depends_on": "LV_MEM_CUSTOM",
                                 "help": null,
                                 "id": "LV_MEM_CUSTOM_INCLUDE",
@@ -21679,16 +21681,6 @@
                                 "range": null,
                                 "title": "Header to include for the custom memory function",
                                 "type": "string"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": "Number of the intermediate memory buffer used during rendering and other\ninternal processing mechanisms.  You will see an error log message if\nthere wasn't enough buffers.",
-                                "id": "LV_MEM_BUF_MAX_NUM",
-                                "name": "LV_MEM_BUF_MAX_NUM",
-                                "range": null,
-                                "title": "Number of the memory buffer",
-                                "type": "int"
                             },
                             {
                                 "children": [],
@@ -21780,16 +21772,6 @@
                                                 "range": null,
                                                 "title": "Allow buffering some shadow calculation",
                                                 "type": "int"
-                                            },
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_DRAW_COMPLEX",
-                                                "help": "The circumference of 1/4 circle are saved for anti-aliasing\nradius * 4 bytes are used per circle (the most often used\nradiuses are saved).\nSet to 0 to disable caching.",
-                                                "id": "LV_CIRCLE_CACHE_SIZE",
-                                                "name": "LV_CIRCLE_CACHE_SIZE",
-                                                "range": null,
-                                                "title": "Set number of maximally cached circle data",
-                                                "type": "int"
                                             }
                                         ],
                                         "depends_on": null,
@@ -21813,47 +21795,6 @@
                                     {
                                         "children": [],
                                         "depends_on": null,
-                                        "help": "Increase this to allow more stops.\nThis adds (sizeof(lv_color_t) + 1) bytes per additional stop",
-                                        "id": "LV_GRADIENT_MAX_STOPS",
-                                        "name": "LV_GRADIENT_MAX_STOPS",
-                                        "range": null,
-                                        "title": "Number of stops allowed per gradient.",
-                                        "type": "int"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": "When LVGL calculates the gradient \"maps\" it can save them into a cache to avoid calculating them again.\nLV_GRAD_CACHE_DEF_SIZE sets the size of this cache in bytes.\nIf the cache is too small the map will be allocated only while it's required for the drawing.\n0 mean no caching.",
-                                        "id": "LV_GRAD_CACHE_DEF_SIZE",
-                                        "name": "LV_GRAD_CACHE_DEF_SIZE",
-                                        "range": null,
-                                        "title": "Default gradient buffer size.",
-                                        "type": "int"
-                                    },
-                                    {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_DITHER_GRADIENT",
-                                                "help": "Error diffusion dithering gets a much better visual result, but implies more CPU consumption and memory when drawing.\nThe increase in memory consumption is (24 bits * object's width)",
-                                                "id": "LV_DITHER_ERROR_DIFFUSION",
-                                                "name": "LV_DITHER_ERROR_DIFFUSION",
-                                                "range": null,
-                                                "title": "Add support for error diffusion dithering",
-                                                "type": "bool"
-                                            }
-                                        ],
-                                        "depends_on": null,
-                                        "help": "Allow dithering the gradients (to achieve visual smooth color gradients on limited color depth display)\nLV_DITHER_GRADIENT implies allocating one or two more lines of the object's rendering surface\nThe increase in memory consumption is (32 bits * object width) plus 24 bits * object width if using error diffusion",
-                                        "id": "LV_DITHER_GRADIENT",
-                                        "name": "LV_DITHER_GRADIENT",
-                                        "range": null,
-                                        "title": "Allow dithering the gradients",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
                                         "help": "Only used if software rotation is enabled in the display driver.",
                                         "id": "LV_DISP_ROT_MAX_BUF",
                                         "name": "LV_DISP_ROT_MAX_BUF",
@@ -21870,26 +21811,6 @@
                             {
                                 "children": [
                                     {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_USE_EXTERNAL_RENDERER",
-                                        "name": "LV_USE_EXTERNAL_RENDERER",
-                                        "range": null,
-                                        "title": null,
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_USE_GPU_ARM2D",
-                                        "name": "LV_USE_GPU_ARM2D",
-                                        "range": null,
-                                        "title": "Enable Arm's 2D image processing library (Arm-2D) for all Cortex-M processors.",
-                                        "type": "bool"
-                                    },
-                                    {
                                         "children": [
                                             {
                                                 "children": [],
@@ -21903,7 +21824,7 @@
                                             }
                                         ],
                                         "depends_on": null,
-                                        "help": "Must deploy arm-2d library to your project and add include PATH for \"arm_2d.h\".",
+                                        "help": null,
                                         "id": "LV_USE_GPU_STM32_DMA2D",
                                         "name": "LV_USE_GPU_STM32_DMA2D",
                                         "range": null,
@@ -21939,27 +21860,6 @@
                                         "name": "LV_USE_GPU_NXP_VG_LITE",
                                         "range": null,
                                         "title": "Use NXP's VG-Lite GPU iMX RTxxx platforms.",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_USE_GPU_SDL",
-                                                "help": null,
-                                                "id": "LV_GPU_SDL_INCLUDE_PATH",
-                                                "name": "LV_GPU_SDL_INCLUDE_PATH",
-                                                "range": null,
-                                                "title": "include path of SDL header",
-                                                "type": "string"
-                                            }
-                                        ],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_USE_GPU_SDL",
-                                        "name": "LV_USE_GPU_SDL",
-                                        "range": null,
-                                        "title": "Use SDL renderer API",
                                         "type": "bool"
                                     }
                                 ],
@@ -22208,16 +22108,6 @@
                                         "range": null,
                                         "title": "Check NULL, the object's type and existence (e.g. not deleted). (Slow).",
                                         "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_ASSERT_HANDLER_INCLUDE",
-                                        "name": "LV_ASSERT_HANDLER_INCLUDE",
-                                        "range": null,
-                                        "title": "Header to include for the custom assert function",
-                                        "type": "string"
                                     }
                                 ],
                                 "depends_on": null,
@@ -22228,225 +22118,23 @@
                             {
                                 "children": [
                                     {
-                                        "children": [
-                                            {
-                                                "children": [
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_TOP_LEFT",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_TOP_LEFT",
-                                                        "range": null,
-                                                        "title": "Top left",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_TOP_MID",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_TOP_MID",
-                                                        "range": null,
-                                                        "title": "Top middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_TOP_RIGHT",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_TOP_RIGHT",
-                                                        "range": null,
-                                                        "title": "Top right",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_BOTTOM_LEFT",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_BOTTOM_LEFT",
-                                                        "range": null,
-                                                        "title": "Bottom left",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_BOTTOM_MID",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_BOTTOM_MID",
-                                                        "range": null,
-                                                        "title": "Bottom middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_BOTTOM_RIGHT",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_BOTTOM_RIGHT",
-                                                        "range": null,
-                                                        "title": "Bottom right",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_LEFT_MID",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_LEFT_MID",
-                                                        "range": null,
-                                                        "title": "Left middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_RIGHT_MID",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_RIGHT_MID",
-                                                        "range": null,
-                                                        "title": "Right middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_PERF_MONITOR_ALIGN_BOTTOM_CENTER",
-                                                        "name": "LV_PERF_MONITOR_ALIGN_BOTTOM_CENTER",
-                                                        "range": null,
-                                                        "title": "Center",
-                                                        "type": "bool"
-                                                    }
-                                                ],
-                                                "depends_on": "LV_USE_PERF_MONITOR",
-                                                "help": null,
-                                                "id": "component-config-lvgl-configuration-feature-configuration-others-show-cpu-usage-and-fps-count--performance-monitor-position-",
-                                                "name": null,
-                                                "title": "Performance monitor position.",
-                                                "type": "choice"
-                                            }
-                                        ],
+                                        "children": [],
                                         "depends_on": null,
                                         "help": null,
                                         "id": "LV_USE_PERF_MONITOR",
                                         "name": "LV_USE_PERF_MONITOR",
                                         "range": null,
-                                        "title": "Show CPU usage and FPS count.",
+                                        "title": "Show CPU usage and FPS count in the right bottom corner.",
                                         "type": "bool"
                                     },
                                     {
-                                        "children": [
-                                            {
-                                                "children": [
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_TOP_LEFT",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_TOP_LEFT",
-                                                        "range": null,
-                                                        "title": "Top left",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_TOP_MID",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_TOP_MID",
-                                                        "range": null,
-                                                        "title": "Top middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_TOP_RIGHT",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_TOP_RIGHT",
-                                                        "range": null,
-                                                        "title": "Top right",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_BOTTOM_LEFT",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_BOTTOM_LEFT",
-                                                        "range": null,
-                                                        "title": "Bottom left",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_BOTTOM_MID",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_BOTTOM_MID",
-                                                        "range": null,
-                                                        "title": "Bottom middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_BOTTOM_RIGHT",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_BOTTOM_RIGHT",
-                                                        "range": null,
-                                                        "title": "Bottom right",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_LEFT_MID",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_LEFT_MID",
-                                                        "range": null,
-                                                        "title": "Left middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_RIGHT_MID",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_RIGHT_MID",
-                                                        "range": null,
-                                                        "title": "Right middle",
-                                                        "type": "bool"
-                                                    },
-                                                    {
-                                                        "children": [],
-                                                        "depends_on": "<choice>",
-                                                        "help": null,
-                                                        "id": "LV_MEM_MONITOR_ALIGN_BOTTOM_CENTER",
-                                                        "name": "LV_MEM_MONITOR_ALIGN_BOTTOM_CENTER",
-                                                        "range": null,
-                                                        "title": "Center",
-                                                        "type": "bool"
-                                                    }
-                                                ],
-                                                "depends_on": "LV_USE_MEM_MONITOR",
-                                                "help": null,
-                                                "id": "component-config-lvgl-configuration-feature-configuration-others-show-the-used-memory-and-the-memory-fragmentation--memory-monitor-position-",
-                                                "name": null,
-                                                "title": "Memory monitor position.",
-                                                "type": "choice"
-                                            }
-                                        ],
-                                        "depends_on": "!LV_MEM_CUSTOM",
+                                        "children": [],
+                                        "depends_on": null,
                                         "help": null,
                                         "id": "LV_USE_MEM_MONITOR",
                                         "name": "LV_USE_MEM_MONITOR",
                                         "range": null,
-                                        "title": "Show the used memory and the memory fragmentation.",
+                                        "title": "Show the used memory and the memory fragmentation in the left bottom corner. Requires LV_MEM_CUSTOM = 0",
                                         "type": "bool"
                                     },
                                     {
@@ -22460,18 +22148,7 @@
                                         "type": "bool"
                                     },
                                     {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_SPRINTF_CUSTOM",
-                                                "help": null,
-                                                "id": "LV_SPRINTF_INCLUDE",
-                                                "name": "LV_SPRINTF_INCLUDE",
-                                                "range": null,
-                                                "title": "Header to include for the custom sprintf function",
-                                                "type": "string"
-                                            }
-                                        ],
+                                        "children": [],
                                         "depends_on": null,
                                         "help": null,
                                         "id": "LV_SPRINTF_CUSTOM",
@@ -22499,27 +22176,6 @@
                                         "range": null,
                                         "title": "Add a 'user_data' to drivers and objects.",
                                         "type": "bool"
-                                    },
-                                    {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_ENABLE_GC",
-                                                "help": null,
-                                                "id": "LV_GC_INCLUDE",
-                                                "name": "LV_GC_INCLUDE",
-                                                "range": null,
-                                                "title": "Header to include for the garbage collector related things",
-                                                "type": "string"
-                                            }
-                                        ],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_ENABLE_GC",
-                                        "name": "LV_ENABLE_GC",
-                                        "range": null,
-                                        "title": "Enable garbage collector",
-                                        "type": "bool"
                                     }
                                 ],
                                 "depends_on": null,
@@ -22543,26 +22199,6 @@
                                         "children": [],
                                         "depends_on": null,
                                         "help": null,
-                                        "id": "LV_ATTRIBUTE_MEM_ALIGN_SIZE",
-                                        "name": "LV_ATTRIBUTE_MEM_ALIGN_SIZE",
-                                        "range": null,
-                                        "title": "Required alignment size for buffers",
-                                        "type": "int"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": "Set this option to configure IRAM as LV_ATTRIBUTE_FAST_MEM",
-                                        "id": "LV_ATTRIBUTE_FAST_MEM_USE_IRAM",
-                                        "name": "LV_ATTRIBUTE_FAST_MEM_USE_IRAM",
-                                        "range": null,
-                                        "title": "Set IRAM as LV_ATTRIBUTE_FAST_MEM",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": null,
                                         "id": "LV_USE_LARGE_COORD",
                                         "name": "LV_USE_LARGE_COORD",
                                         "range": null,
@@ -22574,6 +22210,57 @@
                                 "id": "component-config-lvgl-configuration-feature-configuration-compiler-settings",
                                 "title": "Compiler settings",
                                 "type": "menu"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [],
+                                        "depends_on": "LV_USE_USER_DATA_FREE",
+                                        "help": null,
+                                        "id": "LV_USER_DATA_FREE_INCLUDE",
+                                        "name": "LV_USER_DATA_FREE_INCLUDE",
+                                        "range": null,
+                                        "title": "Header for user data free function",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "LV_USE_USER_DATA_FREE",
+                                        "help": null,
+                                        "id": "LV_USER_DATA_FREE",
+                                        "name": "LV_USER_DATA_FREE",
+                                        "range": null,
+                                        "title": "Invoking for user data free function. It has the lv_obj_t pointer as single parameter.",
+                                        "type": "string"
+                                    }
+                                ],
+                                "depends_on": "LV_USE_USER_DATA",
+                                "help": null,
+                                "id": "LV_USE_USER_DATA_FREE",
+                                "name": "LV_USE_USER_DATA_FREE",
+                                "range": null,
+                                "title": "Free the user data field upon object deletion",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_API_EXTENSION_V6",
+                                "name": "LV_USE_API_EXTENSION_V6",
+                                "range": null,
+                                "title": "Use the functions and types from the older (v6) API if possible.",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_API_EXTENSION_V7",
+                                "name": "LV_USE_API_EXTENSION_V7",
+                                "range": null,
+                                "title": "Use the functions and types from the older (v7) API if possible.",
+                                "type": "bool"
                             }
                         ],
                         "depends_on": null,
@@ -22799,8 +22486,28 @@
                                         "children": [],
                                         "depends_on": null,
                                         "help": null,
-                                        "id": "LV_FONT_MONTSERRAT_12_SUBPX",
-                                        "name": "LV_FONT_MONTSERRAT_12_SUBPX",
+                                        "id": "LV_FONT_UNSCII_8",
+                                        "name": "LV_FONT_UNSCII_8",
+                                        "range": null,
+                                        "title": "Enable UNSCII 8 (Perfect monospace font)",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": null,
+                                        "help": null,
+                                        "id": "LV_FONT_UNSCII_16",
+                                        "name": "LV_FONT_UNSCII_16",
+                                        "range": null,
+                                        "title": "Enable UNSCII 16 (Perfect monospace font)",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": null,
+                                        "help": null,
+                                        "id": "LV_FONT_MONTSERRAT12SUBPX",
+                                        "name": "LV_FONT_MONTSERRAT12SUBPX",
                                         "range": null,
                                         "title": "Enable Montserrat 12 sub-pixel",
                                         "type": "bool"
@@ -22809,8 +22516,8 @@
                                         "children": [],
                                         "depends_on": null,
                                         "help": null,
-                                        "id": "LV_FONT_MONTSERRAT_28_COMPRESSED",
-                                        "name": "LV_FONT_MONTSERRAT_28_COMPRESSED",
+                                        "id": "LV_FONT_MONTSERRAT28COMPRESSED",
+                                        "name": "LV_FONT_MONTSERRAT28COMPRESSED",
                                         "range": null,
                                         "title": "Enable Montserrat 28 compressed",
                                         "type": "bool"
@@ -22834,53 +22541,53 @@
                                         "range": null,
                                         "title": "Enable Simsun 16 CJK",
                                         "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_FONT_UNSCII_8",
-                                        "name": "LV_FONT_UNSCII_8",
-                                        "range": null,
-                                        "title": "Enable UNSCII 8 (Perfect monospace font)",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_FONT_UNSCII_16",
-                                        "name": "LV_FONT_UNSCII_16",
-                                        "range": null,
-                                        "title": "Enable UNSCII 16 (Perfect monospace font)",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_FONT_CUSTOM",
-                                                "help": null,
-                                                "id": "LV_FONT_CUSTOM_DECLARE",
-                                                "name": "LV_FONT_CUSTOM_DECLARE",
-                                                "range": null,
-                                                "title": "Header to include for the custom font",
-                                                "type": "string"
-                                            }
-                                        ],
-                                        "depends_on": null,
-                                        "help": null,
-                                        "id": "LV_FONT_CUSTOM",
-                                        "name": "LV_FONT_CUSTOM",
-                                        "range": null,
-                                        "title": "Enable the custom font",
-                                        "type": "bool"
                                     }
                                 ],
                                 "depends_on": null,
                                 "id": "component-config-lvgl-configuration-font-usage-enable-built-in-fonts",
                                 "title": "Enable built-in fonts",
                                 "type": "menu"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": "The limit depends on the font size, font face and bpp\nbut with > 10,000 characters if you see issues probably you\nneed to enable it.",
+                                "id": "LV_FONT_FMT_TXT_LARGE",
+                                "name": "LV_FONT_FMT_TXT_LARGE",
+                                "range": null,
+                                "title": "Enable it if you have fonts with a lot of characters.",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_FONT_COMPRESSED",
+                                "name": "LV_USE_FONT_COMPRESSED",
+                                "range": null,
+                                "title": "Sets support for compressed fonts.",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [],
+                                        "depends_on": "LV_USE_FONT_SUBPX",
+                                        "help": "Set the pixel order of the display.\nImportant only if \"subpx fonts\" are used.\nWith \"normal\" font it doesn't matter.",
+                                        "id": "LV_FONT_SUBPX_BGR",
+                                        "name": "LV_FONT_SUBPX_BGR",
+                                        "range": null,
+                                        "title": "Use BGR instead RGB for sub-pixel rendering.",
+                                        "type": "bool"
+                                    }
+                                ],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_FONT_SUBPX",
+                                "name": "LV_USE_FONT_SUBPX",
+                                "range": null,
+                                "title": "Enable subpixel rendering.",
+                                "type": "bool"
                             },
                             {
                                 "children": [
@@ -23088,8 +22795,28 @@
                                         "children": [],
                                         "depends_on": "<choice LV_FONT_DEFAULT>",
                                         "help": null,
-                                        "id": "LV_FONT_DEFAULT_MONTSERRAT_12_SUBPX",
-                                        "name": "LV_FONT_DEFAULT_MONTSERRAT_12_SUBPX",
+                                        "id": "LV_FONT_DEFAULT_UNSCII_8",
+                                        "name": "LV_FONT_DEFAULT_UNSCII_8",
+                                        "range": null,
+                                        "title": "UNSCII 8 (Perfect monospace font)",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice LV_FONT_DEFAULT>",
+                                        "help": null,
+                                        "id": "LV_FONT_DEFAULT_UNSCII_16",
+                                        "name": "LV_FONT_DEFAULT_UNSCII_16",
+                                        "range": null,
+                                        "title": "UNSCII 16 (Perfect monospace font)",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice LV_FONT_DEFAULT>",
+                                        "help": null,
+                                        "id": "LV_FONT_DEFAULT_MONTSERRAT12SUBPX",
+                                        "name": "LV_FONT_DEFAULT_MONTSERRAT12SUBPX",
                                         "range": null,
                                         "title": "Montserrat 12 sub-pixel",
                                         "type": "bool"
@@ -23098,8 +22825,8 @@
                                         "children": [],
                                         "depends_on": "<choice LV_FONT_DEFAULT>",
                                         "help": null,
-                                        "id": "LV_FONT_DEFAULT_MONTSERRAT_28_COMPRESSED",
-                                        "name": "LV_FONT_DEFAULT_MONTSERRAT_28_COMPRESSED",
+                                        "id": "LV_FONT_DEFAULT_MONTSERRAT28COMPRESSED",
+                                        "name": "LV_FONT_DEFAULT_MONTSERRAT28COMPRESSED",
                                         "range": null,
                                         "title": "Montserrat 28 compressed",
                                         "type": "bool"
@@ -23123,26 +22850,6 @@
                                         "range": null,
                                         "title": "Simsun 16 CJK",
                                         "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "<choice LV_FONT_DEFAULT>",
-                                        "help": null,
-                                        "id": "LV_FONT_DEFAULT_UNSCII_8",
-                                        "name": "LV_FONT_DEFAULT_UNSCII_8",
-                                        "range": null,
-                                        "title": "UNSCII 8 (Perfect monospace font)",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "<choice LV_FONT_DEFAULT>",
-                                        "help": null,
-                                        "id": "LV_FONT_DEFAULT_UNSCII_16",
-                                        "name": "LV_FONT_DEFAULT_UNSCII_16",
-                                        "range": null,
-                                        "title": "UNSCII 16 (Perfect monospace font)",
-                                        "type": "bool"
                                     }
                                 ],
                                 "depends_on": null,
@@ -23151,52 +22858,70 @@
                                 "name": "LV_FONT_DEFAULT",
                                 "title": "Select theme default title font",
                                 "type": "choice"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": "The limit depends on the font size, font face and bpp\nbut with > 10,000 characters if you see issues probably you\nneed to enable it.",
-                                "id": "LV_FONT_FMT_TXT_LARGE",
-                                "name": "LV_FONT_FMT_TXT_LARGE",
-                                "range": null,
-                                "title": "Enable it if you have fonts with a lot of characters.",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FONT_COMPRESSED",
-                                "name": "LV_USE_FONT_COMPRESSED",
-                                "range": null,
-                                "title": "Sets support for compressed fonts.",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_FONT_SUBPX",
-                                        "help": "Set the pixel order of the display.\nImportant only if \"subpx fonts\" are used.\nWith \"normal\" font it doesn't matter.",
-                                        "id": "LV_FONT_SUBPX_BGR",
-                                        "name": "LV_FONT_SUBPX_BGR",
-                                        "range": null,
-                                        "title": "Use BGR instead RGB for sub-pixel rendering.",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FONT_SUBPX",
-                                "name": "LV_USE_FONT_SUBPX",
-                                "range": null,
-                                "title": "Enable subpixel rendering.",
-                                "type": "bool"
                             }
                         ],
                         "depends_on": null,
                         "id": "component-config-lvgl-configuration-font-usage",
                         "title": "Font usage",
+                        "type": "menu"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                    {
+                                        "children": [],
+                                        "depends_on": "LV_USE_THEME_DEFAULT",
+                                        "help": null,
+                                        "id": "LV_THEME_DEFAULT_PALETTE_LIGHT",
+                                        "name": "LV_THEME_DEFAULT_PALETTE_LIGHT",
+                                        "range": null,
+                                        "title": "Yes to set light mode, No to set dark mode",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "LV_USE_THEME_DEFAULT",
+                                        "help": null,
+                                        "id": "LV_THEME_DEFAULT_GROW",
+                                        "name": "LV_THEME_DEFAULT_GROW",
+                                        "range": null,
+                                        "title": "Enable grow on press",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "LV_USE_THEME_DEFAULT",
+                                        "help": null,
+                                        "id": "LV_THEME_DEFAULT_TRANSITION_TIME",
+                                        "name": "LV_THEME_DEFAULT_TRANSITION_TIME",
+                                        "range": null,
+                                        "title": "Default transition time in [ms]",
+                                        "type": "int"
+                                    }
+                                ],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_THEME_DEFAULT",
+                                "name": "LV_USE_THEME_DEFAULT",
+                                "range": null,
+                                "title": "A simple, impressive and very complete theme",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_THEME_BASIC",
+                                "name": "LV_USE_THEME_BASIC",
+                                "range": null,
+                                "title": "A very simple theme that is a good starting point for a custom theme",
+                                "type": "bool"
+                            }
+                        ],
+                        "depends_on": null,
+                        "id": "component-config-lvgl-configuration-themes",
+                        "title": "Themes",
                         "type": "menu"
                     },
                     {
@@ -23414,6 +23139,16 @@
                                 "children": [],
                                 "depends_on": null,
                                 "help": null,
+                                "id": "LV_USE_CHART",
+                                "name": "LV_USE_CHART",
+                                "range": null,
+                                "title": "Chart.",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": null,
                                 "id": "LV_USE_DROPDOWN",
                                 "name": "LV_USE_DROPDOWN",
                                 "range": null,
@@ -23436,8 +23171,8 @@
                                         "children": [],
                                         "depends_on": "LV_USE_LABEL",
                                         "help": null,
-                                        "id": "LV_LABEL_TEXT_SELECTION",
-                                        "name": "LV_LABEL_TEXT_SELECTION",
+                                        "id": "LV_LABEL_TEXT_SEL",
+                                        "name": "LV_LABEL_TEXT_SEL",
                                         "range": null,
                                         "title": "Enable selecting text of the label.",
                                         "type": "bool"
@@ -23469,6 +23204,16 @@
                                 "name": "LV_USE_LINE",
                                 "range": null,
                                 "title": "Line.",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_METER",
+                                "name": "LV_USE_METER",
+                                "range": null,
+                                "title": "Meter.",
                                 "type": "bool"
                             },
                             {
@@ -23509,7 +23254,7 @@
                                 "id": "LV_USE_SWITCH",
                                 "name": "LV_USE_SWITCH",
                                 "range": null,
-                                "title": "Switch.",
+                                "title": "Switch. Dependencies: lv_slider.",
                                 "type": "bool"
                             },
                             {
@@ -23518,10 +23263,10 @@
                                         "children": [],
                                         "depends_on": "LV_USE_TEXTAREA",
                                         "help": null,
-                                        "id": "LV_TEXTAREA_DEF_PWD_SHOW_TIME",
-                                        "name": "LV_TEXTAREA_DEF_PWD_SHOW_TIME",
+                                        "id": "LV_TEXTAREA_DEF_PWN_SHOW_TIME",
+                                        "name": "LV_TEXTAREA_DEF_PWN_SHOW_TIME",
                                         "range": null,
-                                        "title": "Text area def. pwd show time [ms].",
+                                        "title": "Text area def. pwn show time [ms].",
                                         "type": "int"
                                     }
                                 ],
@@ -23572,26 +23317,6 @@
                                         "range": null,
                                         "title": "Calendar week starts monday.",
                                         "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_CALENDAR",
-                                        "help": null,
-                                        "id": "LV_USE_CALENDAR_HEADER_ARROW",
-                                        "name": "LV_USE_CALENDAR_HEADER_ARROW",
-                                        "range": null,
-                                        "title": "Use calendar header arrow",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_CALENDAR",
-                                        "help": null,
-                                        "id": "LV_USE_CALENDAR_HEADER_DROPDOWN",
-                                        "name": "LV_USE_CALENDAR_HEADER_DROPDOWN",
-                                        "range": null,
-                                        "title": "Use calendar header dropdown",
-                                        "type": "bool"
                                     }
                                 ],
                                 "depends_on": null,
@@ -23606,10 +23331,20 @@
                                 "children": [],
                                 "depends_on": null,
                                 "help": null,
-                                "id": "LV_USE_CHART",
-                                "name": "LV_USE_CHART",
+                                "id": "LV_USE_CALENDAR_HEADER_ARROW",
+                                "name": "LV_USE_CALENDAR_HEADER_ARROW",
                                 "range": null,
-                                "title": "Chart.",
+                                "title": "Use calendar header arrow",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": null,
+                                "help": null,
+                                "id": "LV_USE_CALENDAR_HEADER_DROPDOWN",
+                                "name": "LV_USE_CALENDAR_HEADER_DROPDOWN",
+                                "range": null,
+                                "title": "Use calendar header dropdown",
                                 "type": "bool"
                             },
                             {
@@ -23660,26 +23395,6 @@
                                 "name": "LV_USE_LIST",
                                 "range": null,
                                 "title": "List.",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_MENU",
-                                "name": "LV_USE_MENU",
-                                "range": null,
-                                "title": "Menu.",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_METER",
-                                "name": "LV_USE_METER",
-                                "range": null,
-                                "title": "Meter.",
                                 "type": "bool"
                             },
                             {
@@ -23743,18 +23458,7 @@
                                 "type": "bool"
                             },
                             {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_SPAN",
-                                        "help": null,
-                                        "id": "LV_SPAN_SNIPPET_STACK_SIZE",
-                                        "name": "LV_SPAN_SNIPPET_STACK_SIZE",
-                                        "range": null,
-                                        "title": "Maximum number of span descriptor",
-                                        "type": "int"
-                                    }
-                                ],
+                                "children": [],
                                 "depends_on": null,
                                 "help": null,
                                 "id": "LV_USE_SPAN",
@@ -23765,77 +23469,8 @@
                             }
                         ],
                         "depends_on": null,
-                        "id": "component-config-lvgl-configuration-extra-widgets",
-                        "title": "Extra Widgets",
-                        "type": "menu"
-                    },
-                    {
-                        "children": [
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_THEME_DEFAULT",
-                                        "help": null,
-                                        "id": "LV_THEME_DEFAULT_DARK",
-                                        "name": "LV_THEME_DEFAULT_DARK",
-                                        "range": null,
-                                        "title": "Yes to set dark mode, No to set light mode",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_THEME_DEFAULT",
-                                        "help": null,
-                                        "id": "LV_THEME_DEFAULT_GROW",
-                                        "name": "LV_THEME_DEFAULT_GROW",
-                                        "range": null,
-                                        "title": "Enable grow on press",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_THEME_DEFAULT",
-                                        "help": null,
-                                        "id": "LV_THEME_DEFAULT_TRANSITION_TIME",
-                                        "name": "LV_THEME_DEFAULT_TRANSITION_TIME",
-                                        "range": null,
-                                        "title": "Default transition time in [ms]",
-                                        "type": "int"
-                                    }
-                                ],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_THEME_DEFAULT",
-                                "name": "LV_USE_THEME_DEFAULT",
-                                "range": null,
-                                "title": "A simple, impressive and very complete theme",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_THEME_BASIC",
-                                "name": "LV_USE_THEME_BASIC",
-                                "range": null,
-                                "title": "A very simple theme that is a good starting point for a custom theme",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_THEME_MONO",
-                                "name": "LV_USE_THEME_MONO",
-                                "range": null,
-                                "title": "Monochrome theme, suitable for some E-paper & dot matrix displays",
-                                "type": "bool"
-                            }
-                        ],
-                        "depends_on": null,
-                        "id": "component-config-lvgl-configuration-themes",
-                        "title": "Themes",
+                        "id": "component-config-lvgl-configuration-extra-components",
+                        "title": "Extra components",
                         "type": "menu"
                     },
                     {
@@ -23864,480 +23499,6 @@
                         "depends_on": null,
                         "id": "component-config-lvgl-configuration-layouts",
                         "title": "Layouts",
-                        "type": "menu"
-                    },
-                    {
-                        "children": [
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FS_STDIO",
-                                "name": "LV_USE_FS_STDIO",
-                                "range": null,
-                                "title": "File system on top of stdio API",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_STDIO != 0",
-                                "help": null,
-                                "id": "LV_FS_STDIO_LETTER",
-                                "name": "LV_FS_STDIO_LETTER",
-                                "range": null,
-                                "title": "Set an upper cased letter on which the drive will accessible (e.g. 'A' i.e. 65 )",
-                                "type": "string"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_STDIO != 0",
-                                "help": null,
-                                "id": "LV_FS_STDIO_PATH",
-                                "name": "LV_FS_STDIO_PATH",
-                                "range": null,
-                                "title": "Set the working directory",
-                                "type": "string"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_STDIO != 0",
-                                "help": null,
-                                "id": "LV_FS_STDIO_CACHE_SIZE",
-                                "name": "LV_FS_STDIO_CACHE_SIZE",
-                                "range": null,
-                                "title": ">0 to cache this number of bytes in lv_fs_read()",
-                                "type": "string"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FS_POSIX",
-                                "name": "LV_USE_FS_POSIX",
-                                "range": null,
-                                "title": "File system on top of posix API",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_POSIX != 0",
-                                "help": null,
-                                "id": "LV_FS_POSIX_LETTER",
-                                "name": "LV_FS_POSIX_LETTER",
-                                "range": null,
-                                "title": "Set an upper cased letter on which the drive will accessible (e.g. 'A' i.e. 65)",
-                                "type": "int"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_POSIX != 0",
-                                "help": null,
-                                "id": "LV_FS_POSIX_PATH",
-                                "name": "LV_FS_POSIX_PATH",
-                                "range": null,
-                                "title": "Set the working directory",
-                                "type": "string"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_POSIX != 0",
-                                "help": null,
-                                "id": "LV_FS_POSIX_CACHE_SIZE",
-                                "name": "LV_FS_POSIX_CACHE_SIZE",
-                                "range": null,
-                                "title": ">0 to cache this number of bytes in lv_fs_read()",
-                                "type": "int"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FS_WIN32",
-                                "name": "LV_USE_FS_WIN32",
-                                "range": null,
-                                "title": "File system on top of Win32 API",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_WIN32 != 0",
-                                "help": null,
-                                "id": "LV_FS_WIN32_LETTER",
-                                "name": "LV_FS_WIN32_LETTER",
-                                "range": null,
-                                "title": "Set an upper cased letter on which the drive will accessible (e.g. 'A' i.e. 65)",
-                                "type": "int"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_WIN32 != 0",
-                                "help": null,
-                                "id": "LV_FS_WIN32_PATH",
-                                "name": "LV_FS_WIN32_PATH",
-                                "range": null,
-                                "title": "Set the working directory",
-                                "type": "string"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_WIN32 != 0",
-                                "help": null,
-                                "id": "LV_FS_WIN32_CACHE_SIZE",
-                                "name": "LV_FS_WIN32_CACHE_SIZE",
-                                "range": null,
-                                "title": ">0 to cache this number of bytes in lv_fs_read()",
-                                "type": "int"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FS_FATFS",
-                                "name": "LV_USE_FS_FATFS",
-                                "range": null,
-                                "title": "File system on top of FatFS",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_FATFS != 0",
-                                "help": null,
-                                "id": "LV_FS_FATFS_LETTER",
-                                "name": "LV_FS_FATFS_LETTER",
-                                "range": null,
-                                "title": "Set an upper cased letter on which the drive will accessible (e.g. 'A' i.e. 65)",
-                                "type": "int"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "LV_USE_FS_FATFS != 0",
-                                "help": null,
-                                "id": "LV_FS_FATFS_CACHE_SIZE",
-                                "name": "LV_FS_FATFS_CACHE_SIZE",
-                                "range": null,
-                                "title": ">0 to cache this number of bytes in lv_fs_read()",
-                                "type": "int"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_PNG",
-                                "name": "LV_USE_PNG",
-                                "range": null,
-                                "title": "PNG decoder library",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_BMP",
-                                "name": "LV_USE_BMP",
-                                "range": null,
-                                "title": "BMP decoder library",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_SJPG",
-                                "name": "LV_USE_SJPG",
-                                "range": null,
-                                "title": "JPG + split JPG decoder library",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_GIF",
-                                "name": "LV_USE_GIF",
-                                "range": null,
-                                "title": "GIF decoder library",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_QRCODE",
-                                "name": "LV_USE_QRCODE",
-                                "range": null,
-                                "title": "QR code library",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_USE_FREETYPE",
-                                                "help": null,
-                                                "id": "LV_FREETYPE_CACHE_SIZE",
-                                                "name": "LV_FREETYPE_CACHE_SIZE",
-                                                "range": null,
-                                                "title": "Memory used by FreeType to cache characters [bytes] (-1: no caching)",
-                                                "type": "int"
-                                            },
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_FREETYPE_CACHE_SIZE >= 0 && LV_USE_FREETYPE",
-                                                "help": null,
-                                                "id": "LV_FREETYPE_SBIT_CACHE",
-                                                "name": "LV_FREETYPE_SBIT_CACHE",
-                                                "range": null,
-                                                "title": "enable sbit cache",
-                                                "type": "bool"
-                                            },
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_FREETYPE_CACHE_SIZE >= 0 && LV_USE_FREETYPE",
-                                                "help": null,
-                                                "id": "LV_FREETYPE_CACHE_FT_FACES",
-                                                "name": "LV_FREETYPE_CACHE_FT_FACES",
-                                                "range": null,
-                                                "title": "The maximum number of FT_Face(0: use defaults)",
-                                                "type": "int"
-                                            },
-                                            {
-                                                "children": [],
-                                                "depends_on": "LV_FREETYPE_CACHE_SIZE >= 0 && LV_USE_FREETYPE",
-                                                "help": null,
-                                                "id": "LV_FREETYPE_CACHE_FT_SIZES",
-                                                "name": "LV_FREETYPE_CACHE_FT_SIZES",
-                                                "range": null,
-                                                "title": "The maximum number of FT_Size(0: use defaults)",
-                                                "type": "int"
-                                            }
-                                        ],
-                                        "depends_on": "LV_USE_FREETYPE",
-                                        "id": "component-config-lvgl-configuration-3rd-party-libraries-freetype-library-freetype-cache-config",
-                                        "title": "FreeType cache config",
-                                        "type": "menu"
-                                    }
-                                ],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FREETYPE",
-                                "name": "LV_USE_FREETYPE",
-                                "range": null,
-                                "title": "FreeType library",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_RLOTTIE",
-                                "name": "LV_USE_RLOTTIE",
-                                "range": null,
-                                "title": "Lottie library",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_FFMPEG",
-                                        "help": null,
-                                        "id": "LV_FFMPEG_AV_DUMP_FORMAT",
-                                        "name": "LV_FFMPEG_AV_DUMP_FORMAT",
-                                        "range": null,
-                                        "title": "Dump av format",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_FFMPEG",
-                                "name": "LV_USE_FFMPEG",
-                                "range": null,
-                                "title": "FFmpeg library",
-                                "type": "bool"
-                            }
-                        ],
-                        "depends_on": null,
-                        "id": "component-config-lvgl-configuration-3rd-party-libraries",
-                        "title": "3rd Party Libraries",
-                        "type": "menu"
-                    },
-                    {
-                        "children": [
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_SNAPSHOT",
-                                "name": "LV_USE_SNAPSHOT",
-                                "range": null,
-                                "title": "Enable API to take snapshot",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_MONKEY",
-                                "name": "LV_USE_MONKEY",
-                                "range": null,
-                                "title": "Enable Monkey test",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_IMGFONT",
-                                "name": "LV_USE_IMGFONT",
-                                "range": null,
-                                "title": "draw img in label or span obj",
-                                "type": "bool"
-                            }
-                        ],
-                        "depends_on": null,
-                        "id": "component-config-lvgl-configuration-others",
-                        "title": "Others",
-                        "type": "menu"
-                    },
-                    {
-                        "children": [
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_BUILD_EXAMPLES",
-                                "name": "LV_BUILD_EXAMPLES",
-                                "range": null,
-                                "title": "Enable the examples to be built",
-                                "type": "bool"
-                            }
-                        ],
-                        "depends_on": null,
-                        "id": "component-config-lvgl-configuration-examples",
-                        "title": "Examples",
-                        "type": "menu"
-                    },
-                    {
-                        "children": [
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_DEMO_WIDGETS",
-                                        "help": null,
-                                        "id": "LV_DEMO_WIDGETS_SLIDESHOW",
-                                        "name": "LV_DEMO_WIDGETS_SLIDESHOW",
-                                        "range": null,
-                                        "title": "Enable slide show",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_DEMO_WIDGETS",
-                                "name": "LV_USE_DEMO_WIDGETS",
-                                "range": null,
-                                "title": "Show some widget",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_DEMO_KEYPAD_AND_ENCODER",
-                                "name": "LV_USE_DEMO_KEYPAD_AND_ENCODER",
-                                "range": null,
-                                "title": "Demonstrate the usage of encoder and keyboard",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_DEMO_BENCHMARK",
-                                "name": "LV_USE_DEMO_BENCHMARK",
-                                "range": null,
-                                "title": "Benchmark your system",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_DEMO_STRESS",
-                                "name": "LV_USE_DEMO_STRESS",
-                                "range": null,
-                                "title": "Stress test for LVGL",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_DEMO_MUSIC",
-                                        "help": null,
-                                        "id": "LV_DEMO_MUSIC_SQUARE",
-                                        "name": "LV_DEMO_MUSIC_SQUARE",
-                                        "range": null,
-                                        "title": "Enable Square",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_DEMO_MUSIC",
-                                        "help": null,
-                                        "id": "LV_DEMO_MUSIC_LANDSCAPE",
-                                        "name": "LV_DEMO_MUSIC_LANDSCAPE",
-                                        "range": null,
-                                        "title": "Enable Landscape",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_DEMO_MUSIC",
-                                        "help": null,
-                                        "id": "LV_DEMO_MUSIC_ROUND",
-                                        "name": "LV_DEMO_MUSIC_ROUND",
-                                        "range": null,
-                                        "title": "Enable Round",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_DEMO_MUSIC",
-                                        "help": null,
-                                        "id": "LV_DEMO_MUSIC_LARGE",
-                                        "name": "LV_DEMO_MUSIC_LARGE",
-                                        "range": null,
-                                        "title": "Enable Large",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_USE_DEMO_MUSIC",
-                                        "help": null,
-                                        "id": "LV_DEMO_MUSIC_AUTO_PLAY",
-                                        "name": "LV_DEMO_MUSIC_AUTO_PLAY",
-                                        "range": null,
-                                        "title": "Enable Auto play",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "LV_USE_DEMO_MUSIC",
-                                "name": "LV_USE_DEMO_MUSIC",
-                                "range": null,
-                                "title": "Music player demo",
-                                "type": "bool"
-                            }
-                        ],
-                        "depends_on": null,
-                        "id": "component-config-lvgl-configuration-demos",
-                        "title": "Demos",
                         "type": "menu"
                     }
                 ],
@@ -24683,16 +23844,6 @@
                             {
                                 "children": [],
                                 "depends_on": null,
-                                "help": "PCD8544 display controller (Nokia 3110/5110)",
-                                "id": "LV_TFT_DISPLAY_CONTROLLER_PCD8544",
-                                "name": "LV_TFT_DISPLAY_CONTROLLER_PCD8544",
-                                "range": null,
-                                "title": null,
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": null,
                                 "help": "Display controller protocol SPI",
                                 "id": "LV_TFT_DISPLAY_PROTOCOL_SPI",
                                 "name": "LV_TFT_DISPLAY_PROTOCOL_SPI",
@@ -24716,8 +23867,8 @@
                                         "children": [],
                                         "depends_on": "<choice DISPLAY_ORIENTATION>",
                                         "help": null,
-                                        "id": "LV_DISPLAY_ORIENTATION_PORTRAIT",
-                                        "name": "LV_DISPLAY_ORIENTATION_PORTRAIT",
+                                        "id": "DISPLAY_ORIENTATION_PORTRAIT",
+                                        "name": "DISPLAY_ORIENTATION_PORTRAIT",
                                         "range": null,
                                         "title": "Portrait",
                                         "type": "bool"
@@ -24726,8 +23877,8 @@
                                         "children": [],
                                         "depends_on": "<choice DISPLAY_ORIENTATION>",
                                         "help": null,
-                                        "id": "LV_DISPLAY_ORIENTATION_PORTRAIT_INVERTED",
-                                        "name": "LV_DISPLAY_ORIENTATION_PORTRAIT_INVERTED",
+                                        "id": "DISPLAY_ORIENTATION_PORTRAIT_INVERTED",
+                                        "name": "DISPLAY_ORIENTATION_PORTRAIT_INVERTED",
                                         "range": null,
                                         "title": "Portrait inverted",
                                         "type": "bool"
@@ -24736,8 +23887,8 @@
                                         "children": [],
                                         "depends_on": "<choice DISPLAY_ORIENTATION>",
                                         "help": null,
-                                        "id": "LV_DISPLAY_ORIENTATION_LANDSCAPE",
-                                        "name": "LV_DISPLAY_ORIENTATION_LANDSCAPE",
+                                        "id": "DISPLAY_ORIENTATION_LANDSCAPE",
+                                        "name": "DISPLAY_ORIENTATION_LANDSCAPE",
                                         "range": null,
                                         "title": "Landscape",
                                         "type": "bool"
@@ -24746,8 +23897,8 @@
                                         "children": [],
                                         "depends_on": "<choice DISPLAY_ORIENTATION>",
                                         "help": null,
-                                        "id": "LV_DISPLAY_ORIENTATION_LANDSCAPE_INVERTED",
-                                        "name": "LV_DISPLAY_ORIENTATION_LANDSCAPE_INVERTED",
+                                        "id": "DISPLAY_ORIENTATION_LANDSCAPE_INVERTED",
+                                        "name": "DISPLAY_ORIENTATION_LANDSCAPE_INVERTED",
                                         "range": null,
                                         "title": "Landscape inverted",
                                         "type": "bool"
@@ -25040,16 +24191,6 @@
                                         "name": "LV_TFT_DISPLAY_USER_CONTROLLER_ILI9163C",
                                         "range": null,
                                         "title": "ILI9163C",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "<choice>",
-                                        "help": null,
-                                        "id": "LV_TFT_DISPLAY_USER_CONTROLLER_PCD8544",
-                                        "name": "LV_TFT_DISPLAY_USER_CONTROLLER_PCD8544",
-                                        "range": null,
-                                        "title": "PCD8544",
                                         "type": "bool"
                                     }
                                 ],
@@ -25577,20 +24718,30 @@
                                         "children": [],
                                         "depends_on": "<choice>",
                                         "help": null,
-                                        "id": "LV_TFT_DISPLAY_SPI2_HOST",
-                                        "name": "LV_TFT_DISPLAY_SPI2_HOST",
+                                        "id": "LV_TFT_DISPLAY_SPI_HSPI",
+                                        "name": "LV_TFT_DISPLAY_SPI_HSPI",
                                         "range": null,
-                                        "title": "SPI2_HOST",
+                                        "title": "HSPI",
                                         "type": "bool"
                                     },
                                     {
                                         "children": [],
                                         "depends_on": "<choice>",
                                         "help": null,
-                                        "id": "LV_TFT_DISPLAY_SPI3_HOST",
-                                        "name": "LV_TFT_DISPLAY_SPI3_HOST",
+                                        "id": "LV_TFT_DISPLAY_SPI_VSPI",
+                                        "name": "LV_TFT_DISPLAY_SPI_VSPI",
                                         "range": null,
-                                        "title": "SPI3_HOST",
+                                        "title": "VSPI",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice>",
+                                        "help": null,
+                                        "id": "LV_TFT_DISPLAY_SPI_FSPI",
+                                        "name": "LV_TFT_DISPLAY_SPI_FSPI",
+                                        "range": null,
+                                        "title": "FSPI",
                                         "type": "bool"
                                     }
                                 ],
@@ -26223,6 +25374,37 @@
                                         "range": null,
                                         "title": "GPIO for Busy",
                                         "type": "int"
+                                    },
+                                    {
+                                        "children": [
+                                            {
+                                                "children": [],
+                                                "depends_on": "LV_ENABLE_BACKLIGHT_CONTROL",
+                                                "help": "Some backlights are turned on with a high signal, others held low.\nIf enabled, a value of 1 will be sent to the display to enable the backlight,\notherwise a 0 will be expected to enable it.",
+                                                "id": "LV_BACKLIGHT_ACTIVE_LVL",
+                                                "name": "LV_BACKLIGHT_ACTIVE_LVL",
+                                                "range": null,
+                                                "title": "Is backlight turn on with a HIGH (1) logic level?",
+                                                "type": "bool"
+                                            },
+                                            {
+                                                "children": [],
+                                                "depends_on": "LV_ENABLE_BACKLIGHT_CONTROL",
+                                                "help": "Configure the display BCLK (LED) pin here.",
+                                                "id": "LV_DISP_PIN_BCKL",
+                                                "name": "LV_DISP_PIN_BCKL",
+                                                "range": null,
+                                                "title": "GPIO for Backlight Control",
+                                                "type": "int"
+                                            }
+                                        ],
+                                        "depends_on": null,
+                                        "help": "Enable controlling the display backlight using an GPIO",
+                                        "id": "LV_ENABLE_BACKLIGHT_CONTROL",
+                                        "name": "LV_ENABLE_BACKLIGHT_CONTROL",
+                                        "range": null,
+                                        "title": "Enable control of the display backlight by using an GPIO.",
+                                        "type": "bool"
                                     }
                                 ],
                                 "depends_on": null,
@@ -26259,66 +25441,6 @@
                                 "name": null,
                                 "title": "Select an I2C port for the display",
                                 "type": "choice"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "<choice>",
-                                        "help": "Display backlight is not controlled by this driver, must be hardwired in hardware.",
-                                        "id": "LV_DISP_BACKLIGHT_OFF",
-                                        "name": "LV_DISP_BACKLIGHT_OFF",
-                                        "range": null,
-                                        "title": "Not Used",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "<choice>",
-                                        "help": "Display backlight can be switched on or off.",
-                                        "id": "LV_DISP_BACKLIGHT_SWITCH",
-                                        "name": "LV_DISP_BACKLIGHT_SWITCH",
-                                        "range": null,
-                                        "title": "Switch control",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "<choice>",
-                                        "help": "Display backlight is controlled by pulse-width modulation, allowing brightness settings.",
-                                        "id": "LV_DISP_BACKLIGHT_PWM",
-                                        "name": "LV_DISP_BACKLIGHT_PWM",
-                                        "range": null,
-                                        "title": "PWM control",
-                                        "type": "bool"
-                                    }
-                                ],
-                                "depends_on": null,
-                                "help": null,
-                                "id": "component-config-lvgl-esp-drivers-lvgl-tft-display-controller-backlight-control",
-                                "name": null,
-                                "title": "Backlight Control",
-                                "type": "choice"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "!LV_DISP_BACKLIGHT_OFF",
-                                "help": "Some backlights are turned on with a high signal, others held low.\nIf enabled, a value of 1 will be sent to the display to enable the backlight,\notherwise a 0 will be expected to enable it.",
-                                "id": "LV_BACKLIGHT_ACTIVE_LVL",
-                                "name": "LV_BACKLIGHT_ACTIVE_LVL",
-                                "range": null,
-                                "title": "Is backlight turn on with a HIGH (1) logic level?",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "!LV_DISP_BACKLIGHT_OFF",
-                                "help": "Configure the display BCLK (LED) pin here.",
-                                "id": "LV_DISP_PIN_BCKL",
-                                "name": "LV_DISP_PIN_BCKL",
-                                "range": null,
-                                "title": "GPIO for Backlight Control",
-                                "type": "int"
                             },
                             {
                                 "children": [],
@@ -26494,25 +25616,35 @@
                                         "children": [],
                                         "depends_on": "<choice>",
                                         "help": null,
-                                        "id": "LV_TOUCH_CONTROLLER_SPI2_HOST",
-                                        "name": "LV_TOUCH_CONTROLLER_SPI2_HOST",
+                                        "id": "LV_TOUCH_CONTROLLER_SPI_HSPI",
+                                        "name": "LV_TOUCH_CONTROLLER_SPI_HSPI",
                                         "range": null,
-                                        "title": "SPI2_HOST",
+                                        "title": "HSPI",
                                         "type": "bool"
                                     },
                                     {
                                         "children": [],
                                         "depends_on": "<choice>",
                                         "help": null,
-                                        "id": "LV_TOUCH_CONTROLLER_SPI3_HOST",
-                                        "name": "LV_TOUCH_CONTROLLER_SPI3_HOST",
+                                        "id": "LV_TOUCH_CONTROLLER_SPI_VSPI",
+                                        "name": "LV_TOUCH_CONTROLLER_SPI_VSPI",
                                         "range": null,
-                                        "title": "SPI3_HOST",
+                                        "title": "VSPI",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "<choice>",
+                                        "help": null,
+                                        "id": "LV_TOUCH_CONTROLLER_SPI_FSPI",
+                                        "name": "LV_TOUCH_CONTROLLER_SPI_FSPI",
+                                        "range": null,
+                                        "title": "FSPI",
                                         "type": "bool"
                                     }
                                 ],
                                 "depends_on": "LV_TOUCH_DRIVER_PROTOCOL_SPI",
-                                "help": "Select the SPI Bus the touch controller is attached to.",
+                                "help": "Select the SPI Bus the TFT Display is attached to.",
                                 "id": "component-config-lvgl-esp-drivers-lvgl-touch-controller-touch-controller-spi-bus-",
                                 "name": null,
                                 "title": "Touch Controller SPI Bus.",
@@ -26724,16 +25856,6 @@
                                         "name": "LV_FT6X36_INVERT_Y",
                                         "range": null,
                                         "title": "Invert Y coordinate value.",
-                                        "type": "bool"
-                                    },
-                                    {
-                                        "children": [],
-                                        "depends_on": "LV_TOUCH_CONTROLLER_FT6X06",
-                                        "help": "Receive from the FreeRTOS queue using the handle 'ft6x36_touch_queue_handle'.",
-                                        "id": "LV_FT6X36_COORDINATES_QUEUE",
-                                        "name": "LV_FT6X36_COORDINATES_QUEUE",
-                                        "range": null,
-                                        "title": "Send coordinates to FreeRTOS queue.",
                                         "type": "bool"
                                     }
                                 ],

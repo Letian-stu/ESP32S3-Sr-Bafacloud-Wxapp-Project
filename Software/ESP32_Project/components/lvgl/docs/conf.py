@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 #
 # LVGL documentation build configuration file, created by
@@ -66,7 +66,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'LVGL'
-copyright = '2021, LVGL Kft'
+copyright = '2020, LVGL LLC'
 author = 'LVGL community'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -114,7 +114,7 @@ html_theme_options = {
     'logo_only': True,
 }
 # For site map generation
-html_baseurl = 'https://docs.lvgl.io/master/en/html/'
+html_baseurl = 'https://docs.lvgl.io/' + version + "/"
 sitemap_url_scheme = "{link}"
 
 # Add any paths that contain custom static files (such as style sheets) here,

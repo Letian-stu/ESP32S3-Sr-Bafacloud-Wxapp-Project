@@ -5,7 +5,7 @@
 
 /**
  * TODO Remove these instructions
- * Search and replace: templ -> object short name with lower case(e.g. btn, label etc)
+ * Search an replace: templ -> object short name with lower case(e.g. btn, label etc)
  *                    TEMPL -> object short name with upper case (e.g. BTN, LABEL etc.)
  *
  */
@@ -46,7 +46,7 @@ extern const lv_obj_class_t lv_templ_class;
  **********************/
 
 /**
- * Create a templ object
+ * Create a templ objects
  * @param parent    pointer to an object, it will be the parent of the new templ
  * @return          pointer to the created bar
  */

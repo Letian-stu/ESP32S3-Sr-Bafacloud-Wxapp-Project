@@ -8,8 +8,6 @@
  *********************/
 
 #include "lv_async.h"
-#include "lv_mem.h"
-#include "lv_timer.h"
 
 /*********************
  *      DEFINES
@@ -51,6 +49,7 @@ lv_res_t lv_async_call(lv_async_cb_t async_xcb, void * user_data)
         return LV_RES_INV;
 
     /*Create a new timer*/
+    /*Use highest priority so that it will run before a refresh*/
     lv_timer_t * timer = lv_timer_create(lv_async_timer_cb, 0, info);
 
     if(timer == NULL) {
@@ -74,5 +73,6 @@ static void lv_async_timer_cb(lv_timer_t * timer)
     lv_async_info_t * info = (lv_async_info_t *)timer->user_data;
 
     info->cb(info->user_data);
+
     lv_mem_free(info);
 }

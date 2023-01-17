@@ -28,10 +28,8 @@
 /**********************
  *  STATIC VARIABLES
  **********************/
-#if !LV_TICK_CUSTOM
-    static uint32_t sys_time = 0;
-    static volatile uint8_t tick_irq_flag;
-#endif
+static uint32_t sys_time = 0;
+static volatile uint8_t tick_irq_flag;
 
 /**********************
  *      MACROS
@@ -41,7 +39,6 @@
  *   GLOBAL FUNCTIONS
  **********************/
 
-#if !LV_TICK_CUSTOM
 /**
  * You have to call this function periodically
  * @param tick_period the call period of this function in milliseconds
@@ -51,7 +48,6 @@ LV_ATTRIBUTE_TICK_INC void lv_tick_inc(uint32_t tick_period)
     tick_irq_flag = 0;
     sys_time += tick_period;
 }
-#endif
 
 /**
  * Get the elapsed milliseconds since start up

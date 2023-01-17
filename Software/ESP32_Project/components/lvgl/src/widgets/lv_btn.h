@@ -1,12 +1,3 @@
-/*
- * @Author: StuTian
- * @Date: 2022-10-03 13:21
- * @LastEditors: StuTian
- * @LastEditTime: 2022-10-04 18:47
- * @FilePath: \Software\components\lvgl\src\widgets\lv_btn.h
- * @Description: 
- * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved. 
- */
 /**
  * @file lv_btn.h
  *
@@ -37,7 +28,7 @@ extern "C" {
 
 typedef struct {
     lv_obj_t obj;
-} lv_btn_t;
+}lv_btn_t;
 
 extern const lv_obj_class_t lv_btn_class;
 

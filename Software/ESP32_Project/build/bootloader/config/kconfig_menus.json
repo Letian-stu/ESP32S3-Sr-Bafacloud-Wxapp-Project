@@ -2790,7 +2790,10 @@
                                                 "help": "The PSRAM Clock IO can be any unused GPIO, please refer to your hardware design.",
                                                 "id": "DEFAULT_PSRAM_CLK_IO",
                                                 "name": "DEFAULT_PSRAM_CLK_IO",
-                                                "range": null,
+                                                "range": [
+                                                    0,
+                                                    33
+                                                ],
                                                 "title": "PSRAM CLK IO number",
                                                 "type": "int"
                                             },
@@ -2800,7 +2803,10 @@
                                                 "help": "The PSRAM CS IO can be any unused GPIO, please refer to your hardware design.",
                                                 "id": "DEFAULT_PSRAM_CS_IO",
                                                 "name": "DEFAULT_PSRAM_CS_IO",
-                                                "range": null,
+                                                "range": [
+                                                    0,
+                                                    33
+                                                ],
                                                 "title": "PSRAM CS IO number",
                                                 "type": "int"
                                             }
@@ -2957,7 +2963,10 @@
                                         "help": "If malloc() is capable of also allocating SPI-connected ram, its allocation strategy will prefer to\nallocate chunks less than this size in internal memory, while allocations larger than this will be\ndone from external RAM. If allocation from the preferred region fails, an attempt is made to allocate\nfrom the non-preferred region instead, so malloc() will not suddenly fail when either internal or\nexternal memory is full.",
                                         "id": "SPIRAM_MALLOC_ALWAYSINTERNAL",
                                         "name": "SPIRAM_MALLOC_ALWAYSINTERNAL",
-                                        "range": null,
+                                        "range": [
+                                            0,
+                                            131072
+                                        ],
                                         "title": "Maximum malloc() size, in bytes, to always put in internal memory",
                                         "type": "int"
                                     },
@@ -2977,7 +2986,10 @@
                                         "help": "Because the external/internal RAM allocation strategy is not always perfect, it sometimes may happen\nthat the internal memory is entirely filled up. This causes allocations that are specifically done in\ninternal memory, for example the stack for new tasks or memory to service DMA or have memory that's\nalso available when SPI cache is down, to fail. This option reserves a pool specifically for requests\nlike that; the memory in this pool is not given out when a normal malloc() is called.\n\nSet this to 0 to disable this feature.\n\nNote that because FreeRTOS stacks are forced to internal memory, they will also use this memory pool;\nbe sure to keep this in mind when adjusting this value.\n\nNote also that the DMA reserved pool may not be one single contiguous memory region, depending on the\nconfigured size and the static memory usage of the app.",
                                         "id": "SPIRAM_MALLOC_RESERVE_INTERNAL",
                                         "name": "SPIRAM_MALLOC_RESERVE_INTERNAL",
-                                        "range": null,
+                                        "range": [
+                                            0,
+                                            262144
+                                        ],
                                         "title": "Reserve this amount of bytes for data that specifically needs to be in DMA or internal memory",
                                         "type": "int"
                                     },

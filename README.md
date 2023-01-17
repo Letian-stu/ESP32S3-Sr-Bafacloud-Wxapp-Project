@@ -26,22 +26,26 @@
 - [x] 语音识别    基本可以识别
 - [x] 连接巴法云    使用mqtt接入
 - [x] 小程序控制    修改bafa的demo
-- [ ] 播放音频(预计回家开始准备)  //pcb中未加
+- [ ] ~~播放音频(预计回家开始准备)  //pcb中未加~~
 - [ ] 加入屏幕 然后使用lvgl做一些界面
 - [ ] 是否需要搞个分布式 再搞个从设备 上传个啥数据到云上 
 - [ ] 暂时确定搞个esp32c3的采集温湿度(主要是想画个小板子)
 
-- [ ] 搞个摄像头玩玩 
-- [ ] sd卡需要有 存储照片 
+- [x] 搞个摄像头玩玩 
+- [x] sd卡需要有 存储照片 
 - [ ] 发现好玩的网站 https://www.tianapi.com/ 添加语音获取新闻 热点 笑话 舔狗文案 (添加字库)
 
 ## 3.开发环境及其他
 
 - vscode+espidf4.4.2
 - esp32s3-mini-n4r2
+- lvgl 8.1.0
 
 ## 4.图片
 
-![背面](Other\pcb1.jpg)
+<img src="Other\原理图.png" alt="正面"  />
 
-<img src="Other\pcb2.jpg" alt="正面"  />
+<img src="Other\pcb1.png" alt="背面"  />
+
+<img src="Other\pcb2.png" alt="正面"  />
+

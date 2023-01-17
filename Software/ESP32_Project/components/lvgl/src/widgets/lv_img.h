@@ -17,11 +17,6 @@ extern "C" {
 
 #if LV_USE_IMG != 0
 
-/*Testing of dependencies*/
-#if LV_USE_LABEL == 0
-#error "lv_img: lv_label is required. Enable it in lv_conf.h (LV_USE_LABEL 1)"
-#endif
-
 #include "../core/lv_obj.h"
 #include "../misc/lv_fs.h"
 #include "../draw/lv_draw.h"
@@ -33,10 +28,7 @@ extern "C" {
 /**********************
  *      TYPEDEFS
  **********************/
-
-/**
- * Data of image
- */
+/*Data of image*/
 typedef struct {
     lv_obj_t obj;
     const void * src; /*Image source: Pointer to an array or a file or a symbol*/
@@ -49,34 +41,16 @@ typedef struct {
     uint8_t src_type : 2;  /*See: lv_img_src_t*/
     uint8_t cf : 5;        /*Color format from `lv_img_color_format_t`*/
     uint8_t antialias : 1; /*Apply anti-aliasing in transformations (rotate, zoom)*/
-    uint8_t obj_size_mode: 2; /*Image size mode when image size and object size is different.*/
 } lv_img_t;
 
 extern const lv_obj_class_t lv_img_class;
-
-/**
- * Image size mode, when image size and object size is different
- */
-enum {
-    /** Zoom doesn't affect the coordinates of the object,
-     *  however if zoomed in the image is drawn out of the its coordinates.
-     *  The layout's won't change on zoom */
-    LV_IMG_SIZE_MODE_VIRTUAL = 0,
-
-    /** If the object size is set to SIZE_CONTENT, then object size equals zoomed image size.
-     *  It causes layout recalculation.
-     *  If the object size is set explicitly, the image will be cropped when zoomed in.*/
-    LV_IMG_SIZE_MODE_REAL,
-};
-
-typedef uint8_t lv_img_size_mode_t;
 
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
 
 /**
- * Create an image object
+ * Create a image objects
  * @param parent pointer to an object, it will be the parent of the new image
  * @return pointer to the created image
  */
@@ -87,7 +61,7 @@ lv_obj_t * lv_img_create(lv_obj_t * parent);
  *====================*/
 
 /**
- * Set the image data to display on the object
+ * Set the image data to display on the the object
  * @param obj       pointer to an image object
  * @param src_img   1) pointer to an ::lv_img_dsc_t descriptor (converted by LVGL's image converter) (e.g. &my_img) or
  *                  2) path to an image file (e.g. "S:/dir/img.bin")or
@@ -143,19 +117,12 @@ void lv_img_set_zoom(lv_obj_t * obj, uint16_t zoom);
 
 /**
  * Enable/disable anti-aliasing for the transformations (rotate, zoom) or not.
- * The quality is better with anti-aliasing looks better but slower.
+ * The qualitiy is better with anti-aliasing looks better but slower.
  * @param obj       pointer to an image object
  * @param antialias true: anti-aliased; false: not anti-aliased
  */
 void lv_img_set_antialias(lv_obj_t * obj, bool antialias);
 
-/**
- * Set the image object size mode.
- *
- * @param obj       pointer to an image object
- * @param mode      the new size mode.
- */
-void lv_img_set_size_mode(lv_obj_t * obj, lv_img_size_mode_t mode);
 /*=====================
  * Getter functions
  *====================*/
@@ -208,13 +175,6 @@ uint16_t lv_img_get_zoom(lv_obj_t * obj);
  * @return          true: anti-aliased; false: not anti-aliased
  */
 bool lv_img_get_antialias(lv_obj_t * obj);
-
-/**
- * Get the size mode of the image
- * @param obj       pointer to an image object
- * @return          element of @ref lv_img_size_mode_t
- */
-lv_img_size_mode_t lv_img_get_size_mode(lv_obj_t * obj);
 
 /**********************
  *      MACROS

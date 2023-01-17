@@ -17,11 +17,6 @@ extern "C" {
 
 #if LV_USE_ROLLER != 0
 
-/*Testing of dependencies*/
-#if LV_USE_LABEL == 0
-#error "lv_roller: lv_label is required. Enable it in lv_conf.h (LV_USE_ROLLER 1)"
-#endif
-
 #include "../core/lv_obj.h"
 #include "lv_label.h"
 
@@ -42,13 +37,13 @@ enum {
 typedef uint8_t lv_roller_mode_t;
 
 typedef struct {
-    lv_obj_t obj;
-    uint16_t option_cnt;          /**< Number of options*/
-    uint16_t sel_opt_id;          /**< Index of the current option*/
-    uint16_t sel_opt_id_ori;      /**< Store the original index on focus*/
-    lv_roller_mode_t mode : 1;
-    uint32_t moved : 1;
-} lv_roller_t;
+  lv_obj_t obj;
+  uint16_t option_cnt;          /**< Number of options*/
+  uint16_t sel_opt_id;          /**< Index of the current option*/
+  uint16_t sel_opt_id_ori;      /**< Store the original index on focus*/
+  lv_roller_mode_t mode : 1;
+  uint32_t moved : 1;
+}lv_roller_t;
 
 extern const lv_obj_class_t lv_roller_class;
 
@@ -58,7 +53,7 @@ extern const lv_obj_class_t lv_roller_class;
  **********************/
 
 /**
- * Create a roller object
+ * Create a roller objects
  * @param parent    pointer to an object, it will be the parent of the new roller.
  * @return          pointer to the created roller
  */

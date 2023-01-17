@@ -4,5 +4,6 @@ codecov:
 comment: off
 coverage:
   status:
-    patch: off
-    project: off
+    project:
+      default:
+        target: 0%

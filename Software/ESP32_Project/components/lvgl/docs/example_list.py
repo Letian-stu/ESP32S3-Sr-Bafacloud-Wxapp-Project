@@ -51,7 +51,6 @@ widgets = {
 "led":"LED",
 "line":"Line",
 "list":"List",
-"menu":"Menu",
 "meter":"Meter",
 "msgbox":"Message box",
 "roller":"Roller",
@@ -84,15 +83,14 @@ def print_item(path, lvl, d, fout):
      fout.write("\n")
 
 def exec():
-  paths = [ "../examples/", "../demos/"]
+  path ="../examples/"
   fout = open("examples.md", "w")
   filelist = []
 
-  for path in paths:
-    for root, dirs, files in os.walk(path):
-      for f in files:
-        #append the file name to the list
-        filelist.append(os.path.join(root,f))
+  for root, dirs, files in os.walk(path):
+	  for f in files:
+      #append the file name to the list
+		  filelist.append(os.path.join(root,f))
 
   filelist = [ fi for fi in filelist if fi.endswith("index.rst") ]
 

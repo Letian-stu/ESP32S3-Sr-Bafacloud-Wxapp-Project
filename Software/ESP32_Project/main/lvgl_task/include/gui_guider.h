@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-10 13:15
+ * @LastEditTime: 2023-01-16 18:59
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -24,17 +24,13 @@ typedef struct
 			lv_obj_t *bar_img;
 		lv_obj_t *home;
 
-	// lv_obj_t *label;
-	// lv_obj_t *btn1;
-	// lv_obj_t *btn2;
-	// lv_obj_t *btn3;
-	// lv_obj_t *btn4;
 } lv_ui;
 
 extern lv_ui guider_ui;
 void setup_ui(lv_ui *ui);
-void setup_scr_screen(lv_ui *ui);
-
+void setup_bg_screen(lv_ui *ui);
+void setup_boot_screen(lv_ui *ui);
+void setup_home_screen(lv_ui *ui);
 
 LV_IMG_DECLARE(img_skew_strip);
 LV_IMG_DECLARE(_StuLeTian_200x60);

@@ -18,7 +18,6 @@
    sleep
    os
    log
-   gpu
    
 ```
 

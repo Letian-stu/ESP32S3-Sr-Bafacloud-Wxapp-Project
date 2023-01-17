@@ -19,3 +19,4 @@ p =  [ {"x":10, "y":30},
 obj.set_points(p, 3)
 
 obj.center()
+

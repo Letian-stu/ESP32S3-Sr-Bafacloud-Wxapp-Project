@@ -42,8 +42,4 @@ Scatter chart
 .. lv_example:: widgets/chart/lv_example_chart_7
   :language: c
 
-Stacked area chart
-"""""""""""""""""""""""""""""""""""
 
-.. lv_example:: widgets/chart/lv_example_chart_8
-  :language:

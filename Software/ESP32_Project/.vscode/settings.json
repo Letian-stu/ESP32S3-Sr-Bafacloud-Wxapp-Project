@@ -78,7 +78,9 @@
     "list": "c",
     "unordered_map": "c",
     "unordered_set": "c",
-    "vector": "c"
+    "vector": "c",
+    "typeinfo": "c",
+    "complex": "c"
   },
   "idf.flashType": "UART"
 }

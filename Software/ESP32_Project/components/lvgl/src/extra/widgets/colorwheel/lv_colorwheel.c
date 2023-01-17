@@ -10,8 +10,6 @@
 #include "lv_colorwheel.h"
 #if LV_USE_COLORWHEEL
 
-#include "../../../misc/lv_assert.h"
-
 /*********************
  *      DEFINES
  *********************/
@@ -52,12 +50,12 @@ static uint16_t get_angle(lv_obj_t * obj);
  *  STATIC VARIABLES
  **********************/
 const lv_obj_class_t lv_colorwheel_class = {.instance_size = sizeof(lv_colorwheel_t), .base_class = &lv_obj_class,
-                                            .constructor_cb = lv_colorwheel_constructor,
-                                            .event_cb = lv_colorwheel_event,
-                                            .width_def = LV_DPI_DEF * 2,
-                                            .height_def = LV_DPI_DEF * 2,
-                                            .editable = LV_OBJ_CLASS_EDITABLE_TRUE,
-                                           };
+        .constructor_cb = lv_colorwheel_constructor,
+        .event_cb = lv_colorwheel_event,
+        .width_def = LV_DPI_DEF * 2,
+        .height_def = LV_DPI_DEF * 2,
+        .editable = LV_OBJ_CLASS_EDITABLE_TRUE,
+};
 
 static bool create_knob_recolor;
 
@@ -71,12 +69,12 @@ static bool create_knob_recolor;
 
 /**
  * Create a color_picker object
- * @param parent pointer to an object, it will be the parent of the new color_picker
+ * @param par pointer to an object, it will be the parent of the new color_picker
  * @return pointer to the created color_picker
  */
 lv_obj_t * lv_colorwheel_create(lv_obj_t * parent, bool knob_recolor)
 {
-    LV_LOG_INFO("begin");
+    LV_LOG_INFO("begin")
     create_knob_recolor = knob_recolor;
 
     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
@@ -100,7 +98,6 @@ bool lv_colorwheel_set_hsv(lv_obj_t * obj, lv_color_hsv_t hsv)
     if(hsv.s > 100) hsv.s = 100;
     if(hsv.v > 100) hsv.v = 100;
 
-    LV_ASSERT_OBJ(obj, MY_CLASS);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     if(colorwheel->hsv.h == hsv.h && colorwheel->hsv.s == hsv.s && colorwheel->hsv.v == hsv.v) return false;
@@ -135,7 +132,6 @@ bool lv_colorwheel_set_rgb(lv_obj_t * obj, lv_color_t color)
  */
 void lv_colorwheel_set_mode(lv_obj_t * obj, lv_colorwheel_mode_t mode)
 {
-    LV_ASSERT_OBJ(obj, MY_CLASS);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     colorwheel->mode = mode;
@@ -150,7 +146,6 @@ void lv_colorwheel_set_mode(lv_obj_t * obj, lv_colorwheel_mode_t mode)
  */
 void lv_colorwheel_set_mode_fixed(lv_obj_t * obj, bool fixed)
 {
-    LV_ASSERT_OBJ(obj, MY_CLASS);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     colorwheel->mode_fixed = fixed;
@@ -168,7 +163,6 @@ void lv_colorwheel_set_mode_fixed(lv_obj_t * obj, bool fixed)
  */
 lv_color_hsv_t lv_colorwheel_get_hsv(lv_obj_t * obj)
 {
-    LV_ASSERT_OBJ(obj, MY_CLASS);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     return colorwheel->hsv;
@@ -181,7 +175,6 @@ lv_color_hsv_t lv_colorwheel_get_hsv(lv_obj_t * obj)
  */
 lv_color_t lv_colorwheel_get_rgb(lv_obj_t * obj)
 {
-    LV_ASSERT_OBJ(obj, MY_CLASS);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     return lv_color_hsv_to_rgb(colorwheel->hsv.h, colorwheel->hsv.s, colorwheel->hsv.v);
@@ -194,7 +187,6 @@ lv_color_t lv_colorwheel_get_rgb(lv_obj_t * obj)
  */
 lv_colorwheel_mode_t lv_colorwheel_get_color_mode(lv_obj_t * obj)
 {
-    LV_ASSERT_OBJ(obj, MY_CLASS);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     return colorwheel->mode;
@@ -207,7 +199,6 @@ lv_colorwheel_mode_t lv_colorwheel_get_color_mode(lv_obj_t * obj)
  */
 bool lv_colorwheel_get_color_mode_fixed(lv_obj_t * obj)
 {
-    LV_ASSERT_OBJ(obj, MY_CLASS);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     return colorwheel->mode_fixed;
@@ -242,7 +233,7 @@ static void lv_colorwheel_constructor(const lv_obj_class_t * class_p, lv_obj_t *
 static void draw_disc_grad(lv_event_t * e)
 {
     lv_obj_t * obj = lv_event_get_target(e);
-    lv_draw_ctx_t * draw_ctx = lv_event_get_draw_ctx(e);
+    const lv_area_t * clip_area = lv_event_get_param(e);
     lv_coord_t w = lv_obj_get_width(obj);
     lv_coord_t h = lv_obj_get_height(obj);
     lv_coord_t cx = obj->coords.x1 + w / 2;
@@ -292,12 +283,10 @@ static void draw_disc_grad(lv_event_t * e)
         p[1].x = cx + ((r - cir_w - cir_w_extra) * lv_trigo_sin(angle_trigo) >> LV_TRIGO_SHIFT);
         p[1].y = cy + ((r - cir_w - cir_w_extra) * lv_trigo_cos(angle_trigo) >> LV_TRIGO_SHIFT);
 
-        lv_draw_line(draw_ctx, &line_dsc, &p[0], &p[1]);
+        lv_draw_line(&p[0], &p[1], clip_area, &line_dsc);
     }
 
 #if LV_DRAW_COMPLEX
-    lv_draw_mask_free_param(&mask_out_param);
-    lv_draw_mask_free_param(&mask_in_param);
     lv_draw_mask_remove_id(mask_out_id);
     lv_draw_mask_remove_id(mask_in_id);
 #endif
@@ -306,7 +295,7 @@ static void draw_disc_grad(lv_event_t * e)
 static void draw_knob(lv_event_t * e)
 {
     lv_obj_t * obj = lv_event_get_target(e);
-    lv_draw_ctx_t * draw_ctx = lv_event_get_draw_ctx(e);
+    const lv_area_t * clip_area = lv_event_get_param(e);
     lv_colorwheel_t * colorwheel = (lv_colorwheel_t *)obj;
 
     lv_draw_rect_dsc_t cir_dsc;
@@ -321,7 +310,7 @@ static void draw_knob(lv_event_t * e)
 
     lv_area_t knob_area = get_knob_area(obj);
 
-    lv_draw_rect(draw_ctx, &cir_dsc, &knob_area);
+    lv_draw_rect(&knob_area, clip_area, &cir_dsc);
 }
 
 static void invalidate_knob(lv_obj_t * obj)
@@ -599,7 +588,7 @@ static lv_res_t double_click_reset(lv_obj_t * obj)
 
 #define SWAPPTR(A, B) do { uint8_t * t = A; A = B; B = t; } while(0)
 #define HSV_PTR_SWAP(sextant,r,g,b)     if((sextant) & 2) { SWAPPTR((r), (b)); } if((sextant) & 4) { SWAPPTR((g), (b)); } if(!((sextant) & 6)) { \
-        if(!((sextant) & 1)) { SWAPPTR((r), (g)); } } else { if((sextant) & 1) { SWAPPTR((r), (g)); } }
+                                                if(!((sextant) & 1)) { SWAPPTR((r), (g)); } } else { if((sextant) & 1) { SWAPPTR((r), (g)); } }
 
 /**
  * Based on the idea from https://www.vagrearg.org/content/hsvrgb
@@ -613,13 +602,10 @@ static lv_res_t double_click_reset(lv_obj_t * obj)
  * We replace division by 255 by a division by 256, a.k.a a shift right by 8 bits.
  * This is wrong, but since this is only used to compute the pixels on the screen and not the final color, it's ok.
  */
-static void fast_hsv2rgb(uint16_t h, uint8_t s, uint8_t v, uint8_t * r, uint8_t * g, uint8_t * b);
-static void fast_hsv2rgb(uint16_t h, uint8_t s, uint8_t v, uint8_t * r, uint8_t * g, uint8_t * b)
+static void fast_hsv2rgb(uint16_t h, uint8_t s, uint8_t v, uint8_t *r, uint8_t *g , uint8_t *b);
+static void fast_hsv2rgb(uint16_t h, uint8_t s, uint8_t v, uint8_t *r, uint8_t *g , uint8_t *b)
 {
-    if(!s) {
-        *r = *g = *b = v;
-        return;
-    }
+    if (!s) { *r = *g = *b = v; return; }
 
     uint8_t sextant = h >> 8;
     HSV_PTR_SWAP(sextant, r, g, b); /*Swap pointers so the conversion code is the same*/
@@ -635,8 +621,7 @@ static void fast_hsv2rgb(uint16_t h, uint8_t s, uint8_t v, uint8_t * r, uint8_t 
     if(!(sextant & 1)) {
         /*Up slope*/
         ww = !h_frac ? ((uint16_t)s << 8) : (s * (uint8_t)(-h_frac)); /*Skip multiply if not required*/
-    }
-    else {
+    } else {
         /*Down slope*/
         ww = s * h_frac;
     }
@@ -648,7 +633,7 @@ static void fast_hsv2rgb(uint16_t h, uint8_t s, uint8_t v, uint8_t * r, uint8_t 
 
 static lv_color_t angle_to_mode_color_fast(lv_obj_t * obj, uint16_t angle)
 {
-    lv_colorwheel_t * ext = (lv_colorwheel_t *)obj;
+    lv_colorwheel_t * ext = (lv_colorwheel_t*)obj;
     uint8_t r = 0, g = 0, b = 0;
     static uint16_t h = 0;
     static uint8_t s = 0, v = 0, m = 255;
@@ -657,29 +642,25 @@ static lv_color_t angle_to_mode_color_fast(lv_obj_t * obj, uint16_t angle)
         default:
         case LV_COLORWHEEL_MODE_HUE:
             /*Don't recompute costly scaling if it does not change*/
-            if(m != ext->mode) {
-                s = (uint8_t)(((uint16_t)ext->hsv.s * 51) / 20);
-                v = (uint8_t)(((uint16_t)ext->hsv.v * 51) / 20);
-                m = ext->mode;
+            if (m != ext->mode) {
+              s = (uint8_t)(((uint16_t)ext->hsv.s * 51) / 20); v = (uint8_t)(((uint16_t)ext->hsv.v * 51) / 20);
+              m = ext->mode;
             }
-            fast_hsv2rgb(angle * 6, s, v, &r, &g,
-                         &b); /*A smart compiler will replace x * 6 by (x << 2) + (x << 1) if it's more efficient*/
+            fast_hsv2rgb(angle * 6, s, v, &r, &g, &b); /*A smart compiler will replace x * 6 by (x << 2) + (x << 1) if it's more efficient*/
             break;
         case LV_COLORWHEEL_MODE_SATURATION:
             /*Don't recompute costly scaling if it does not change*/
-            if(m != ext->mode) {
-                h = (uint16_t)(((uint32_t)ext->hsv.h * 6 * 256) / 360);
-                v = (uint8_t)(((uint16_t)ext->hsv.v * 51) / 20);
-                m = ext->mode;
+            if (m != ext->mode) {
+              h = (uint16_t)(((uint32_t)ext->hsv.h * 6 * 256) / 360); v = (uint8_t)(((uint16_t)ext->hsv.v * 51) / 20);
+              m = ext->mode;
             }
             fast_hsv2rgb(h, angle, v, &r, &g, &b);
             break;
         case LV_COLORWHEEL_MODE_VALUE:
             /*Don't recompute costly scaling if it does not change*/
-            if(m != ext->mode) {
-                h = (uint16_t)(((uint32_t)ext->hsv.h * 6 * 256) / 360);
-                s = (uint8_t)(((uint16_t)ext->hsv.s * 51) / 20);
-                m = ext->mode;
+            if (m != ext->mode) {
+              h = (uint16_t)(((uint32_t)ext->hsv.h * 6 * 256) / 360); s = (uint8_t)(((uint16_t)ext->hsv.s * 51) / 20);
+              m = ext->mode;
             }
             fast_hsv2rgb(h, s, angle, &r, &g, &b);
             break;

@@ -17,13 +17,20 @@ extern "C" {
 
 #include <stdint.h>
 #include <stddef.h>
-#include <string.h>
-
+#include "lv_log.h"
 #include "lv_types.h"
+
+#if LV_MEMCPY_MEMSET_STD
+#include <string.h>
+#endif
 
 /*********************
  *      DEFINES
  *********************/
+
+#ifndef LV_MEM_BUF_MAX_NUM
+#define LV_MEM_BUF_MAX_NUM    16
+#endif
 
 /**********************
  *      TYPEDEFS
@@ -84,7 +91,7 @@ void lv_mem_free(void * data);
  * @param data pointer to an allocated memory.
  * Its content will be copied to the new memory block and freed
  * @param new_size the desired new size in byte
- * @return pointer to the new memory, NULL on failure
+ * @return pointer to the new memory
  */
 void * lv_mem_realloc(void * data_p, size_t new_size);
 
@@ -96,7 +103,7 @@ lv_res_t lv_mem_test(void);
 
 /**
  * Give information about the work memory of dynamic allocation
- * @param mon_p pointer to a lv_mem_monitor_t variable,
+ * @param mon_p pointer to a dm_mon_p variable,
  *              the result of the analysis will be stored here
  */
 void lv_mem_monitor(lv_mem_monitor_t * mon_p);

@@ -75,22 +75,22 @@ static void i2s_init(void)
 
 void recsrcTask(void *arg)
 {
-#ifdef WAKE
-    Initialize NN model
-    g_model_wn_data = g_wakenet->create(g_model_wn_coeff_getter, DET_MODE_95);
-    int wn_num = g_wakenet->get_word_num(g_model_wn_data);
+// #ifdef WAKE
+//     Initialize NN model
+//     g_model_wn_data = g_wakenet->create(g_model_wn_coeff_getter, DET_MODE_95);
+//     int wn_num = g_wakenet->get_word_num(g_model_wn_data);
 
-    for (int i = 1; i <= wn_num; i++)
-    {
-        char *name = g_wakenet->get_word_name(g_model_wn_data, i);
-        ESP_LOGI(TAG, "keywords: %s (index = %d)", name, i);
-    }
+//     for (int i = 1; i <= wn_num; i++)
+//     {
+//         char *name = g_wakenet->get_word_name(g_model_wn_data, i);
+//         ESP_LOGI(TAG, "keywords: %s (index = %d)", name, i);
+//     }
 
-    float wn_threshold = 0;
-    int wn_sample_rate = g_wakenet->get_samp_rate(g_model_wn_data);
-    int audio_wn_chunksize = g_wakenet->get_samp_chunksize(g_model_wn_data);
-    ESP_LOGI(TAG, "keywords_num = %d, threshold = %f, sample_rate = %d, chunksize = %d, sizeof_uint16 = %d", wn_num, wn_threshold, wn_sample_rate, audio_wn_chunksize, sizeof(int16_t));
-#endif
+//     float wn_threshold = 0;
+//     int wn_sample_rate = g_wakenet->get_samp_rate(g_model_wn_data);
+//     int audio_wn_chunksize = g_wakenet->get_samp_chunksize(g_model_wn_data);
+//     ESP_LOGI(TAG, "keywords_num = %d, threshold = %f, sample_rate = %d, chunksize = %d, sizeof_uint16 = %d", wn_num, wn_threshold, wn_sample_rate, audio_wn_chunksize, sizeof(int16_t));
+// #endif
 
     g_model_mn_data = g_multinet->create(g_model_mn_coeff_getter, 4000);
     int audio_mn_chunksize = g_multinet->get_samp_chunksize(g_model_mn_data);
@@ -98,16 +98,16 @@ void recsrcTask(void *arg)
     int mn_sample_rate = g_multinet->get_samp_rate(g_model_mn_data);
     ESP_LOGI(TAG, "keywords_num = %d , sample_rate = %d, chunksize = %d, sizeof_uint16 = %d", mn_num, mn_sample_rate, audio_mn_chunksize, sizeof(int16_t));
 
-#ifdef WAKE
-    int size = audio_wn_chunksize;
+// #ifdef WAKE
+//     int size = audio_wn_chunksize;
 
-    if (audio_mn_chunksize > audio_wn_chunksize)
-    {
-        size = audio_mn_chunksize;
-    }
-#else
+//     if (audio_mn_chunksize > audio_wn_chunksize)
+//     {
+//         size = audio_mn_chunksize;
+//     }
+// #else
     int size = audio_mn_chunksize;
-#endif
+// #endif
 
     int *buffer = (int *)malloc(size * 2 * sizeof(int));
     bool enable_wn = true;
@@ -125,7 +125,7 @@ void recsrcTask(void *arg)
             int s2 = ((buffer[x * 4 + 2] + buffer[x * 4 + 3]) << 3) & 0xFFFF0000;
             buffer[x] = s1 | s2;
         }
-// #define CHANGE_WAKE
+#define CHANGE_WAKE
 #ifdef CHANGE_WAKE
         if (enable_wn)
         {
@@ -320,17 +320,17 @@ void sr_cmd(void *arg)
 
     case 7:
         sendcount = 5;
-        xQueueSend(Key_Num_Queue, &sendcount, 100);  
+        //xQueueSend(Key_Num_Queue, &sendcount, 100);  
         //printf("up\n");
         break;
     case 8:
         sendcount = 1; 
-        xQueueSend(Key_Num_Queue, &sendcount, 100);    
+        //xQueueSend(Key_Num_Queue, &sendcount, 100);    
         //printf("down\n");
         break;
     case 9:
         sendcount = 9;
-        xQueueSend(Key_Num_Queue, &sendcount, 100);  
+        //xQueueSend(Key_Num_Queue, &sendcount, 100);  
         //printf("sel\n");
         break;
     default:

@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 14:28
  * @LastEditors: letian
- * @LastEditTime: 2023-01-01 12:32
+ * @LastEditTime: 2023-01-16 14:46
  * @FilePath: \ESP32_Project\main\Init_Config\wificonfig.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -73,7 +73,6 @@ static EventGroupHandle_t s_wifi_event_group;
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT BIT1
 static int s_retry_num = 0;
-
 
 static void event_handler(void *arg, esp_event_base_t event_base,
                           int32_t event_id, void *event_data)

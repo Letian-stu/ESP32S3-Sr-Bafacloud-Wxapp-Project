@@ -3,7 +3,8 @@ if(ESP_PLATFORM)
 file(GLOB SOURCES *.c)
 set(LVGL_INCLUDE_DIRS . lvgl_tft)
 list(APPEND SOURCES "lvgl_tft/disp_driver.c")
-list(APPEND SOURCES "lvgl_tft/esp_lcd_backlight.c")
+
+#@todo add SimleInclude macro here
 
 # Include only the source file of the selected
 # display controller.
@@ -42,8 +43,6 @@ elseif(CONFIG_LV_TFT_DISPLAY_CONTROLLER_GC9A01)
     list(APPEND SOURCES "lvgl_tft/GC9A01.c")
 elseif(CONFIG_LV_TFT_DISPLAY_CONTROLLER_ILI9163C)
     list(APPEND SOURCES "lvgl_tft/ili9163c.c")
-elseif(CONFIG_LV_TFT_DISPLAY_CONTROLLER_PCD8544)
-    list(APPEND SOURCES "lvgl_tft/pcd8544.c")
 else()
     message(WARNING "LVGL ESP32 drivers: Display controller not defined.")
 endif()
