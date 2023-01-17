@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-12-04 17:09
  * @LastEditors: letian
- * @LastEditTime: 2022-12-04 22:41
- * @FilePath: \ESP32S3-Sr-Bafacloud-Wxapp-Project\README.md
+ * @LastEditTime: 2023-01-17 09:56
+ * @FilePath: \ESP32_Projectd:\C_Github\ESP32S3-Sr-Bafacloud-Wxapp-Project\README.md
  * @Description: 
  * Copyright (c) 2022 by letian 1656733975@qq.com, All Rights Reserved. 
 -->
@@ -19,6 +19,7 @@
 - 22/12/02    语音识别（会误触）
 - 22/12/03    添加cmd组件
 - 22/12/21    绘制好pcb，开始打样
+- 23/01/14    修修改改第三版打印成功了，各个外设正常工作，可以开始调代码了
 
 ## 2.希望实现功能
 
