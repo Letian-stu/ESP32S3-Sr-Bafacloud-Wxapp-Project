@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-18 14:56
+ * @LastEditTime: 2023-01-18 20:37
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -31,33 +31,52 @@ typedef struct
 			lv_obj_t *bar_img;
 		//2
 		lv_obj_t *home;
+		lv_obj_t *home_label;
 		lv_obj_t *panel;
 			lv_obj_t *clock_btn;
 			lv_obj_t *clock;
-			lv_obj_t *camera_btn;
-			lv_obj_t *camera;
 			lv_obj_t *weather_btn;
 			lv_obj_t *weather;
 			lv_obj_t *set_btn;
-			lv_obj_t *set;
+			lv_obj_t *set;			
+			lv_obj_t *camera_btn;
+			lv_obj_t *camera;
+			lv_obj_t *image_btn;
+			lv_obj_t *image;
+			lv_obj_t *sd_btn;
+			lv_obj_t *sd;
 		//3
+		lv_obj_t *page;
+		lv_obj_t *clock_label;
+		lv_obj_t *weather_label;
+		lv_obj_t *set_label;
+
 } lv_ui;
 
 extern lv_ui guider_ui;
-void setup_ui(lv_ui *ui);
+
 void setup_bg_screen(lv_ui *ui);
+void set_temp(void *bar, int32_t temp);
 void setup_boot_screen(lv_ui *ui);
 void setup_home_screen(lv_ui *ui);
+void setup_ui(lv_ui *ui);
+
+void setup_camera_screen(lv_ui *ui, uint32_t delay);
+void setup_clock_screen(lv_ui *ui, uint32_t delay);
+void setup_image_screen(lv_ui *ui, uint32_t delay);
+void setup_sd_screen(lv_ui *ui, uint32_t delay);
+void setup_set_screen(lv_ui *ui, uint32_t delay);
+void setup_weather_screen(lv_ui *ui, uint32_t delay);
 
 LV_IMG_DECLARE(img_skew_strip);
 LV_IMG_DECLARE(_StuLeTian_200x60);
 LV_IMG_DECLARE(_rocket_60x35);
-
-LV_IMG_DECLARE(_clock_80x80);
-LV_IMG_DECLARE(_camera_80x80);
-LV_IMG_DECLARE(_weather_80x80);
-LV_IMG_DECLARE(_set_80x80);
-
+LV_IMG_DECLARE(_clock_110x110);
+LV_IMG_DECLARE(_weather_110x110);
+LV_IMG_DECLARE(_set_110x110);
+LV_IMG_DECLARE(_camera_110x110);
+LV_IMG_DECLARE(_image_110x110);
+LV_IMG_DECLARE(_sd_110x110);
 
 
 #endif
