@@ -80,7 +80,10 @@
     "unordered_set": "c",
     "vector": "c",
     "typeinfo": "c",
-    "complex": "c"
+    "complex": "c",
+    "memory": "c",
+    "*.tcc": "c",
+    "optional": "c"
   },
   "idf.flashType": "UART"
 }

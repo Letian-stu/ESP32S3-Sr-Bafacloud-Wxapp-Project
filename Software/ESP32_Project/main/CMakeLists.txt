@@ -21,6 +21,11 @@ SRCS        "main.c"
             "lvgl_task/img/img_skew_strip.c" 
             "lvgl_task/img/_StuLeTian_200x60.c" 
             "lvgl_task/img/_rocket_60x35.c"
+            "lvgl_task/img/_clock_80x80.c"
+            "lvgl_task/img/_camera_80x80.c"
+            "lvgl_task/img/_weather_80x80.c"
+            "lvgl_task/img/_set_80x80.c"
+
 
 INCLUDE_DIRS    "."
                 "Init_Config/include"

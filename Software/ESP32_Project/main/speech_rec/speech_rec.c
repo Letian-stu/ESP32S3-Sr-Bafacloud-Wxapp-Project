@@ -57,7 +57,7 @@ static void i2s_init(void)
         .sample_rate = 16000,                         // must be the same as DSP configuration
         .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT, // must be the same as DSP configuration
         .bits_per_sample = 32,                        // must be the same as DSP configuration
-        .communication_format = I2S_COMM_FORMAT_I2S,
+        .communication_format = I2S_COMM_FORMAT_STAND_I2S,//I2S_COMM_FORMAT_I2S
         .dma_buf_count = 3,
         .dma_buf_len = 300,
         .intr_alloc_flags = ESP_INTR_FLAG_LEVEL2,

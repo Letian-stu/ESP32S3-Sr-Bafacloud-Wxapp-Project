@@ -57,7 +57,7 @@ void lv_disp_drv_init(lv_disp_drv_t * driver)
 {
     lv_memset_00(driver, sizeof(lv_disp_drv_t));
 
-    driver->hor_res          = 320;
+    driver->hor_res          = 280;
     driver->ver_res          = 240;
     driver->antialiasing     = LV_COLOR_DEPTH > 8 ? 1: 0;
     driver->screen_transp    = LV_COLOR_SCREEN_TRANSP;

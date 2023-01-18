@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 14:19
  * @LastEditors: letian
- * @LastEditTime: 2023-01-16 20:56
+ * @LastEditTime: 2023-01-18 10:22
  * @FilePath: \ESP32_Project\main\main.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -20,5 +20,4 @@ void app_main(void)
 {
     ESP_LOGI(TAG, "HELLO TIAN");
     Init_Config();
-
 }
