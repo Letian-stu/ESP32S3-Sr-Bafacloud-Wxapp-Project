@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-18 20:37
+ * @LastEditTime: 2023-01-19 15:17
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -61,12 +61,12 @@ void setup_boot_screen(lv_ui *ui);
 void setup_home_screen(lv_ui *ui);
 void setup_ui(lv_ui *ui);
 
-void setup_camera_screen(lv_ui *ui, uint32_t delay);
-void setup_clock_screen(lv_ui *ui, uint32_t delay);
-void setup_image_screen(lv_ui *ui, uint32_t delay);
-void setup_sd_screen(lv_ui *ui, uint32_t delay);
-void setup_set_screen(lv_ui *ui, uint32_t delay);
-void setup_weather_screen(lv_ui *ui, uint32_t delay);
+void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay);
+void setup_clock_screen(lv_ui *ui, uint32_t time, uint32_t delay);
+void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay);
+void setup_sd_screen(lv_ui *ui, uint32_t time, uint32_t delay);
+void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay);
+void setup_weather_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 
 LV_IMG_DECLARE(img_skew_strip);
 LV_IMG_DECLARE(_StuLeTian_200x60);
