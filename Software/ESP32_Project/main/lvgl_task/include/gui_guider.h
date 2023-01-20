@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-19 15:17
+ * @LastEditTime: 2023-01-20 20:18
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -47,6 +47,8 @@ typedef struct
 			lv_obj_t *sd;
 		//3
 		lv_obj_t *page;
+		lv_obj_t *back_btn;
+		lv_obj_t *back;
 		lv_obj_t *clock_label;
 		lv_obj_t *weather_label;
 		lv_obj_t *set_label;
@@ -55,6 +57,8 @@ typedef struct
 
 extern lv_ui guider_ui;
 
+void lv_btn_back_event_cb(lv_event_t *e);
+void lv_btn_event_cb(lv_event_t *e);
 void setup_bg_screen(lv_ui *ui);
 void set_temp(void *bar, int32_t temp);
 void setup_boot_screen(lv_ui *ui);
@@ -77,6 +81,6 @@ LV_IMG_DECLARE(_set_110x110);
 LV_IMG_DECLARE(_camera_110x110);
 LV_IMG_DECLARE(_image_110x110);
 LV_IMG_DECLARE(_sd_110x110);
-
+LV_IMG_DECLARE(_back_40x40);
 
 #endif

@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-19 15:42
+ * @LastEditTime: 2023-01-20 21:44
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -27,6 +27,10 @@
 
 static void add_home_group_obj(void)
 {
+    if(guider_ui.back_btn != NULL)
+    {
+        lv_group_remove_obj(guider_ui.back_btn);
+    }
     lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
     lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
     lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
@@ -34,7 +38,6 @@ static void add_home_group_obj(void)
     lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
     lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
 }
-
 static void remove_home_group_obj(void)
 {
     lv_group_remove_obj(guider_ui.clock_btn);
@@ -43,9 +46,29 @@ static void remove_home_group_obj(void)
     lv_group_remove_obj(guider_ui.camera_btn);
     lv_group_remove_obj(guider_ui.image_btn);
     lv_group_remove_obj(guider_ui.sd_btn);
+    if(guider_ui.back_btn != NULL)
+    {
+        lv_group_add_obj(guider_ui.group, guider_ui.back_btn);
+    }
 }
 
-static void lv_btn_event_cb(lv_event_t *e)
+void lv_btn_back_event_cb(lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    switch (code)
+    {
+    case LV_EVENT_CLICKED:
+        page_screen_anim(guider_ui.page, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
+        page_screen_anim(guider_ui.home, -240, 0, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+        add_home_group_obj();
+        break;
+    case LV_EVENT_FOCUSED:
+    default:
+        break;
+    }
+}
+
+void lv_btn_event_cb(lv_event_t *e)
 {
     lv_obj_t *obj = lv_event_get_target(e);
     lv_event_code_t code = lv_event_get_code(e);
@@ -55,9 +78,9 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            remove_home_group_obj();
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_clock_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
+            remove_home_group_obj();
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Clock");
@@ -70,9 +93,9 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            remove_home_group_obj();
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_weather_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
+            remove_home_group_obj();
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Weather");
@@ -86,9 +109,10 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            remove_home_group_obj();
+            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_set_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
+            remove_home_group_obj();
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Control");
@@ -102,9 +126,10 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            remove_home_group_obj();
+            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_camera_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
+            remove_home_group_obj();
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Camera");
@@ -118,9 +143,10 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            remove_home_group_obj();
+            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_image_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
+            remove_home_group_obj();
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Photo");
@@ -134,9 +160,10 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            remove_home_group_obj();
+            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_sd_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
+            remove_home_group_obj();
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Sd Card");
@@ -311,12 +338,7 @@ void setup_home_screen(lv_ui *ui)
     lv_obj_align(ui->sd, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->sd, &_sd_110x110);
 
-    lv_group_add_obj(guider_ui.group, ui->clock_btn);
-    lv_group_add_obj(guider_ui.group, ui->weather_btn);
-    lv_group_add_obj(guider_ui.group, ui->set_btn);
-    lv_group_add_obj(guider_ui.group, ui->camera_btn);
-    lv_group_add_obj(guider_ui.group, ui->image_btn);
-    lv_group_add_obj(guider_ui.group, ui->sd_btn);
+    add_home_group_obj();
 
     page_screen_anim(ui->home, -240, 0, HOME_PAGE_OUT_TIME, 3000, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }

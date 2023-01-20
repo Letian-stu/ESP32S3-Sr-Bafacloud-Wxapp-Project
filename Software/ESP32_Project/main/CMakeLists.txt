@@ -35,6 +35,7 @@ SRCS        "main.c"
             "lvgl_task/img/_sd_110x110.c"
             "lvgl_task/img/_set_110x110.c"
             "lvgl_task/img/_weather_110x110.c"
+            "lvgl_task/img/_back_40x40.c"
 
 INCLUDE_DIRS    "."
                 "Init_Config/include"
