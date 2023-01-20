@@ -130,7 +130,7 @@ void recsrcTask(void *arg)
         if (enable_wn)
         {
             int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-            if (command_id == 0) // ID0ä¸ºå”¤é†’è¯
+            if (command_id == 0) // ID0Îª»½ÐÑ´Ê
             {
                 ESP_LOGI(TAG, "Wake up id: %d", command_id);
 
@@ -149,7 +149,7 @@ void recsrcTask(void *arg)
         {
             mn_count++;
             int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-            if (command_id > -1) //è¯†åˆ«åˆ°å£ä»¤
+            if (command_id > -1) //Ê¶±ðµ½¿ÚÁî
             {
                 ESP_LOGI(TAG, "MN test successfully, Commands ID: %d", command_id);
                 if (NULL != g_sr_callback_func[SR_CB_TYPE_CMD].fn)
@@ -183,7 +183,7 @@ void recsrcTask(void *arg)
         }
 #else
         int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-        if (command_id > -1) //è¯†åˆ«åˆ°å£ä»¤
+        if (command_id > -1) //Ê¶±ðµ½¿ÚÁî
         {
             ESP_LOGI(TAG, "MN test successfully, Commands ID: %d", command_id);
             if (NULL != g_sr_callback_func[SR_CB_TYPE_CMD].fn)
@@ -240,7 +240,7 @@ esp_err_t speech_recognition_init(void)
 {
     xTaskCreatePinnedToCore(recsrcTask, "recsrcTask", 8 * 1024, NULL, 8, NULL, 1);
 
-    //å®‰è£…å›žè°ƒå‡½æ•°
+    //°²×°»Øµ÷º¯Êý
     sr_handler_install(SR_CB_TYPE_WAKE, sr_wake, NULL);
     sr_handler_install(SR_CB_TYPE_CMD, sr_cmd, NULL);
     sr_handler_install(SR_CB_TYPE_CMD_EXIT, sr_cmd_exit, NULL);
@@ -260,13 +260,13 @@ static void breath_light_task(void *arg)
     }
 }
 
-//å”¤é†’å›žè°ƒ
+//»½ÐÑ»Øµ÷
 void sr_wake(void *arg)
 {
     /**< Turn on the breathing light */
     xTaskCreate(breath_light_task, "breath_light_task", 1024 * 2, NULL, configMAX_PRIORITIES - 1, &g_breath_light_task_handle);
 }
-//å‘½ä»¤å›žè°ƒ
+//ÃüÁî»Øµ÷
 void sr_cmd(void *arg)
 {
     static int msg_id = 0;
@@ -285,37 +285,37 @@ void sr_cmd(void *arg)
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("å¼€ç¯\n");
+        printf("¿ªµÆ\n");
         break;
     case 2:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("å…³ç¯\n");
+        printf("¹ØµÆ\n");
         break;
     case 3:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("æ‰“å¼€é£Žæ‰‡\n");
+        printf("´ò¿ª·çÉÈ\n");
         break;
     case 4:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("å…³é—­é£Žæ‰‡\n");
+        printf("¹Ø±Õ·çÉÈ\n");
         break;
     case 5:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("æ‰“å¼€å¼€å…³\n");
+        printf("´ò¿ª¿ª¹Ø\n");
         break;
     case 6:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("å…³é—­å¼€å…³\n");
+        printf("¹Ø±Õ¿ª¹Ø\n");
         break;
 
     case 7:
@@ -334,11 +334,11 @@ void sr_cmd(void *arg)
         //printf("sel\n");
         break;
     default:
-        printf("è¯†åˆ«é”™è¯¯\n");
+        printf("Ê¶±ð´íÎó\n");
         break;
     }
 }
-//ç»“æŸå›žè°ƒ
+//½áÊø»Øµ÷
 void sr_cmd_exit(void *arg)
 {
     if (NULL != g_breath_light_task_handle)
