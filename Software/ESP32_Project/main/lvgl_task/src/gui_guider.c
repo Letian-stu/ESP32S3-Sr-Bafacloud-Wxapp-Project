@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-20 21:52
+ * @LastEditTime: 2023-01-24 22:18
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -21,23 +21,79 @@
 
 #define TAG "UI"
 
-#define BTNSIZE 120
+enum PAGE page = PAGE_HOME;
+
 #define IMGSIZE 110
 #define HOME_PAGE_OUT_TIME 500
 
-static void add_home_group_obj(void)
+/**
+ * @description: 选择加入的page顺序，防止返回home时不回到进入的图标
+ * @param {uint16_t} pagenum
+ * @return {*}
+ */
+static void add_home_group_obj(uint16_t pagenum)
 {
-    if(guider_ui.back_btn != NULL)
+    if (guider_ui.back_btn != NULL)
     {
         lv_group_remove_obj(guider_ui.back_btn);
     }
-    lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
-    lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
-    lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
-    lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
-    lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
-    lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
+    switch (pagenum)
+    {
+    case PAGE_CLOCK:
+        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
+        break;
+    case PAGE_WEATHER:
+        lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
+        break;
+    case PAGE_CONTROL:
+        lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
+        break;
+    case PAGE_CAMERA:
+        lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
+        break;
+    case PAGE_IMAGE:
+        lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
+        break;
+    case PAGE_SDCARD:
+        lv_group_add_obj(guider_ui.group, guider_ui.sd_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
+        lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
+        break;
+    }
 }
+
+/**
+ * @description: 清除group
+ * @return {*}
+ */
 static void remove_home_group_obj(void)
 {
     lv_group_remove_obj(guider_ui.clock_btn);
@@ -46,12 +102,17 @@ static void remove_home_group_obj(void)
     lv_group_remove_obj(guider_ui.camera_btn);
     lv_group_remove_obj(guider_ui.image_btn);
     lv_group_remove_obj(guider_ui.sd_btn);
-    if(guider_ui.back_btn != NULL)
+    if (guider_ui.back_btn != NULL)
     {
         lv_group_add_obj(guider_ui.group, guider_ui.back_btn);
     }
 }
 
+/**
+ * @description: 返回键的回调
+ * @param {lv_event_t} *e
+ * @return {*}
+ */
 void lv_btn_back_event_cb(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
@@ -60,7 +121,7 @@ void lv_btn_back_event_cb(lv_event_t *e)
     case LV_EVENT_CLICKED:
         page_screen_anim(guider_ui.page, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
         page_screen_anim(guider_ui.home, -240, 0, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-        add_home_group_obj();
+        add_home_group_obj(page);
         break;
     case LV_EVENT_FOCUSED:
     default:
@@ -68,7 +129,12 @@ void lv_btn_back_event_cb(lv_event_t *e)
     }
 }
 
-void lv_btn_event_cb(lv_event_t *e)
+/**
+ * @description: page键回调
+ * @param {lv_event_t} *e
+ * @return {*}
+ */
+static void lv_btn_event_cb(lv_event_t *e)
 {
     lv_obj_t *obj = lv_event_get_target(e);
     lv_event_code_t code = lv_event_get_code(e);
@@ -81,6 +147,7 @@ void lv_btn_event_cb(lv_event_t *e)
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_clock_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            page = PAGE_CLOCK;
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Clock");
@@ -96,6 +163,7 @@ void lv_btn_event_cb(lv_event_t *e)
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_weather_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            page = PAGE_WEATHER;
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Weather");
@@ -109,10 +177,10 @@ void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_set_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            page = PAGE_CONTROL;
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Control");
@@ -126,10 +194,10 @@ void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_camera_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            page = PAGE_CAMERA;
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Camera");
@@ -143,10 +211,10 @@ void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_image_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            page = PAGE_IMAGE;
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Photo");
@@ -160,10 +228,10 @@ void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_sd_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            page = PAGE_SDCARD;
             break;
         case LV_EVENT_FOCUSED:
             lv_label_set_text(guider_ui.home_label, "Sd Card");
@@ -174,6 +242,11 @@ void lv_btn_event_cb(lv_event_t *e)
     }
 }
 
+/**
+ * @description: 初始化背景
+ * @param {lv_ui} *ui
+ * @return {*}
+ */
 void setup_bg_screen(lv_ui *ui)
 {
     ui->bg = lv_obj_create(lv_scr_act());
@@ -183,10 +256,17 @@ void setup_bg_screen(lv_ui *ui)
     lv_obj_set_style_bg_color(ui->bg, lv_color_make(0xff, 0xff, 0xff), 0);
     lv_obj_set_scrollbar_mode(ui->bg, LV_SCROLLBAR_MODE_OFF);
 }
-void set_temp(void *bar, int32_t temp)
+
+static void set_temp(void *bar, int32_t temp)
 {
     lv_bar_set_value(bar, temp, LV_ANIM_ON);
 }
+
+/**
+ * @description: 启动进度条的界面
+ * @param {lv_ui} *ui
+ * @return {*}
+ */
 void setup_boot_screen(lv_ui *ui)
 {
     ui->boot = lv_obj_create(ui->bg);
@@ -222,7 +302,14 @@ void setup_boot_screen(lv_ui *ui)
 
     lv_obj_del_delayed(ui->boot, 3000);
 }
-void setup_home_screen(lv_ui *ui)
+
+/**
+ * @description: 启动home page
+ * @param {lv_ui} *ui
+ * @param {uint32_t} delay
+ * @return {*}
+ */
+void setup_home_screen(lv_ui *ui, uint32_t delay)
 {
     ui->home = lv_obj_create(ui->bg);
     lv_obj_set_size(ui->home, 280, 240);
@@ -244,15 +331,14 @@ void setup_home_screen(lv_ui *ui)
 
     ui->clock_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->clock_btn);                                                      // 移除样式
-    lv_obj_set_size(ui->clock_btn, BTNSIZE, BTNSIZE);                                            // 设置大小
+    lv_obj_set_size(ui->clock_btn, IMGSIZE, IMGSIZE);                                            // 设置大小
     lv_obj_set_style_radius(ui->clock_btn, 20, 0);                                               // 设置倒圆角
     lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // 设置背景颜色
     lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_0, 0);                                         // 背景透明度
     lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // 设置被聚焦时候的状态颜色
     lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // 被聚焦时候的透明度，从而让人眼区分
     lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_50, LV_STATE_PRESSED);                         // 被按下时候的背景透明度
-    lv_obj_add_event_cb(ui->clock_btn, lv_btn_event_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_event_cb(ui->clock_btn, lv_btn_event_cb, LV_EVENT_FOCUSED, NULL);
+    lv_obj_add_event_cb(ui->clock_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->clock = lv_img_create(ui->clock_btn);
     lv_obj_set_size(ui->clock, IMGSIZE, IMGSIZE);
     lv_obj_align(ui->clock, LV_ALIGN_CENTER, 0, 0);
@@ -260,15 +346,14 @@ void setup_home_screen(lv_ui *ui)
 
     ui->weather_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->weather_btn);                                                      // 移除样式
-    lv_obj_set_size(ui->weather_btn, BTNSIZE, BTNSIZE);                                            // 设置大小
+    lv_obj_set_size(ui->weather_btn, IMGSIZE, IMGSIZE);                                            // 设置大小
     lv_obj_set_style_radius(ui->weather_btn, 20, 0);                                               // 设置倒圆角
     lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // 设置背景颜色
     lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_0, 0);                                         // 背景透明度
     lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // 设置被聚焦时候的状态颜色
     lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // 被聚焦时候的透明度，从而让人眼区分
     lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_50, LV_STATE_PRESSED);                         // 被按下时候的背景透明度
-    lv_obj_add_event_cb(ui->weather_btn, lv_btn_event_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_event_cb(ui->weather_btn, lv_btn_event_cb, LV_EVENT_FOCUSED, NULL);
+    lv_obj_add_event_cb(ui->weather_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->weather = lv_img_create(ui->weather_btn);
     lv_obj_set_size(ui->weather, IMGSIZE, IMGSIZE);
     lv_obj_align(ui->weather, LV_ALIGN_CENTER, 0, 0);
@@ -276,15 +361,14 @@ void setup_home_screen(lv_ui *ui)
 
     ui->set_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->set_btn);                                                      // 移除样式
-    lv_obj_set_size(ui->set_btn, BTNSIZE, BTNSIZE);                                            // 设置大小
+    lv_obj_set_size(ui->set_btn, IMGSIZE, IMGSIZE);                                            // 设置大小
     lv_obj_set_style_radius(ui->set_btn, 20, 0);                                               // 设置倒圆角
     lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // 设置背景颜色
     lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_0, 0);                                         // 背景透明度
     lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // 设置被聚焦时候的状态颜色
     lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // 被聚焦时候的透明度，从而让人眼区分
     lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_50, LV_STATE_PRESSED);                         // 被按下时候的背景透明度
-    lv_obj_add_event_cb(ui->set_btn, lv_btn_event_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_event_cb(ui->set_btn, lv_btn_event_cb, LV_EVENT_FOCUSED, NULL);
+    lv_obj_add_event_cb(ui->set_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->set = lv_img_create(ui->set_btn);
     lv_obj_set_size(ui->set, IMGSIZE, IMGSIZE);
     lv_obj_align(ui->set, LV_ALIGN_CENTER, 0, 0);
@@ -292,15 +376,14 @@ void setup_home_screen(lv_ui *ui)
 
     ui->camera_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->camera_btn);                                                      // 移除样式
-    lv_obj_set_size(ui->camera_btn, BTNSIZE, BTNSIZE);                                            // 设置大小
+    lv_obj_set_size(ui->camera_btn, IMGSIZE, IMGSIZE);                                            // 设置大小
     lv_obj_set_style_radius(ui->camera_btn, 20, 0);                                               // 设置倒圆角
     lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // 设置背景颜色
     lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_0, 0);                                         // 背景透明度
     lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // 设置被聚焦时候的状态颜色
     lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // 被聚焦时候的透明度，从而让人眼区分
     lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_50, LV_STATE_PRESSED);                         // 被按下时候的背景透明度
-    lv_obj_add_event_cb(ui->camera_btn, lv_btn_event_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_event_cb(ui->camera_btn, lv_btn_event_cb, LV_EVENT_FOCUSED, NULL);
+    lv_obj_add_event_cb(ui->camera_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->camera = lv_img_create(ui->camera_btn);
     lv_obj_set_size(ui->camera, IMGSIZE, IMGSIZE);
     lv_obj_align(ui->camera, LV_ALIGN_CENTER, 0, 0);
@@ -308,15 +391,14 @@ void setup_home_screen(lv_ui *ui)
 
     ui->image_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->image_btn);                                                      // 移除样式
-    lv_obj_set_size(ui->image_btn, BTNSIZE, BTNSIZE);                                            // 设置大小
+    lv_obj_set_size(ui->image_btn, IMGSIZE, IMGSIZE);                                            // 设置大小
     lv_obj_set_style_radius(ui->image_btn, 20, 0);                                               // 设置倒圆角
     lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // 设置背景颜色
     lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_0, 0);                                         // 背景透明度
     lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // 设置被聚焦时候的状态颜色
     lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // 被聚焦时候的透明度，从而让人眼区分
     lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_50, LV_STATE_PRESSED);                         // 被按下时候的背景透明度
-    lv_obj_add_event_cb(ui->image_btn, lv_btn_event_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_event_cb(ui->image_btn, lv_btn_event_cb, LV_EVENT_FOCUSED, NULL);
+    lv_obj_add_event_cb(ui->image_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->image = lv_img_create(ui->image_btn);
     lv_obj_set_size(ui->image, IMGSIZE, IMGSIZE);
     lv_obj_align(ui->image, LV_ALIGN_CENTER, 0, 0);
@@ -324,28 +406,33 @@ void setup_home_screen(lv_ui *ui)
 
     ui->sd_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->sd_btn);                                       // 移除样式
-    lv_obj_set_size(ui->sd_btn, BTNSIZE, BTNSIZE);                             // 设置大小
+    lv_obj_set_size(ui->sd_btn, IMGSIZE, IMGSIZE);                             // 设置大小
     lv_obj_set_style_radius(ui->sd_btn, 20, 0);                                // 设置倒圆角
     lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), 0); // 设置背景颜色
     lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_0, 0);                          // 背景透明度
     lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED);
     lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_20, LV_STATE_FOCUSED); // 被聚焦时候的透明度，从而让人眼区分
     lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_50, LV_STATE_PRESSED); // 被按下时候的背景透明度
-    lv_obj_add_event_cb(ui->sd_btn, lv_btn_event_cb, LV_EVENT_CLICKED, NULL);
-    lv_obj_add_event_cb(ui->sd_btn, lv_btn_event_cb, LV_EVENT_FOCUSED, NULL);
+    lv_obj_add_event_cb(ui->sd_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->sd = lv_img_create(ui->sd_btn);
     lv_obj_set_size(ui->sd, IMGSIZE, IMGSIZE);
     lv_obj_align(ui->sd, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->sd, &_sd_110x110);
 
-    add_home_group_obj();
+    add_home_group_obj(PAGE_CLOCK);
 
-    page_screen_anim(ui->home, -240, 0, HOME_PAGE_OUT_TIME, 3000, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->home, -240, 0, HOME_PAGE_OUT_TIME, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }
 
+/**
+ * @description: 启动ui
+ * @param {lv_ui} *ui
+ * @return {*}
+ */
 void setup_ui(lv_ui *ui)
 {
     setup_bg_screen(ui);
     setup_boot_screen(ui);
-    setup_home_screen(ui);
+    setup_home_screen(ui, 3000);
+    // setup_home_screen(ui, 0);
 }

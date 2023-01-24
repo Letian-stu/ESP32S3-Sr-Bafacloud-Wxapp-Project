@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-20 20:18
+ * @LastEditTime: 2023-01-24 21:52
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -19,6 +19,17 @@
 #define COLOR_DARK_ORANGE    0xffa500
 #define COLOR_RED            0xee0000
 #define COLOR_PURPLE         0xa020f0
+
+enum PAGE
+{
+	PAGE_HOME = 0,
+	PAGE_CLOCK,
+	PAGE_WEATHER,
+	PAGE_CONTROL,
+	PAGE_CAMERA,
+	PAGE_IMAGE,
+	PAGE_SDCARD
+};
 
 typedef struct
 {
@@ -47,22 +58,20 @@ typedef struct
 			lv_obj_t *sd;
 		//3
 		lv_obj_t *page;
-		lv_obj_t *back_btn;
-		lv_obj_t *back;
-		lv_obj_t *clock_label;
-		lv_obj_t *weather_label;
-		lv_obj_t *set_label;
+			lv_obj_t *back_btn;
+			lv_obj_t *back;
+			lv_obj_t *label;
+			lv_obj_t *img_list;
 
 } lv_ui;
 
 extern lv_ui guider_ui;
 
 void lv_btn_back_event_cb(lv_event_t *e);
-void lv_btn_event_cb(lv_event_t *e);
+
 void setup_bg_screen(lv_ui *ui);
-void set_temp(void *bar, int32_t temp);
-void setup_boot_screen(lv_ui *ui);
-void setup_home_screen(lv_ui *ui);
+void setup_bg_screen(lv_ui *ui);
+void setup_home_screen(lv_ui *ui, uint32_t delay);
 void setup_ui(lv_ui *ui);
 
 void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay);
