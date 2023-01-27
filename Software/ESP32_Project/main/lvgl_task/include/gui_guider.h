@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-24 21:52
+ * @LastEditTime: 2023-01-27 20:09
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -62,6 +62,7 @@ typedef struct
 			lv_obj_t *back;
 			lv_obj_t *label;
 			lv_obj_t *img_list;
+			lv_obj_t *img_btn;
 
 } lv_ui;
 

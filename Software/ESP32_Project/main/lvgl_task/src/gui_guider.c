@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-24 22:18
+ * @LastEditTime: 2023-01-27 22:13
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -37,6 +37,15 @@ static void add_home_group_obj(uint16_t pagenum)
     {
         lv_group_remove_obj(guider_ui.back_btn);
     }
+    if(guider_ui.img_list != NULL)
+    {
+        int num = lv_obj_get_child_cnt(guider_ui.img_list);
+        for (int i = 0; i < num; i++)
+        {
+            lv_group_remove_obj(lv_obj_get_child(guider_ui.img_list,i));
+        }
+    }
+
     switch (pagenum)
     {
     case PAGE_CLOCK:
@@ -419,6 +428,11 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_align(ui->sd, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->sd, &_sd_110x110);
 
+    /*Update the buttons position manually for first*/
+    lv_event_send(ui->panel, LV_EVENT_SCROLL, NULL);
+    /*Be sure the fist button is in the middle*/
+    lv_obj_scroll_to_view(lv_obj_get_child(ui->panel, 0), LV_ANIM_OFF);
+
     add_home_group_obj(PAGE_CLOCK);
 
     page_screen_anim(ui->home, -240, 0, HOME_PAGE_OUT_TIME, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
@@ -432,7 +446,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
 void setup_ui(lv_ui *ui)
 {
     setup_bg_screen(ui);
-    setup_boot_screen(ui);
-    setup_home_screen(ui, 3000);
-    // setup_home_screen(ui, 0);
+    // setup_boot_screen(ui);
+    // setup_home_screen(ui, 3000);
+    setup_home_screen(ui, 0);
 }
