@@ -718,6 +718,13 @@ D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/aht20/CMakeFiles/install.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/aht20/CMakeFiles/install/local.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/aht20/CMakeFiles/install/strip.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp32-camera/CMakeFiles/__idf_esp32-camera.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp32-camera/CMakeFiles/edit_cache.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp32-camera/CMakeFiles/rebuild_cache.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp32-camera/CMakeFiles/list_install_components.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp32-camera/CMakeFiles/install.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp32-camera/CMakeFiles/install/local.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/esp32-camera/CMakeFiles/install/strip.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl/CMakeFiles/__idf_lvgl.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl/CMakeFiles/edit_cache.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl/CMakeFiles/rebuild_cache.dir

@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-27 22:13
+ * @LastEditTime: 2023-01-29 21:22
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -18,6 +18,7 @@
 #include "freertos/task.h"
 #include "gui_guider.h"
 #include "gui_anim.h"
+#include "app_task.h"
 
 #define TAG "UI"
 
@@ -128,6 +129,12 @@ void lv_btn_back_event_cb(lv_event_t *e)
     switch (code)
     {
     case LV_EVENT_CLICKED:
+        if(Cam_Handle != NULL)
+        {
+            printf("suspend cam task\n");
+            vTaskSuspend(Cam_Handle);
+        }
+
         page_screen_anim(guider_ui.page, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
         page_screen_anim(guider_ui.home, -240, 0, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
         add_home_group_obj(page);
@@ -251,21 +258,6 @@ static void lv_btn_event_cb(lv_event_t *e)
     }
 }
 
-/**
- * @description: ³õÊ¼»¯±³¾°
- * @param {lv_ui} *ui
- * @return {*}
- */
-void setup_bg_screen(lv_ui *ui)
-{
-    ui->bg = lv_obj_create(lv_scr_act());
-    lv_obj_align(ui->bg, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_set_size(ui->bg, 280, 240);
-    lv_obj_set_style_bg_opa(ui->bg, LV_OPA_COVER, 0);
-    lv_obj_set_style_bg_color(ui->bg, lv_color_make(0xff, 0xff, 0xff), 0);
-    lv_obj_set_scrollbar_mode(ui->bg, LV_SCROLLBAR_MODE_OFF);
-}
-
 static void set_temp(void *bar, int32_t temp)
 {
     lv_bar_set_value(bar, temp, LV_ANIM_ON);
@@ -278,7 +270,7 @@ static void set_temp(void *bar, int32_t temp)
  */
 void setup_boot_screen(lv_ui *ui)
 {
-    ui->boot = lv_obj_create(ui->bg);
+    ui->boot = lv_obj_create(lv_scr_act());
     lv_obj_set_size(ui->boot, 280, 240);
     lv_obj_align(ui->boot, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_scrollbar_mode(ui->boot, LV_SCROLLBAR_MODE_OFF);
@@ -300,7 +292,7 @@ void setup_boot_screen(lv_ui *ui)
     lv_obj_align(ui->bar, LV_ALIGN_CENTER, 0, 40);
     lv_bar_set_mode(ui->bar, LV_BAR_MODE_RANGE);
     lv_bar_set_value(ui->bar, 0, LV_ANIM_ON);
-
+    
     ui->bar_img = lv_img_create(ui->boot);
     lv_obj_set_size(ui->bar_img, 60, 35);
     lv_obj_align_to(ui->bar_img, ui->bar, LV_ALIGN_OUT_TOP_LEFT, 0, 0);
@@ -320,7 +312,7 @@ void setup_boot_screen(lv_ui *ui)
  */
 void setup_home_screen(lv_ui *ui, uint32_t delay)
 {
-    ui->home = lv_obj_create(ui->bg);
+    ui->home = lv_obj_create(lv_scr_act());
     lv_obj_set_size(ui->home, 280, 240);
     lv_obj_align(ui->home, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_scrollbar_mode(ui->home, LV_SCROLLBAR_MODE_OFF);
@@ -445,8 +437,13 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
  */
 void setup_ui(lv_ui *ui)
 {
-    setup_bg_screen(ui);
-    // setup_boot_screen(ui);
-    // setup_home_screen(ui, 3000);
+// #define UI_WRITE
+
+    lv_obj_set_scrollbar_mode(lv_scr_act(), LV_SCROLLBAR_MODE_OFF);
+#ifdef UI_WRITE
+    setup_boot_screen(ui);
+    setup_home_screen(ui, 3000);
+#else
     setup_home_screen(ui, 0);
+#endif
 }

@@ -18,7 +18,7 @@
 
 void setup_sd_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 {
-    ui->page = lv_obj_create(ui->bg);
+    ui->page = lv_obj_create(lv_scr_act());
     lv_obj_set_size(ui->page, 280, 240);
     lv_obj_align(ui->page, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_scrollbar_mode(ui->page, LV_SCROLLBAR_MODE_OFF);
@@ -37,7 +37,7 @@ void setup_sd_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_add_event_cb(ui->back_btn, lv_btn_back_event_cb, LV_EVENT_FOCUSED, NULL);
     ui->back = lv_img_create(ui->back_btn);
     lv_obj_set_size(ui->back, 40, 40);
-    lv_obj_align(ui->back, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_align(ui->back, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->back, &_back_40x40);
 
     ui->label = lv_label_create(ui->page);

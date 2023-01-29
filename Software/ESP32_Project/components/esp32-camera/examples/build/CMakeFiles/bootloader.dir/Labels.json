@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/CMakeFiles/bootloader"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/CMakeFiles/bootloader.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/CMakeFiles/bootloader-complete.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+		},
+		{
+			"file" : "D:/Desktop/Http_cam/components/esp32-camera/examples/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"bootloader"
+		],
+		"name" : "bootloader"
+	}
+}

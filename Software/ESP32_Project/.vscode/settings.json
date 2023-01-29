@@ -83,7 +83,11 @@
     "complex": "c",
     "memory": "c",
     "*.tcc": "c",
-    "optional": "c"
+    "optional": "c",
+    "cam_task.h": "c",
+    "esp_camera.h": "c",
+    "button.h": "c",
+    "i2c_master.h": "c"
   },
   "idf.flashType": "UART"
 }

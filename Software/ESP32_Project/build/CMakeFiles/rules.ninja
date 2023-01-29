@@ -1676,6 +1676,35 @@ rule C_STATIC_LIBRARY_LINKER____idf_aht20_
 #############################################
 # Rule for compiling C files.
 
+rule C_COMPILER____idf_esp32-camera_
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ccache D:\B_Code\espidf\idftools\tools\xtensa-esp32s3-elf\esp-2021r2-patch3-8.4.0\xtensa-esp32s3-elf\bin\xtensa-esp32s3-elf-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER____idf_esp32-camera_
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ccache D:\B_Code\espidf\idftools\tools\xtensa-esp32s3-elf\esp-2021r2-patch3-8.4.0\xtensa-esp32s3-elf\bin\xtensa-esp32s3-elf-g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building CXX object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER____idf_esp32-camera_
+  command = cmd.exe /C "$PRE_LINK && D:\B_Code\espidf\idftools\tools\cmake\3.23.1\bin\cmake.exe -E rm -f $TARGET_FILE && D:\B_Code\espidf\idftools\tools\xtensa-esp32s3-elf\esp-2021r2-patch3-8.4.0\xtensa-esp32s3-elf\bin\xtensa-esp32s3-elf-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && D:\B_Code\espidf\idftools\tools\xtensa-esp32s3-elf\esp-2021r2-patch3-8.4.0\xtensa-esp32s3-elf\bin\xtensa-esp32s3-elf-ranlib.exe $TARGET_FILE && $POST_BUILD"
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
 rule C_COMPILER____idf_lvgl_
   depfile = $DEP_FILE
   deps = gcc

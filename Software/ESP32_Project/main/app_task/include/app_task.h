@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 22:22
  * @LastEditors: letian
- * @LastEditTime: 2023-01-16 21:07
+ * @LastEditTime: 2023-01-29 20:58
  * @FilePath: \ESP32_Project\main\app_task\include\app_task.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -28,7 +28,10 @@
 #include "aht20_driver.h"
 #include "button.h"
 #include "lvgl_init.h"
+#include "cam_task.h"
+
 //task
+extern TaskHandle_t Cam_Handle;
 void Tasks_Init(void);
 
 //timer

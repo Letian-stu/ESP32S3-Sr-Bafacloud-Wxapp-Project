@@ -2,12 +2,13 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2023-01-20 21:55
+ * @LastEditTime: 2023-01-29 13:11
  * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
 #include "BaseConfig.h"
+#include "cam_task.h"
 
 #define TAG "init"
 
@@ -104,6 +105,9 @@ static esp_err_t Read_wifi_from_nvs(void)
 
 void Init_Config(void)
 {
+    cam_config_init();
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+
     ESP_LOGI(TAG,"Start Init");
     esp_err_t ret = nvs_flash_init();
     ESP_ERROR_CHECK(ret);
@@ -111,9 +115,9 @@ void Init_Config(void)
     ESP_ERROR_CHECK(ret);
     //Init_Cmd();
     
-    wifi_init_softap();
-    mount_storage(ESP_FS_PATH);
-    start_wifi_config_server(ESP_FS_PATH);
+    // wifi_init_softap();
+    // mount_storage(ESP_FS_PATH);
+    // start_wifi_config_server(ESP_FS_PATH);
     
     //start os task
     Event_Init();

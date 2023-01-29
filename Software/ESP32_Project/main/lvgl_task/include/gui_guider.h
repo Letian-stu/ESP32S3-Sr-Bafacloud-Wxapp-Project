@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-27 20:09
+ * @LastEditTime: 2023-01-29 16:03
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -19,6 +19,8 @@
 #define COLOR_DARK_ORANGE    0xffa500
 #define COLOR_RED            0xee0000
 #define COLOR_PURPLE         0xa020f0
+#define COLOR_write			 0xffffff
+#define COLOR_black			 0x000000
 
 enum PAGE
 {
@@ -63,6 +65,7 @@ typedef struct
 			lv_obj_t *label;
 			lv_obj_t *img_list;
 			lv_obj_t *img_btn;
+			lv_obj_t *img_cam; 
 
 } lv_ui;
 
