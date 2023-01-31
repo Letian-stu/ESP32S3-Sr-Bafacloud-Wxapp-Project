@@ -16,13 +16,13 @@
 
 // static void Wifi_Config_Time_Callback(TimerHandle_t xTimer)
 // {
-//    xEventGroupSetBits(Event_Group, WIFITIMEOVER);
-//    ESP_LOGI(TAG, "Time Over");
-//    xTimerDelete(Wifi_Config_Time_Handle, 0);
+//     xEventGroupSetBits(Event_Group, WIFITIMEOVER);
+//     ESP_LOGI(TAG, "Time Over");
+//     xTimerDelete(Wifi_Config_Time_Handle, 0);
 // }
 
 void Times_Init(void)
 {
-    //Wifi_Config_Time_Handle = xTimerCreate("Delaytime", pdMS_TO_TICKS(10000), pdFALSE, (void *)0, Wifi_Config_Time_Callback);
-    //xTimerStart(Wifi_Config_Time_Handle, 0);
+    // Wifi_Config_Time_Handle = xTimerCreate("Delaytime", pdMS_TO_TICKS(10000), pdFALSE, (void *)0, Wifi_Config_Time_Callback);
+    // xTimerStart(Wifi_Config_Time_Handle, 0);
 }

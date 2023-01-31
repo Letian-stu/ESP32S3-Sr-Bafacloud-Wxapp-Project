@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2023-01-31 17:26
+ * @LastEditTime: 2023-01-31 21:23
  * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -106,17 +106,17 @@ static esp_err_t Read_wifi_from_nvs(void)
 void Init_Config(void)
 {
     ESP_LOGI(TAG,"Start Init");
-    nvs_flash_init();
-    Read_wifi_from_nvs();
-    
-    speech_recognition_init();
-    cam_config_init(); 
 
     Event_Init();
     Sem_Init();
     Queue_Init();
     Times_Init();
 
+    nvs_flash_init();
+    Read_wifi_from_nvs();
+    
+    speech_recognition_init();
+    cam_config_init(); 
     xTaskCreatePinnedToCore(appguiTask, "App_Gui",  1024 * 8, NULL, 2, NULL, 1);
 
     wifi_init_softap();  
