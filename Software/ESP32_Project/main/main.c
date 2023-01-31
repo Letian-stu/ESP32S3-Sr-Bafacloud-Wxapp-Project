@@ -20,7 +20,9 @@ void app_main(void)
     ESP_LOGI(TAG, "HELLO TIAN");
     Init_Config();
     // 获取剩余的dram大小
-    size_t dram = heap_caps_get_free_size(MALLOC_CAP_8BIT);
+    size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
+    ESP_LOGE(TAG, "DMA RAM=%dkb  ", dram/1024);
+    dram = heap_caps_get_free_size(MALLOC_CAP_8BIT);
     ESP_LOGE(TAG, "DRAM=%dkb  ", dram/1024);
 }
 

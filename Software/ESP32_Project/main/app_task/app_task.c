@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-12-04 17:10
  * @LastEditors: letian
- * @LastEditTime: 2023-01-29 21:26
+ * @LastEditTime: 2023-01-31 16:53
  * @FilePath: \ESP32_Project\main\app_task\app_task.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -84,11 +84,11 @@ void WifiSet_Task(void *p)
             break;
         case CONFIGWIFITIMEDEL:
 
-            err = xTimerDelete(Wifi_Config_Time_Handle, 0);
-            if (err == pdFALSE)
-            {
-                ESP_LOGE(TAG, "Timer del err");
-            }
+            //err = xTimerDelete(Wifi_Config_Time_Handle, 0);
+            // if (err == pdFALSE)
+            // {
+            //     ESP_LOGE(TAG, "Timer del err");
+            // }
             // xTimerDelete(Wifi_Config_Time_Handle,0);
             ESP_LOGI(TAG, "config wifi stop time");
             break;
@@ -173,17 +173,15 @@ void KEYScan_Task(void *p)
     }
 }
 
-void Tasks_Init(void)
-{
-    ESP_LOGI(TAG, "Init Task");
-    xTaskCreate(cam_show_task,   "cam_task",        1024 * 8, NULL, 4, &Cam_Handle);
-    vTaskSuspend(Cam_Handle);   
+void  Tasks_Init(void)
+{    
+    xTaskCreate(KEYScan_Task,   "Key_Scan",         1024 * 8, NULL, 5, &KeyScan_Handle); 
+    xTaskCreate(cam_show_task,   "cam_task",        1024 * 8, NULL, 1, &Cam_Handle);
+    vTaskSuspend(Cam_Handle);  
 
-    //xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
-    //xTaskCreate(WifiSet_Task,   "WifiSet",          1024 * 4, NULL, 1, &WifiSet_Handle);
-    //xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
-    xTaskCreatePinnedToCore(appguiTask, "App_Gui",  1024 * 8, NULL, 4, NULL, 1);
-    xTaskCreate(KEYScan_Task,   "Key_Scan",         1024 * 6, NULL, 5, &KeyScan_Handle);
+    xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
+    xTaskCreate(WifiSet_Task,   "WifiSet",          1024 * 4, NULL, 1, &WifiSet_Handle);
+    xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
 }
 
 

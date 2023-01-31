@@ -50,7 +50,7 @@ typedef struct
 
 static func_t g_sr_callback_func[SR_CB_TYPE_MAX] = {0};
 
-static void i2s_init(void)
+void i2s_init(void)
 {
     i2s_config_t i2s_config = {
         .mode = I2S_MODE_MASTER | I2S_MODE_RX,        // the mode must be set according to DSP configuration
@@ -125,7 +125,7 @@ void recsrcTask(void *arg)
             int s2 = ((buffer[x * 4 + 2] + buffer[x * 4 + 3]) << 3) & 0xFFFF0000;
             buffer[x] = s1 | s2;
         }
-#define CHANGE_WAKE
+// #define CHANGE_WAKE
 #ifdef CHANGE_WAKE
         if (enable_wn)
         {
@@ -238,7 +238,7 @@ esp_err_t sr_handler_install(sr_cb_type_t type, sr_cb_t handler, void *args)
 
 esp_err_t speech_recognition_init(void)
 {
-    xTaskCreatePinnedToCore(recsrcTask, "recsrcTask", 8 * 1024, NULL, 8, NULL, 1);
+    xTaskCreatePinnedToCore(recsrcTask, "recsrcTask", 8 * 1024, NULL, 8, NULL, 1);  
 
     //安装回调函数
     sr_handler_install(SR_CB_TYPE_WAKE, sr_wake, NULL);
@@ -285,37 +285,37 @@ void sr_cmd(void *arg)
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("开灯\n");
+        printf("open led\n");
         break;
     case 2:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("关灯\n");
+        printf("close led\n");
         break;
     case 3:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("打开风扇\n");
+        printf("open fan\n");
         break;
     case 4:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("关闭风扇\n");
+        printf("close fan\n");
         break;
     case 5:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("打开开关\n");
+        printf("open button\n");
         break;
     case 6:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        printf("关闭开关\n");
+        printf("close button\n");
         break;
 
     case 7:
@@ -334,7 +334,7 @@ void sr_cmd(void *arg)
         //printf("sel\n");
         break;
     default:
-        printf("识别错误\n");
+        printf(" speeech recognition err\n");
         break;
     }
 }

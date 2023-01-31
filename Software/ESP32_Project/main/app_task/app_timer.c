@@ -23,7 +23,6 @@
 
 void Times_Init(void)
 {
-    ESP_LOGI(TAG, "Init Timer");
     //Wifi_Config_Time_Handle = xTimerCreate("Delaytime", pdMS_TO_TICKS(10000), pdFALSE, (void *)0, Wifi_Config_Time_Callback);
     //xTimerStart(Wifi_Config_Time_Handle, 0);
 }

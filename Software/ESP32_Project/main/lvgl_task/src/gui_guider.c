@@ -131,7 +131,6 @@ void lv_btn_back_event_cb(lv_event_t *e)
     case LV_EVENT_CLICKED:
         if(Cam_Handle != NULL)
         {
-            printf("suspend cam task\n");
             vTaskSuspend(Cam_Handle);
         }
 

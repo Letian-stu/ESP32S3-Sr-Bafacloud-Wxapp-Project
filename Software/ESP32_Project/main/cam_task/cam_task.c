@@ -27,8 +27,9 @@ static camera_config_t camera_config = {
 
     .pixel_format = PIXFORMAT_RGB565,
     .frame_size = FRAMESIZE_QVGA, // QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
+    .fb_location = CAMERA_FB_IN_PSRAM,
 
-    .jpeg_quality = 6, // 0-63, for OV series camera sensors, lower number means higher quality
+    .jpeg_quality = 12, // 0-63, for OV series camera sensors, lower number means higher quality
     .fb_count = 1,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
 };
 
@@ -38,7 +39,7 @@ void cam_config_init(void)
     if (err != ESP_OK)
     {
         ESP_LOGE(TAG, "Camera Init Failed");
-        return ESP_FAIL;
+        return -1;
     }
     return ESP_OK;
 }
@@ -55,6 +56,8 @@ camera_fb_t *pic;
 
 void cam_show_task(void *p)
 {
+    // size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
+    ESP_LOGI(TAG, "cam task init");
     while (1)
     {
         // static int64_t last_frame = 0;
@@ -62,8 +65,12 @@ void cam_show_task(void *p)
         // {
         //     last_frame = esp_timer_get_time();
         // }
-
+        // dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
+        // ESP_LOGE(TAG, "6 DRAM=%dkb  ", dram/1024);
         pic = esp_camera_fb_get();
+        // dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
+        // ESP_LOGE(TAG, "6 DRAM=%dkb  ", dram/1024);
+
         img_dsc.data = pic->buf;
         lv_img_set_src(guider_ui.img_cam, &img_dsc);
         esp_camera_fb_return(pic);

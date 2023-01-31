@@ -37,7 +37,7 @@ void sr_wake(void *arg);
 void sr_cmd(void *arg);
 //½áÊø»Øµ÷
 void sr_cmd_exit(void *arg);
-
+void i2s_init(void);
 /**
 * @brief Initialize speech recognition
 *

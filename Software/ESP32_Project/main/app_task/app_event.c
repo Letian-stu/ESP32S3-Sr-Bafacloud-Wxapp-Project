@@ -16,6 +16,5 @@ EventGroupHandle_t   Event_Group;
 void Event_Init(void)
 {
     Event_Group = xEventGroupCreate();
-
 }
 

@@ -41,3 +41,10 @@ invalid header: 0x9200061c
 invalid header: 0x80472404
 invalid header: 0x69049920
 ```
+
+
+-   size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
+-   dma ram 申请失败 lvgl和cam和sr的初始化需要异常注意
+```c
+
+```
