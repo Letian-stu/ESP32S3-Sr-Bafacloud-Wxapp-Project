@@ -55,5 +55,5 @@ void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 
     vTaskResume(Cam_Handle);
 
-    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->page, -244, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }
