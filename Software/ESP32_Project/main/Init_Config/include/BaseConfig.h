@@ -35,20 +35,30 @@
 #include "web_config.h"
 #include "app_task.h"
 #include "speech_if.h"
+#include "cam_task.h"
 
 #define ESP_FS_PATH        "/fs"
 
-#define ESP_WIFI_SSID      "WIFI_Config"
-#define ESP_WIFI_PASS      "wificonfig"
-#define ESP_WIFI_CHANNEL   1
-#define MAX_STA_CONN       1
+typedef struct {
+    char ssid[32];
+    uint8_t ssidlen;
+    char pass[32];
+    uint8_t passlen;
+} read_wifi_buf_t;
 
-extern char readwifiname[32];
-extern char readwifissid[32];
+read_wifi_buf_t read_wifi_buf;
+
+typedef struct {
+    wifi_sta_config_t sta;
+    wifi_ap_config_t ap;
+} sta_ap_wifi_config_t;
+
+extern read_wifi_buf_t read_wifi_buf;
+extern sta_ap_wifi_config_t sta_ap_wifi_config;
 
 void Init_Config(void);
-void wifi_init_softap(void);
-void wifi_init_sta(_Bool Datafrom);
 esp_err_t mount_storage(const char *base_path);
+esp_err_t read_wifi_from_nvs(void);
+esp_err_t wifi_ap_sta_init(void);
 
 #endif

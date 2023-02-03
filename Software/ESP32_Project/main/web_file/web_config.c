@@ -1,26 +1,16 @@
-/*
- * @Author: letian
- * @Date: 2022-11-30 09:21
- * @LastEditors: letian
- * @LastEditTime: 2023-01-20 21:53
- * @FilePath: \ESP32_Project\main\web_file\web_config.c
- * @Description: )
- * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
- */
 #include "web_config.h"
 
 #define TAG "webconfig"
 
-nvs_handle_t wifi_config;
 httpd_handle_t server = NULL;
 httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-char recvwifiname[32] = {'\0'};
-char recvwifissid[32] = {'\0'};
 
+nvs_handle_t nvs_wifi_config;
+recv_wifi_buf_t recv_wifi_buf;
 
 #define FILE_PATH_MAX (ESP_VFS_PATH_MAX + CONFIG_SPIFFS_OBJ_NAME_LEN)
 
-#define SCRATCH_BUFSIZE 8192
+#define SCRATCH_BUFSIZE 4096
 struct file_server_data
 {
     char base_path[ESP_VFS_PATH_MAX + 1];
@@ -74,7 +64,6 @@ static esp_err_t index_get_handler(httpd_req_t *req)
     if (filename[strlen(filename) - 1] == '/')
     {
         printf("return http_resp_dir_html_OK! filepath:%s \n", filepath);
-
         return http_resp_dir_html(req, filepath);
     }
     return ESP_OK;
@@ -104,48 +93,42 @@ static esp_err_t wificonfig_handler(httpd_req_t *req)
         cur_len += received;
     }
 
+    //add by tian
     ESP_LOGI(TAG, "recv len = %d data = %s", total_len, buf);
     cJSON *root = cJSON_Parse(buf);
 
-    char *wifi_name = cJSON_GetObjectItem(root, "wifi_name")->valuestring;
-    char *wifi_ssid = cJSON_GetObjectItem(root, "wifi_ssid")->valuestring;
+    recv_wifi_buf.ssid = cJSON_GetObjectItem(root, "wifi_ssid")->valuestring;
+    recv_wifi_buf.passward = cJSON_GetObjectItem(root, "wifi_pass")->valuestring;
 
-    uint8_t namelen = strlen(wifi_name) + 1; 
-    uint8_t ssidlen = strlen(wifi_ssid) + 1; 
-    if(namelen > 32 || ssidlen > 32)
-    {
-        ESP_LOGE(TAG, "name or ssid too long");
-    }
-    strcpy(recvwifiname, wifi_name);
-    strcpy(recvwifissid, wifi_ssid);
-    printf("len=%d name=%s\n", namelen-1, recvwifiname);
-    printf("len=%d ssid=%s\n", ssidlen-1, recvwifissid);
+    uint8_t namelen = strlen(recv_wifi_buf.ssid) + 1; 
+    uint8_t ssidlen = strlen(recv_wifi_buf.passward) + 1; 
 
-    esp_err_t err = nvs_open("nvs", NVS_READWRITE, &wifi_config);
+    printf("len=%d ssid=%s\n", namelen-1, recv_wifi_buf.ssid);
+    printf("len=%d passward=%s\n", ssidlen-1, recv_wifi_buf.passward);
+
+    esp_err_t err = nvs_open("nvs", NVS_READWRITE, &nvs_wifi_config);
     if (err != ESP_OK)
     {
         printf("Error (%s) opening NVS handle!\n", esp_err_to_name(err));
     }
     else
     {
-        err = nvs_set_u8(wifi_config, WIFINAMELEN, namelen);
+        err = nvs_set_u8(nvs_wifi_config, WIFISSIDLEN, namelen);
         printf((err != ESP_OK) ? "set wifi name len Failed!\n" : "set len ok\n");
-        err = nvs_set_str(wifi_config, WIFINAME, recvwifiname);
+        err = nvs_set_str(nvs_wifi_config, WIFISSID, recv_wifi_buf.ssid);
         printf((err != ESP_OK) ? "set name Failed!\n" : "set name ok\n");
-        err = nvs_set_u8(wifi_config, WIFISSIDLEN, ssidlen);
+        err = nvs_set_u8(nvs_wifi_config, WIFIPASSLEN, ssidlen);
         printf((err != ESP_OK) ? "set wifi ssid len Failed!\n" : "set len ok\n");
-        err = nvs_set_str(wifi_config, WIFISSID, recvwifissid);
+        err = nvs_set_str(nvs_wifi_config, WIFIPASS, recv_wifi_buf.passward);
         printf((err != ESP_OK) ? "set wifi ssid Failed!\n" : "set ssid ok\n");
         //commit
-        err = nvs_commit(wifi_config);
+        err = nvs_commit(nvs_wifi_config);
         // Close
-        nvs_close(wifi_config);
+        nvs_close(nvs_wifi_config);
     }
     cJSON_Delete(root);
     httpd_resp_sendstr(req, "Link wifi successfully");
 
-    //发送配置事件,切换到STA模式
-    xEventGroupSetBits(Event_Group, CONFIGWIFIOK);
     return ESP_OK;
 }
 
@@ -153,13 +136,11 @@ static esp_err_t wificonfig_handler(httpd_req_t *req)
 esp_err_t start_wifi_config_server(const char *base_path)
 {
     static struct file_server_data *server_data = NULL;
-
     if (server_data)
     {
         ESP_LOGE(TAG, "wifi_config_server already started");
         return ESP_ERR_INVALID_STATE;
     }
-
     /* Allocate memory for server data */
     server_data = calloc(1, sizeof(struct file_server_data));
     if (!server_data)
@@ -167,8 +148,7 @@ esp_err_t start_wifi_config_server(const char *base_path)
         ESP_LOGE(TAG, "Failed to allocate memory for server data");
         return ESP_ERR_NO_MEM;
     }
-    strlcpy(server_data->base_path, base_path,
-            sizeof(server_data->base_path));
+    strlcpy(server_data->base_path, base_path,sizeof(server_data->base_path));
 
     /* Use the URI wildcard matching function in order to
      * allow the same handler to respond to multiple different

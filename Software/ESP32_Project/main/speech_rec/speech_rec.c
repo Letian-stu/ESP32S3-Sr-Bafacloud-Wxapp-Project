@@ -115,7 +115,6 @@ void recsrcTask(void *arg)
     i2s_init();
 
     size_t read_len = 0;
-    printf("=====INIT OK=====\n");
     while (1)
     {
         i2s_read(1, buffer, size * 2 * sizeof(int), &read_len, portMAX_DELAY);
@@ -276,7 +275,6 @@ void sr_cmd(void *arg)
     }
 
     int32_t cmd_id = (int32_t)arg;
-    uint32_t sendcount = 0;
     switch (cmd_id)
     {
     case 0:
@@ -319,17 +317,17 @@ void sr_cmd(void *arg)
         break;
 
     case 7:
-        sendcount = 5;
+
         //xQueueSend(Key_Num_Queue, &sendcount, 100);  
         //printf("up\n");
         break;
     case 8:
-        sendcount = 1; 
+
         //xQueueSend(Key_Num_Queue, &sendcount, 100);    
         //printf("down\n");
         break;
     case 9:
-        sendcount = 9;
+
         //xQueueSend(Key_Num_Queue, &sendcount, 100);  
         //printf("sel\n");
         break;

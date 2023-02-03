@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-12-04 17:10
  * @LastEditors: letian
- * @LastEditTime: 2023-01-31 21:40
+ * @LastEditTime: 2023-02-03 15:15
  * @FilePath: \ESP32_Project\main\app_task\app_task.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -22,7 +22,6 @@
 #define TAG "task"
 #define AHT20_ADDR 0x38
 
-TaskHandle_t WifiSet_Handle;
 TaskHandle_t Mqtt_Handle;
 TaskHandle_t AHT_Handle;
 TaskHandle_t KeyScan_Handle;
@@ -55,53 +54,11 @@ void AHT_Task(void *p)
     }
 }
 
-void WifiSet_Task(void *p)
-{
-    static EventBits_t EventValue;
-    esp_err_t err;
-    while (1)
-    {
-        EventValue = xEventGroupWaitBits(Event_Group, ALLEVENT, pdTRUE, pdFALSE, portMAX_DELAY);
-        switch (EventValue)
-        {
-        case WIFITIMEOVER:
-            httpd_stop(server);
-            esp_wifi_stop();
-            esp_wifi_deinit();
-            wifi_init_sta(0);
-            mqtt_app_start();
-
-            ESP_LOGI(TAG, "Time over ap to sta form nvsdata");
-            break;
-        case CONFIGWIFIOK:
-            httpd_stop(server);
-            esp_wifi_stop();
-            esp_wifi_deinit();
-            wifi_init_sta(1);
-            mqtt_app_start();
-
-            ESP_LOGI(TAG, "Time over ap to sta form webconfig");
-            break;
-        case CONFIGWIFITIMEDEL:
-
-            // err = xTimerDelete(Wifi_Config_Time_Handle, 0);
-            // if (err == pdFALSE)
-            // {
-            //     ESP_LOGE(TAG, "Timer del err");
-            // }
-            // xTimerDelete(Wifi_Config_Time_Handle,0);
-            // ESP_LOGI(TAG, "config wifi stop time");
-            break;
-        default:
-            break;
-        }
-    }
-}
-
 void Mqtt_Task(void *p)
 {
+    vTaskDelay(500/portTICK_PERIOD_MS);//µÈ´ýwifi init
     BaseType_t err;
-
+    mqtt_app_start();
     while (1)
     {
         err = xSemaphoreTake(Reav_Mqtt_Buff_Handle, portMAX_DELAY);
@@ -180,9 +137,8 @@ void  Tasks_Init(void)
     xTaskCreate(cam_show_task,   "cam_task",        1024 * 8, NULL, 1, &Cam_Handle);
     vTaskSuspend(Cam_Handle);  
 
-    // xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
-    // xTaskCreate(WifiSet_Task,   "WifiSet",          1024 * 4, NULL, 1, &WifiSet_Handle);
-    // xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
+    xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
+    xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
 }
 
 

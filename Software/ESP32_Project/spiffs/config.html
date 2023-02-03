@@ -16,15 +16,15 @@
 			<td ></td>
 			<td >wifi √‹¬Î≈‰÷√</td>
 			<tr>
-				<td>wifi name</td>
+				<td>wifi ssid</td>
 				<td>
-					<input type="text" id="wifiname" name="car_name" placeholder="ssid">
+					<input type="text" id="wifissid" name="car_name" placeholder="ssid">
 				</td>
 			</tr>
 			<tr>
-				<td>wifi ssid</td>
+				<td>passward</td>
 				<td>
-					<input type="text" id="wifissid" name="car_type" placeholder="password">
+					<input type="text" id="wifipassward" name="car_type" placeholder="password">
 				</td>
 			</tr>
 				<td></td>
@@ -39,8 +39,8 @@ function setpath() {
 }
 
 function send_wifi() {
-    var input_name = document.getElementById("wifiname").value;
     var input_ssid = document.getElementById("wifissid").value;
+    var input_pass = document.getElementById("wifipassward").value;
     var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/wificonfig", true);
         xhttp.onreadystatechange = function() {
@@ -58,8 +58,8 @@ function send_wifi() {
             }
         };
     var data = {
-        "wifi_name":input_name,
-        "wifi_ssid":input_ssid
+        "wifi_ssid":input_ssid,
+        "wifi_pass":input_pass
     }
     xhttp.send(JSON.stringify(data));
 }

@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-30 09:21
  * @LastEditors: letian
- * @LastEditTime: 2022-11-30 16:55
- * @FilePath: \project\main\web_file\include\web_config.h
+ * @LastEditTime: 2023-02-03 14:43
+ * @FilePath: \ESP32_Project\main\web_file\include\web_config.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -34,14 +34,17 @@
 //add by tian
 #include "app_task.h"
 
-#define WIFINAMELEN "WIFINAMELEN"
-#define WIFINAME    "WIFINAME"
 #define WIFISSIDLEN "WIFISSIDLEN"
 #define WIFISSID    "WIFISSID"
+#define WIFIPASSLEN "WIFIPASSLEN"
+#define WIFIPASS    "WIFIPASS"
 
-extern char recvwifiname[32];
-extern char recvwifissid[32];
-extern nvs_handle_t wifi_config;
+typedef struct {
+    char *ssid;
+    char *passward;
+} recv_wifi_buf_t;
+
+extern nvs_handle_t nvs_wifi_config;
 extern httpd_handle_t server;
 esp_err_t start_wifi_config_server(const char *base_path);
 
