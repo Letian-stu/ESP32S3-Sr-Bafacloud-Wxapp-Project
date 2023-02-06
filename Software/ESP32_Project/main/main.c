@@ -27,5 +27,6 @@ void app_main(void)
     ESP_LOGW(TAG, "DMA RAM=%dkb  ", dram/1024);
     dram = heap_caps_get_free_size(MALLOC_CAP_8BIT);
     ESP_LOGW(TAG, "DRAM=%dkb  ", dram/1024);
+
 }
 

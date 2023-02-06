@@ -18,9 +18,7 @@
  */
 #include "app_task.h"
 
-
 #define TAG "task"
-#define AHT20_ADDR 0x38
 
 TaskHandle_t Mqtt_Handle;
 TaskHandle_t AHT_Handle;
@@ -56,7 +54,6 @@ void AHT_Task(void *p)
 
 void Mqtt_Task(void *p)
 {
-    vTaskDelay(500/portTICK_PERIOD_MS);//µÈ´ýwifi init
     BaseType_t err;
     mqtt_app_start();
     while (1)
@@ -139,6 +136,7 @@ void  Tasks_Init(void)
 
     xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
     xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
+    vTaskSuspend(Mqtt_Handle);  
 }
 
 

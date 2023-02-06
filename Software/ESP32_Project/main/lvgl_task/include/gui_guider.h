@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-29 16:03
+ * @LastEditTime: 2023-02-06 19:27
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -63,6 +63,10 @@ typedef struct
 			lv_obj_t *back_btn;
 			lv_obj_t *back;
 			lv_obj_t *label;
+		//cam
+			lv_obj_t *takepic_btn;
+			lv_obj_t *takepic;
+		//image
 			lv_obj_t *img_list;
 			lv_obj_t *img_btn;
 			lv_obj_t *img_cam; 
@@ -95,5 +99,6 @@ LV_IMG_DECLARE(_camera_110x110);
 LV_IMG_DECLARE(_image_110x110);
 LV_IMG_DECLARE(_sd_110x110);
 LV_IMG_DECLARE(_back_40x40);
+LV_IMG_DECLARE(_takepic_50x50);
 
 #endif

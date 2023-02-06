@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-01-29 21:22
+ * @LastEditTime: 2023-02-06 20:03
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -37,6 +37,7 @@ static void add_home_group_obj(uint16_t pagenum)
     if (guider_ui.back_btn != NULL)
     {
         lv_group_remove_obj(guider_ui.back_btn);
+        lv_group_remove_obj(guider_ui.takepic_btn);
     }
     if(guider_ui.img_list != NULL)
     {
@@ -133,6 +134,7 @@ void lv_btn_back_event_cb(lv_event_t *e)
         {
             vTaskSuspend(Cam_Handle);
         }
+        
 
         page_screen_anim(guider_ui.page, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
         page_screen_anim(guider_ui.home, -240, 0, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
@@ -212,6 +214,7 @@ static void lv_btn_event_cb(lv_event_t *e)
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_camera_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            lv_group_add_obj(guider_ui.group, guider_ui.takepic_btn);
             page = PAGE_CAMERA;
             break;
         case LV_EVENT_FOCUSED:
