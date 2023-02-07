@@ -76,7 +76,7 @@ static esp_err_t cam_take_pic_config(cam_mode_t mode)
     else if(mode == take_pic_mode)
     {
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.frame_size = FRAMESIZE_XGA;
+        camera_config.frame_size = FRAMESIZE_SVGA;
     }
     cam_config_init();
     return ESP_OK;
