@@ -38,7 +38,8 @@ void Init_Config(void)
     wifi_ap_sta_init();
     mount_storage(ESP_FS_PATH);
     start_wifi_config_server(ESP_FS_PATH);
-
+    sdcard_init(ESP_SD_FS_PATH);
+    
     vTaskDelay(500/portTICK_PERIOD_MS);
 
     Tasks_Init();

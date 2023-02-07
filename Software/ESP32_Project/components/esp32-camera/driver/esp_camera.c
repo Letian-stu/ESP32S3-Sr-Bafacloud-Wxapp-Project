@@ -352,7 +352,6 @@ esp_err_t esp_camera_deinit()
         free(s_state);
         s_state = NULL;
     }
-
     return ret;
 }
 

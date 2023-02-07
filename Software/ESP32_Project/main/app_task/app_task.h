@@ -45,6 +45,7 @@ void Times_Init(void);
 
 //sem
 extern SemaphoreHandle_t Reav_Mqtt_Buff_Handle;
+extern SemaphoreHandle_t takepic_Handle;
 extern SemaphoreHandle_t SpeechMutex;
 extern SemaphoreHandle_t KeyreadMutex;
 void Sem_Init(void);

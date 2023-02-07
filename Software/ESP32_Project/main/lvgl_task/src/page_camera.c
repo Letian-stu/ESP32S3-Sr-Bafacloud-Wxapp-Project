@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: letian
- * @LastEditTime: 2023-02-06 20:07
+ * @LastEditTime: 2023-02-07 20:08
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_camera.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -15,8 +15,10 @@
 #include "gui_guider.h"
 #include "gui_anim.h"
 #include "cam_task.h"
+#include "app_task.h"
 
-extern TaskHandle_t Cam_Handle;
+
+#define TAG "page_cam"
 
 void lv_btn_takepic_event_cb(lv_event_t *e)
 {
@@ -24,7 +26,8 @@ void lv_btn_takepic_event_cb(lv_event_t *e)
     switch (code)
     {
     case LV_EVENT_CLICKED:
-        printf("take picture\n");
+        ESP_LOGI(TAG, "Taking picture...");
+        xSemaphoreGive(takepic_Handle);
         break;
     case LV_EVENT_FOCUSED:
     default:
@@ -35,6 +38,7 @@ void lv_btn_takepic_event_cb(lv_event_t *e)
 void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 {
     ui->page = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(ui->page);  
     lv_obj_set_size(ui->page, 280, 240);
     lv_obj_align(ui->page, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_style_bg_opa(ui->page, LV_OPA_COVER, 0);
@@ -42,6 +46,7 @@ void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_set_scrollbar_mode(ui->page, LV_SCROLLBAR_MODE_OFF);
 
     ui->img_cam = lv_img_create(ui->page);
+    lv_obj_remove_style_all(ui->img_cam);  
     lv_obj_align(ui->img_cam, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_size(ui->img_cam, 280, 240);
 

@@ -16,7 +16,6 @@
 #include "esp_system.h"
 #include "nvs_flash.h"
 #include "nvs.h"
-#include "esp_console.h"
 
 #include "esp_wifi.h"
 #include "esp_event.h"
@@ -26,10 +25,7 @@
 #include "esp_vfs_fat.h"
 #include "esp_spiffs.h"
 #include "driver/spi_common.h"
-
-#include "cmd_wifi.h"
-#include "cmd_nvs.h"
-#include "cmd_system.h"
+#include "sdmmc_cmd.h"
 
 //add by tian
 #include "web_config.h"
@@ -38,6 +34,7 @@
 #include "cam_task.h"
 
 #define ESP_FS_PATH        "/fs"
+#define ESP_SD_FS_PATH     "/sdcard"
 
 typedef struct {
     char ssid[32];
@@ -58,6 +55,7 @@ extern sta_ap_wifi_config_t sta_ap_wifi_config;
 
 void Init_Config(void);
 esp_err_t mount_storage(const char *base_path);
+esp_err_t sdcard_init(const char* base_path);
 esp_err_t read_wifi_from_nvs(void);
 esp_err_t wifi_ap_sta_init(void);
 

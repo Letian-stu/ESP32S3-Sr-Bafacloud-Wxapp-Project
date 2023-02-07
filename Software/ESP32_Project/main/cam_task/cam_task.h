@@ -8,7 +8,14 @@
 #include "freertos/task.h"
 #include "gui_guider.h"
 #include "esp_camera.h"
+#include "BaseConfig.h"
 
+typedef enum
+{
+    http_stream_mode = 0,
+    lvgl_show_mode,
+    take_pic_mode
+}cam_mode_t;
 
 #define CAM_PIN_PWDN 15
 #define CAM_PIN_RESET -1
@@ -27,7 +34,7 @@
 #define CAM_PIN_HREF 10
 #define CAM_PIN_PCLK 6
 
-void cam_config_init(void);
+esp_err_t cam_config_init(void);
 void cam_show_task(void *p);
 
 #endif

@@ -33,13 +33,13 @@ static camera_config_t camera_config = {
     .fb_count = 1,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
 };
 
-void cam_config_init(void)
+esp_err_t cam_config_init(void)
 {
     esp_err_t err = esp_camera_init(&camera_config);
     if (err != ESP_OK)
     {
         ESP_LOGE(TAG, "Camera Init Failed");
-        return -1;
+        return ESP_FAIL;
     }
     return ESP_OK;
 }
@@ -54,9 +54,40 @@ lv_img_dsc_t img_dsc = {
 };
 camera_fb_t *pic;
 
+cam_mode_t cam_mode;
+/**
+ * @description: 
+ * @param {_Bool} Mode
+ * @return {*}
+ */
+static esp_err_t cam_take_pic_config(cam_mode_t mode)
+{
+    esp_camera_deinit();
+    if(mode == http_stream_mode)
+    {
+        camera_config.pixel_format = PIXFORMAT_JPEG;
+        camera_config.frame_size = FRAMESIZE_QVGA;
+    }
+    else if(mode == lvgl_show_mode)
+    {
+        camera_config.pixel_format = PIXFORMAT_RGB565;
+        camera_config.frame_size = FRAMESIZE_QVGA;
+    }
+    else if(mode == take_pic_mode)
+    {
+        camera_config.pixel_format = PIXFORMAT_JPEG;
+        camera_config.frame_size = FRAMESIZE_XGA;
+    }
+    cam_config_init();
+    return ESP_OK;
+}
+
 void cam_show_task(void *p)
 {
-    // size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
+    BaseType_t err;
+    static char file_name[30];
+    static uint32_t picnum = 0;
+    static size_t picwritelen = 0;
     ESP_LOGI(TAG, "cam task init");
     while (1)
     {
@@ -73,8 +104,39 @@ void cam_show_task(void *p)
 
         img_dsc.data = pic->buf;
         lv_img_set_src(guider_ui.img_cam, &img_dsc);
-        esp_camera_fb_return(pic);
 
+        err = xSemaphoreTake(takepic_Handle, 0);
+        if (err == pdTRUE)
+        {
+            cam_take_pic_config(take_pic_mode);
+            pic = esp_camera_fb_get();
+            // First create a file.
+            sprintf(file_name, ESP_SD_FS_PATH "/img%d.jpg", picnum);
+            ESP_LOGI(TAG, "Opening file %s", file_name);
+            FILE *img = fopen(file_name, "w");
+            if (img == NULL)
+            {
+                ESP_LOGE(TAG, "Failed to open file for writing");
+            }
+            else
+            {
+                picwritelen = fwrite(pic->buf, sizeof(pic->buf), pic->len, img);
+                if (picwritelen != pic->len)
+                {
+                    ESP_LOGE(TAG, "img Write err");
+                }
+                else
+                {
+                    ESP_LOGI(TAG, "write buff len %d byte", picwritelen);
+                    picnum++;
+                }
+                fclose(img);
+                ESP_LOGI(TAG, "img written");
+            }
+            esp_camera_fb_return(pic);
+            cam_take_pic_config(lvgl_show_mode);
+        }
+        esp_camera_fb_return(pic);
 
         // int64_t fr_end = esp_timer_get_time();
         // int64_t frame_time = fr_end - last_frame;

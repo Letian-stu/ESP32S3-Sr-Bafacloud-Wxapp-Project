@@ -3,6 +3,7 @@ SRCS        "main.c"
             "Init_Config/initconfig.c"  
             "Init_Config/wificonfig.c"
             "Init_Config/spiffsconfig.c"
+            "Init_Config/sdconfig.c"
 
             "web_file/web_config.c"
             "mqtt_bafa/tcp_mqtt.c"
