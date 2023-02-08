@@ -45,7 +45,7 @@
 
 - vscode+espidf4.4.2
 - esp32s3-mini-n4r2
-- lvgl 8.1.0
+- lvgl 8.3.0
 
 ## 4.图片
 

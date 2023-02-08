@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 14:57
  * @LastEditors: letian
- * @LastEditTime: 2023-02-07 20:03
+ * @LastEditTime: 2023-02-08 16:51
  * @FilePath: \ESP32_Project\main\Init_Config\sdconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -30,7 +30,7 @@ esp_err_t sdcard_init(const char* base_path)
 
     sdmmc_host_t host = {
         .flags = SDMMC_HOST_FLAG_SPI | SDMMC_HOST_FLAG_DEINIT_ARG, 
-        .slot = SPI3_HOST, 
+        .slot = SPI2_HOST, 
         .max_freq_khz = SDMMC_FREQ_DEFAULT, 
         .io_voltage = 3.3f, 
         .init = &sdspi_host_init, 
@@ -59,7 +59,7 @@ esp_err_t sdcard_init(const char* base_path)
         return ESP_FAIL;
     }
     sdspi_device_config_t slot_config = {
-    .host_id   = SPI3_HOST,  
+    .host_id   = SPI2_HOST,  
     .gpio_cs   = GPIO_NUM_13, 
     .gpio_cd   = SDSPI_SLOT_NO_CD, 
     .gpio_wp   = SDSPI_SLOT_NO_WP, 

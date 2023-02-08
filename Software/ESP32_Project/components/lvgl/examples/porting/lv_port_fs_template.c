@@ -3,7 +3,7 @@
  *
  */
 
- /*Copy this file as "lv_port_fs.c" and set this value to "1" to enable content*/
+/*Copy this file as "lv_port_fs.c" and set this value to "1" to enable content*/
 #if 0
 
 /*********************
@@ -25,17 +25,17 @@
  **********************/
 static void fs_init(void);
 
-static lv_fs_res_t fs_open (lv_fs_drv_t * drv, void * file_p, const char * path, lv_fs_mode_t mode);
-static lv_fs_res_t fs_close (lv_fs_drv_t * drv, void * file_p);
-static lv_fs_res_t fs_read (lv_fs_drv_t * drv, void * file_p, void * buf, uint32_t btr, uint32_t * br);
+static void * fs_open(lv_fs_drv_t * drv, const char * path, lv_fs_mode_t mode);
+static lv_fs_res_t fs_close(lv_fs_drv_t * drv, void * file_p);
+static lv_fs_res_t fs_read(lv_fs_drv_t * drv, void * file_p, void * buf, uint32_t btr, uint32_t * br);
 static lv_fs_res_t fs_write(lv_fs_drv_t * drv, void * file_p, const void * buf, uint32_t btw, uint32_t * bw);
-static lv_fs_res_t fs_seek (lv_fs_drv_t * drv, void * file_p, uint32_t pos, lv_fs_whence_t whence););
-static lv_fs_res_t fs_size (lv_fs_drv_t * drv, void * file_p, uint32_t * size_p);
-static lv_fs_res_t fs_tell (lv_fs_drv_t * drv, void * file_p, uint32_t * pos_p);
+static lv_fs_res_t fs_seek(lv_fs_drv_t * drv, void * file_p, uint32_t pos, lv_fs_whence_t whence);
+static lv_fs_res_t fs_size(lv_fs_drv_t * drv, void * file_p, uint32_t * size_p);
+static lv_fs_res_t fs_tell(lv_fs_drv_t * drv, void * file_p, uint32_t * pos_p);
 
-static lv_fs_res_t fs_dir_open (lv_fs_drv_t * drv, void * rddir_p, const char *path);
-static lv_fs_res_t fs_dir_read (lv_fs_drv_t * drv, void * rddir_p, char *fn);
-static lv_fs_res_t fs_dir_close (lv_fs_drv_t * drv, void * rddir_p);
+static void * fs_dir_open(lv_fs_drv_t * drv, const char * path);
+static lv_fs_res_t fs_dir_read(lv_fs_drv_t * drv, void * rddir_p, char * fn);
+static lv_fs_res_t fs_dir_close(lv_fs_drv_t * drv, void * rddir_p);
 
 /**********************
  *  STATIC VARIABLES
@@ -103,38 +103,35 @@ static void fs_init(void)
  * @param mode      read: FS_MODE_RD, write: FS_MODE_WR, both: FS_MODE_RD | FS_MODE_WR
  * @return          a file descriptor or NULL on error
  */
-static void * fs_open (lv_fs_drv_t * drv, const char * path, lv_fs_mode_t mode)
+static void * fs_open(lv_fs_drv_t * drv, const char * path, lv_fs_mode_t mode)
 {
     lv_fs_res_t res = LV_FS_RES_NOT_IMP;
 
     void * f = NULL;
 
-    if(mode == LV_FS_MODE_WR)
-    {
+    if(mode == LV_FS_MODE_WR) {
         /*Open a file for write*/
         f = ...         /*Add your code here*/
     }
-    else if(mode == LV_FS_MODE_RD)
-    {
+    else if(mode == LV_FS_MODE_RD) {
         /*Open a file for read*/
         f = ...         /*Add your code here*/
     }
-    else if(mode == (LV_FS_MODE_WR | LV_FS_MODE_RD))
-    {
+    else if(mode == (LV_FS_MODE_WR | LV_FS_MODE_RD)) {
         /*Open a file for read and write*/
         f = ...         /*Add your code here*/
     }
 
-    return file;
+    return f;
 }
 
 /**
  * Close an opened file
  * @param drv       pointer to a driver where this function belongs
- * @param file_p    pointer to a file_t variable. (opened with lv_ufs_open)
+ * @param file_p    pointer to a file_t variable. (opened with fs_open)
  * @return          LV_FS_RES_OK: no error or  any error from @lv_fs_res_t enum
  */
-static lv_fs_res_t fs_close (lv_fs_drv_t * drv, void * file_p)
+static lv_fs_res_t fs_close(lv_fs_drv_t * drv, void * file_p)
 {
     lv_fs_res_t res = LV_FS_RES_NOT_IMP;
 
@@ -152,7 +149,7 @@ static lv_fs_res_t fs_close (lv_fs_drv_t * drv, void * file_p)
  * @param br        the real number of read bytes (Byte Read)
  * @return          LV_FS_RES_OK: no error or  any error from @lv_fs_res_t enum
  */
-static lv_fs_res_t fs_read (lv_fs_drv_t * drv, void * file_p, void * buf, uint32_t btr, uint32_t * br)
+static lv_fs_res_t fs_read(lv_fs_drv_t * drv, void * file_p, void * buf, uint32_t btr, uint32_t * br)
 {
     lv_fs_res_t res = LV_FS_RES_NOT_IMP;
 
@@ -166,8 +163,8 @@ static lv_fs_res_t fs_read (lv_fs_drv_t * drv, void * file_p, void * buf, uint32
  * @param drv       pointer to a driver where this function belongs
  * @param file_p    pointer to a file_t variable
  * @param buf       pointer to a buffer with the bytes to write
- * @param btr       Bytes To Write
- * @param br        the number of real written bytes (Bytes Written). NULL if unused.
+ * @param btw       Bytes To Write
+ * @param bw        the number of real written bytes (Bytes Written). NULL if unused.
  * @return          LV_FS_RES_OK: no error or  any error from @lv_fs_res_t enum
  */
 static lv_fs_res_t fs_write(lv_fs_drv_t * drv, void * file_p, const void * buf, uint32_t btw, uint32_t * bw)
@@ -182,12 +179,12 @@ static lv_fs_res_t fs_write(lv_fs_drv_t * drv, void * file_p, const void * buf, 
 /**
  * Set the read write pointer. Also expand the file size if necessary.
  * @param drv       pointer to a driver where this function belongs
- * @param file_p    pointer to a file_t variable. (opened with lv_ufs_open )
+ * @param file_p    pointer to a file_t variable. (opened with fs_open )
  * @param pos       the new position of read write pointer
  * @param whence    tells from where to interpret the `pos`. See @lv_fs_whence_t
  * @return          LV_FS_RES_OK: no error or  any error from @lv_fs_res_t enum
  */
-static lv_fs_res_t fs_seek (lv_fs_drv_t * drv, void * file_p, uint32_t pos, lv_fs_whence_t whence)
+static lv_fs_res_t fs_seek(lv_fs_drv_t * drv, void * file_p, uint32_t pos, lv_fs_whence_t whence)
 {
     lv_fs_res_t res = LV_FS_RES_NOT_IMP;
 
@@ -202,7 +199,7 @@ static lv_fs_res_t fs_seek (lv_fs_drv_t * drv, void * file_p, uint32_t pos, lv_f
  * @param pos_p     pointer to to store the result
  * @return          LV_FS_RES_OK: no error or  any error from @lv_fs_res_t enum
  */
-static lv_fs_res_t fs_tell (lv_fs_drv_t * drv, void * file_p, uint32_t * pos_p)
+static lv_fs_res_t fs_tell(lv_fs_drv_t * drv, void * file_p, uint32_t * pos_p)
 {
     lv_fs_res_t res = LV_FS_RES_NOT_IMP;
 
@@ -217,12 +214,12 @@ static lv_fs_res_t fs_tell (lv_fs_drv_t * drv, void * file_p, uint32_t * pos_p)
  * @param path      path to a directory
  * @return          pointer to the directory read descriptor or NULL on error
  */
-static void * fs_dir_open (lv_fs_drv_t * drv, void * rddir_p, const char *path)
+static void * fs_dir_open(lv_fs_drv_t * drv, const char * path)
 {
     void * dir = NULL;
     /*Add your code here*/
     dir = ...           /*Add your code here*/
-    return dir;
+          return dir;
 }
 
 /**
@@ -233,7 +230,7 @@ static void * fs_dir_open (lv_fs_drv_t * drv, void * rddir_p, const char *path)
  * @param fn        pointer to a buffer to store the filename
  * @return          LV_FS_RES_OK: no error or  any error from @lv_fs_res_t enum
  */
-static lv_fs_res_t fs_dir_read (lv_fs_drv_t * drv, void * rddir_p, char *fn)
+static lv_fs_res_t fs_dir_read(lv_fs_drv_t * drv, void * rddir_p, char * fn)
 {
     lv_fs_res_t res = LV_FS_RES_NOT_IMP;
 
@@ -248,7 +245,7 @@ static lv_fs_res_t fs_dir_read (lv_fs_drv_t * drv, void * rddir_p, char *fn)
  * @param rddir_p   pointer to an initialized 'lv_fs_dir_t' variable
  * @return          LV_FS_RES_OK: no error or  any error from @lv_fs_res_t enum
  */
-static lv_fs_res_t fs_dir_close (lv_fs_drv_t * drv, void * rddir_p)
+static lv_fs_res_t fs_dir_close(lv_fs_drv_t * drv, void * rddir_p)
 {
     lv_fs_res_t res = LV_FS_RES_NOT_IMP;
 

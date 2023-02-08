@@ -87,7 +87,11 @@
     "cam_task.h": "c",
     "esp_camera.h": "c",
     "button.h": "c",
-    "i2c_master.h": "c"
+    "i2c_master.h": "c",
+    "dirent.h": "c",
+    "lv_fs_if.h": "c",
+    "lv_fs.h": "c",
+    "ctype.h": "c"
   },
   "idf.flashType": "UART"
 }

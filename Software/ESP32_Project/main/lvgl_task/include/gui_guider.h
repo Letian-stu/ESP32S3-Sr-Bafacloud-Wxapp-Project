@@ -69,7 +69,8 @@ typedef struct
 		//image
 			lv_obj_t *img_list;
 			lv_obj_t *img_btn;
-			lv_obj_t *img_cam; 
+			lv_obj_t *img_cam;
+			
 
 } lv_ui;
 

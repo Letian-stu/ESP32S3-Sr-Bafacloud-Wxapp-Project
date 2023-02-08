@@ -1,5 +1,5 @@
 #include "../lv_examples.h"
-#if LV_BUILD_EXAMPLES
+#if LV_BUILD_EXAMPLES && LV_USE_FLEX
 
 static void scroll_event_cb(lv_event_t * e)
 {
@@ -27,9 +27,10 @@ static void scroll_event_cb(lv_event_t * e)
         /*If diff_y is out of the circle use the last point of the circle (the radius)*/
         if(diff_y >= r) {
             x = r;
-        } else {
+        }
+        else {
             /*Use Pythagoras theorem to get x from radius and y*/
-            lv_coord_t x_sqr = r * r - diff_y * diff_y;
+            uint32_t x_sqr = r * r - diff_y * diff_y;
             lv_sqrt_res_t res;
             lv_sqrt(x_sqr, &res, 0x8000);   /*Use lvgl's built in sqrt root function*/
             x = r - res.i;
@@ -66,7 +67,7 @@ void lv_example_scroll_6(void)
         lv_obj_set_width(btn, lv_pct(100));
 
         lv_obj_t * label = lv_label_create(btn);
-        lv_label_set_text_fmt(label, "Button %d", i);
+        lv_label_set_text_fmt(label, "Button %"LV_PRIu32, i);
     }
 
     /*Update the buttons position manually for first*/

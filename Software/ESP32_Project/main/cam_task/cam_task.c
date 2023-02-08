@@ -1,5 +1,6 @@
 #include "cam_task.h"
 
+
 #define TAG "cam"
 
 static camera_config_t camera_config = {
@@ -29,7 +30,7 @@ static camera_config_t camera_config = {
     .frame_size = FRAMESIZE_QVGA, // QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
     .fb_location = CAMERA_FB_IN_PSRAM,
 
-    .jpeg_quality = 12, // 0-63, for OV series camera sensors, lower number means higher quality
+    .jpeg_quality = 32, // 0-63, for OV series camera sensors, lower number means higher quality
     .fb_count = 1,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
 };
 
@@ -76,7 +77,7 @@ static esp_err_t cam_take_pic_config(cam_mode_t mode)
     else if(mode == take_pic_mode)
     {
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.frame_size = FRAMESIZE_SVGA;
+        camera_config.frame_size = FRAMESIZE_QVGA;
     }
     cam_config_init();
     return ESP_OK;
@@ -85,7 +86,7 @@ static esp_err_t cam_take_pic_config(cam_mode_t mode)
 void cam_show_task(void *p)
 {
     BaseType_t err;
-    static char file_name[30];
+    static char file_name[32];
     static uint32_t picnum = 0;
     static size_t picwritelen = 0;
     ESP_LOGI(TAG, "cam task init");
@@ -111,16 +112,20 @@ void cam_show_task(void *p)
             cam_take_pic_config(take_pic_mode);
             pic = esp_camera_fb_get();
             // First create a file.
-            sprintf(file_name, ESP_SD_FS_PATH "/img%d.jpg", picnum);
+            sprintf(file_name, "S:/picture/picture%d.jpg", picnum);
             ESP_LOGI(TAG, "Opening file %s", file_name);
-            FILE *img = fopen(file_name, "w");
-            if (img == NULL)
+
+            // int64_t read_start = esp_timer_get_time();
+
+            lv_fs_file_t img;
+            err = lv_fs_open(&img, file_name, LV_FS_MODE_WR);
+            if(err != LV_FS_RES_OK)
             {
                 ESP_LOGE(TAG, "Failed to open file for writing");
             }
             else
             {
-                picwritelen = fwrite(pic->buf, sizeof(pic->buf), pic->len, img);
+                lv_fs_write(&img, pic->buf, pic->len, &picwritelen);
                 if (picwritelen != pic->len)
                 {
                     ESP_LOGE(TAG, "img Write err");
@@ -130,9 +135,33 @@ void cam_show_task(void *p)
                     ESP_LOGI(TAG, "write buff len %d byte", picwritelen);
                     picnum++;
                 }
-                fclose(img);
+                lv_fs_close(&img);
                 ESP_LOGI(TAG, "img written");
             }
+
+            // FILE *img = fopen(file_name, "w");
+            // if (img == NULL)
+            // {
+            //     ESP_LOGE(TAG, "Failed to open file for writing");
+            // }
+            // else
+            // {
+            //     picwritelen = fwrite(pic->buf, sizeof(pic->buf), pic->len, img);
+            //     if (picwritelen != pic->len)
+            //     {
+            //         ESP_LOGE(TAG, "img Write err");
+            //     }
+            //     else
+            //     {
+            //         ESP_LOGI(TAG, "write buff len %d byte", picwritelen);
+            //         picnum++;
+            //     }
+            //     fclose(img);
+            //     ESP_LOGI(TAG, "img written");
+            // }
+            // int64_t read_end = esp_timer_get_time();
+            // ESP_LOGW(TAG, "time = %lld",read_end - read_start);
+
             esp_camera_fb_return(pic);
             cam_take_pic_config(lvgl_show_mode);
         }

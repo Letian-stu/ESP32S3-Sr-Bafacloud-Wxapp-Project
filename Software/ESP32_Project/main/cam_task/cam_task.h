@@ -9,6 +9,7 @@
 #include "gui_guider.h"
 #include "esp_camera.h"
 #include "BaseConfig.h"
+#include "lvgl/lvgl.h"
 
 typedef enum
 {

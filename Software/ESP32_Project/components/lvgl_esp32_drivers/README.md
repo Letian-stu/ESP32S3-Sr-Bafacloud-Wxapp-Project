@@ -7,6 +7,7 @@ For a ready to use ESP32 project take look at the [lv_port_esp32](https://github
 - [Supported indev controllers](#supported-indev-controllers)
 - [Support for predefined development kits](#support-for-predefined-development-kits)
 - [Thread-safe I2C with I2C Manager](#thread-safe-i2c-with-i2c-manager)
+- [Backlight control](#backlight-control)
 
 **NOTE:** You need to set the display horizontal and vertical size, color depth and
 swap of RGB565 color on the LVGL configuration menuconfig (it's not handled automatically).
@@ -29,6 +30,7 @@ swap of RGB565 color on the LVGL configuration menuconfig (it's not handled auto
 | RA8875                                      | TFT        | SPI                    | 16: RGB565                   | Yes                                    |
 | SH1107                                      | Monochrome | SPI                    | 1: 1byte per pixel           | No                                     |
 | SSD1306                                     | Monochrome | I2C                    | 1: 1byte per pixel           | No                                     |
+| PCD8544                                     | Monochrome | SPI                    | 1: 1byte per pixel           | No                                     |
 | IL3820                                      | e-Paper    | SPI                    | 1: 1byte per pixel           | No                                     |
 | UC8151D/ GoodDisplay GDEW0154M10 DES        | e-Paper    | SPI                    | 1: 1byte per pixel           | No                                     |
 | FitiPower JD79653A/ GoodDisplay GDEW0154M09 | e-Paper    | SPI                    | 1: 1byte per pixel           | No                                     |
@@ -79,3 +81,14 @@ talk to devices on the I2C ports without getting in each other's way. These driv
 use a built-in copy of I2C Manager to talk to the I2C port, but you can also use 
 the I2C Manager component itself and have others play nice with LVGL and vice-versa.
 [Click here](i2c_manager/README.md) for details.
+
+
+## Backlight control
+
+Control of LCD's backlight is provided by separate module that is independent from the display driver.
+Configuration of the backlight controller can be found in menuconfig `LVGL ESP Drivers -> LVGL TFT Display controller`.
+
+There are three modes of operation:
+1. Off - No backlight control
+2. Switch - Allows ON/OFF control
+3. PWM - Allows brightness control (by Pulse-Width-Modulated signal)

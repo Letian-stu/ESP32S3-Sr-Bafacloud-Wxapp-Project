@@ -11,6 +11,7 @@ set(EXTRA_COMPONENT_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/components/i2c_master
     ${CMAKE_CURRENT_SOURCE_DIR}/components/aht20
     ${CMAKE_CURRENT_SOURCE_DIR}/components/esp32-camera
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/lvgl_fs_if
     )
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)

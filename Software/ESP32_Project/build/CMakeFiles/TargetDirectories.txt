@@ -732,6 +732,13 @@ D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl/CMakeFiles/install.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl/CMakeFiles/install/local.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl/CMakeFiles/install/strip.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_fs_if/CMakeFiles/__idf_lvgl_fs_if.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_fs_if/CMakeFiles/edit_cache.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_fs_if/CMakeFiles/rebuild_cache.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_fs_if/CMakeFiles/list_install_components.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_fs_if/CMakeFiles/install.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_fs_if/CMakeFiles/install/local.dir
+D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_fs_if/CMakeFiles/install/strip.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_esp32_drivers/CMakeFiles/__idf_lvgl_esp32_drivers.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_esp32_drivers/CMakeFiles/edit_cache.dir
 D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/Software/ESP32_Project/build/esp-idf/lvgl_esp32_drivers/CMakeFiles/rebuild_cache.dir

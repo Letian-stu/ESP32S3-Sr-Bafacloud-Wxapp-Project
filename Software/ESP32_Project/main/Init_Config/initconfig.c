@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2023-02-03 14:45
+ * @LastEditTime: 2023-02-08 15:43
  * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -30,7 +30,7 @@ void Init_Config(void)
         strncpy ( (char *)sta_ap_wifi_config.sta.password, read_wifi_buf.pass, read_wifi_buf.passlen );
         //ESP_LOGI(TAG, "ssid=%s pass=%s",sta_ap_wifi_config.sta.ssid,sta_ap_wifi_config.sta.password);
     }
-    
+    sdcard_init(ESP_SD_FS_PATH);
     speech_recognition_init();
     cam_config_init(); 
     xTaskCreatePinnedToCore(appguiTask, "App_Gui",  1024 * 8, NULL, 2, NULL, 1);
@@ -38,7 +38,6 @@ void Init_Config(void)
     wifi_ap_sta_init();
     mount_storage(ESP_FS_PATH);
     start_wifi_config_server(ESP_FS_PATH);
-    sdcard_init(ESP_SD_FS_PATH);
     
     vTaskDelay(500/portTICK_PERIOD_MS);
 

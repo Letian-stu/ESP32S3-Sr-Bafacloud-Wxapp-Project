@@ -23,7 +23,7 @@ extern "C" {
 /*********************
  *      DEFINES
  *********************/
-#define DISP_BUF_SIZE (LV_HOR_RES_MAX * 40)
+#define DISP_BUF_SIZE (LV_HOR_RES_MAX * 10)
 
 #define ST7735S_DC       CONFIG_LV_DISP_PIN_DC
 #define ST7735S_RST      CONFIG_LV_DISP_PIN_RST
@@ -131,7 +131,6 @@ extern "C" {
 
 void st7735s_init(void);
 void st7735s_flush(lv_disp_drv_t * drv, const lv_area_t * area, lv_color_t * color_map);
-void st7735s_enable_backlight(bool backlight);
 void st7735s_sleep_in(void);
 void st7735s_sleep_out(void);
 

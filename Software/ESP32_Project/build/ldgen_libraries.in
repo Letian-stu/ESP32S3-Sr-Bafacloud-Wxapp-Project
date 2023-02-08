@@ -78,4 +78,5 @@ $<TARGET_FILE:__idf_i2c_master>
 $<TARGET_FILE:__idf_aht20>
 $<TARGET_FILE:__idf_esp32-camera>
 $<TARGET_FILE:__idf_lvgl>
+$<TARGET_FILE:__idf_lvgl_fs_if>
 $<TARGET_FILE:__idf_lvgl_esp32_drivers>

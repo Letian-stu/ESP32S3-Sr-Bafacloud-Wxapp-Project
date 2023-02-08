@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: letian
- * @LastEditTime: 2023-01-29 22:14
+ * @LastEditTime: 2023-02-08 19:06
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_image.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
@@ -14,6 +14,46 @@
 #include "freertos/task.h"
 #include "gui_guider.h"
 #include "gui_anim.h"
+#include "BaseConfig.h"
+#include "dirent.h"
+#include <string.h>
+#include <ctype.h>
+
+lv_obj_t *img_pic;
+static char file_name[64];
+
+char *toLower(char *str, size_t len)
+{
+    char *str_l = calloc(len+1, sizeof(char));
+
+    for (size_t i = 0; i < len; ++i) {
+        str_l[i] = tolower((unsigned char)str[i]);
+    }
+    return str_l;
+}
+
+void lv_btn_img_event_cb(lv_event_t *e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t* obj = lv_event_get_target(e);
+    switch (code)
+    {
+    case LV_EVENT_CLICKED:
+        img_pic = lv_img_create(guider_ui.page);
+        lv_obj_remove_style_all(img_pic);  		
+        lv_obj_align(img_pic, LV_ALIGN_CENTER, 0, 0);
+        char *buf = toLower(lv_list_get_btn_text(guider_ui.img_list, obj) , strlen(lv_list_get_btn_text(guider_ui.img_list, obj)) );
+        sprintf(file_name, "S:/picture/%s", buf);
+        lv_img_set_src(img_pic, file_name);	
+        
+        break;
+    case LV_EVENT_FOCUSED:
+        //printf("%s\n", lv_list_get_btn_text(guider_ui.img_list, obj));
+        break;
+    default:
+        break;
+    }
+}
 
 void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 {
@@ -47,16 +87,45 @@ void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_set_size(ui->img_list, 280, 180);
     lv_obj_align_to(ui->img_list, ui->label, LV_ALIGN_OUT_BOTTOM_MID, 0, 15);
 
-    static uint32_t btn_cnt = 1;
-    for (btn_cnt = 1; btn_cnt <= 10; btn_cnt++)
+    // lv_fs_dir_t img_dir;
+    // lv_fs_res_t res;
+    // res = lv_fs_dir_open(&img_dir, "S:/picture");
+    // char filename[32];
+    // while(1) 
+    // {
+    //     res = lv_fs_dir_read(&img_dir, filename);
+    //     if(res != LV_FS_RES_OK) 
+    //     {
+    //         printf("read filename ERR");
+    //     }
+    //     else
+    //     {
+    //         printf("%s\n", filename);
+    //     }
+    //     if(strlen(filename) == 0) 
+    //     {
+    //         break;
+    //     }
+    //     ui->img_btn = lv_list_add_btn(ui->img_list, LV_SYMBOL_IMAGE, filename);
+    //     lv_group_add_obj(ui->group, ui->img_btn);
+    // }
+    // lv_fs_dir_close(&img_dir);
+
+    DIR *dir = opendir(ESP_FS_PIC_PATH);
+    if(dir == NULL)
     {
-        char buf[32];
-        lv_snprintf(buf, sizeof(buf), "Image %d", (int)btn_cnt);
-        ui->img_btn = lv_list_add_btn(ui->img_list, LV_SYMBOL_IMAGE, buf);
+        printf("open err\n");
+    }
+    struct dirent *dirp;
+
+    while((dirp = readdir(dir)) != NULL)
+    {
+        ui->img_btn = lv_list_add_btn(ui->img_list, LV_SYMBOL_IMAGE, dirp->d_name);
+        lv_obj_add_event_cb(ui->img_btn, lv_btn_img_event_cb, LV_EVENT_CLICKED, NULL);
+        lv_obj_add_event_cb(ui->img_btn, lv_btn_img_event_cb, LV_EVENT_FOCUSED, NULL);
         lv_group_add_obj(ui->group, ui->img_btn);
         //printf("child_id = %d \n", lv_obj_get_child_id(ui->img_btn));
     }
-
     //printf("get child %d \n", lv_obj_get_child_cnt(ui->img_list));
 
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);

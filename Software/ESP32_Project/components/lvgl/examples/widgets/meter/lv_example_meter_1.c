@@ -13,7 +13,7 @@ static void set_value(void * indic, int32_t v)
  */
 void lv_example_meter_1(void)
 {
-     meter = lv_meter_create(lv_scr_act());
+    meter = lv_meter_create(lv_scr_act());
     lv_obj_center(meter);
     lv_obj_set_size(meter, 200, 200);
 
@@ -30,7 +30,8 @@ void lv_example_meter_1(void)
     lv_meter_set_indicator_end_value(meter, indic, 20);
 
     /*Make the tick lines blue at the start of the scale*/
-    indic = lv_meter_add_scale_lines(meter, scale, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_BLUE), false, 0);
+    indic = lv_meter_add_scale_lines(meter, scale, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_BLUE),
+                                     false, 0);
     lv_meter_set_indicator_start_value(meter, indic, 0);
     lv_meter_set_indicator_end_value(meter, indic, 20);
 
@@ -40,7 +41,8 @@ void lv_example_meter_1(void)
     lv_meter_set_indicator_end_value(meter, indic, 100);
 
     /*Make the tick lines red at the end of the scale*/
-    indic = lv_meter_add_scale_lines(meter, scale, lv_palette_main(LV_PALETTE_RED), lv_palette_main(LV_PALETTE_RED), false, 0);
+    indic = lv_meter_add_scale_lines(meter, scale, lv_palette_main(LV_PALETTE_RED), lv_palette_main(LV_PALETTE_RED), false,
+                                     0);
     lv_meter_set_indicator_start_value(meter, indic, 80);
     lv_meter_set_indicator_end_value(meter, indic, 100);
 
