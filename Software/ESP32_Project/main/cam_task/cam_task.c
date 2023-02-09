@@ -1,6 +1,5 @@
 #include "cam_task.h"
 
-
 #define TAG "cam"
 
 static camera_config_t camera_config = {
@@ -34,6 +33,19 @@ static camera_config_t camera_config = {
     .fb_count = 1,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
 };
 
+lv_img_dsc_t img_dsc = {
+    .header.always_zero = 0,
+    .header.w = 320,
+    .header.h = 240,
+    .data_size = 320 * 240 * 2,
+    .header.cf = LV_IMG_CF_TRUE_COLOR,
+    .data = NULL,
+};
+
+camera_fb_t *pic;
+cam_mode_t cam_mode;
+
+
 esp_err_t cam_config_init(void)
 {
     esp_err_t err = esp_camera_init(&camera_config);
@@ -45,17 +57,6 @@ esp_err_t cam_config_init(void)
     return ESP_OK;
 }
 
-lv_img_dsc_t img_dsc = {
-    .header.always_zero = 0,
-    .header.w = 320,
-    .header.h = 240,
-    .data_size = 320 * 240 * 2,
-    .header.cf = LV_IMG_CF_TRUE_COLOR,
-    .data = NULL,
-};
-camera_fb_t *pic;
-
-cam_mode_t cam_mode;
 /**
  * @description: 
  * @param {_Bool} Mode
@@ -63,6 +64,23 @@ cam_mode_t cam_mode;
  */
 static esp_err_t cam_take_pic_config(cam_mode_t mode)
 {
+    // //err
+    // sensor_t *camera_cfg = esp_camera_sensor_get();
+    // if(mode == http_stream_mode)
+    // {
+    //     camera_cfg->set_pixformat(camera_cfg, PIXFORMAT_JPEG );
+    //     camera_cfg->set_framesize(camera_cfg, FRAMESIZE_SVGA );
+    // }
+    // else if(mode == lvgl_show_mode)
+    // {
+    //     camera_cfg->set_pixformat(camera_cfg, PIXFORMAT_RGB565 );
+    //     camera_cfg->set_framesize(camera_cfg, FRAMESIZE_QVGA );        
+    // }
+    // else if(mode == take_pic_mode)
+    // {
+    //     camera_cfg->set_pixformat(camera_cfg, PIXFORMAT_JPEG );
+    //     camera_cfg->set_framesize(camera_cfg, FRAMESIZE_QVGA ); 
+    // }
     esp_camera_deinit();
     if(mode == http_stream_mode)
     {
@@ -97,11 +115,7 @@ void cam_show_task(void *p)
         // {
         //     last_frame = esp_timer_get_time();
         // }
-        // dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
-        // ESP_LOGE(TAG, "6 DRAM=%dkb  ", dram/1024);
         pic = esp_camera_fb_get();
-        // dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
-        // ESP_LOGE(TAG, "6 DRAM=%dkb  ", dram/1024);
 
         img_dsc.data = pic->buf;
         lv_img_set_src(guider_ui.img_cam, &img_dsc);
@@ -109,7 +123,10 @@ void cam_show_task(void *p)
         err = xSemaphoreTake(takepic_Handle, 0);
         if (err == pdTRUE)
         {
+            esp_camera_fb_return(pic);
+
             cam_take_pic_config(take_pic_mode);
+
             pic = esp_camera_fb_get();
             // First create a file.
             sprintf(file_name, "S:/picture/picture%d.jpg", picnum);
@@ -136,9 +153,9 @@ void cam_show_task(void *p)
                     picnum++;
                 }
                 lv_fs_close(&img);
-                ESP_LOGI(TAG, "img written");
+                ESP_LOGW(TAG, "img %s written",file_name);
             }
-
+            esp_camera_fb_return(pic);
             // FILE *img = fopen(file_name, "w");
             // if (img == NULL)
             // {
@@ -162,10 +179,12 @@ void cam_show_task(void *p)
             // int64_t read_end = esp_timer_get_time();
             // ESP_LOGW(TAG, "time = %lld",read_end - read_start);
 
-            esp_camera_fb_return(pic);
             cam_take_pic_config(lvgl_show_mode);
         }
-        esp_camera_fb_return(pic);
+        else
+        {
+            esp_camera_fb_return(pic);
+        }
 
         // int64_t fr_end = esp_timer_get_time();
         // int64_t frame_time = fr_end - last_frame;

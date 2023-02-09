@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: letian
- * @LastEditTime: 2023-02-08 17:31
+ * @LastEditTime: 2023-02-08 21:20
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -22,10 +22,10 @@
 
 #define TAG "UI"
 
-enum PAGE page = PAGE_HOME;
-
 #define IMGSIZE 110
 #define HOME_PAGE_OUT_TIME 500
+
+enum PAGE page = PAGE_HOME;
 
 /**
  * @description: 选择加入的page顺序，防止返回home时不回到进入的图标
@@ -439,7 +439,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
  */
 void setup_ui(lv_ui *ui)
 {
-// #define UI_WRITE
+#define UI_WRITE
 
     lv_obj_set_scrollbar_mode(lv_scr_act(), LV_SCROLLBAR_MODE_OFF);
 #ifdef UI_WRITE
