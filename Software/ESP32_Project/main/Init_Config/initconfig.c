@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: letian
- * @LastEditTime: 2023-02-08 15:43
+ * @LastEditTime: 2023-02-10 14:52
  * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -16,12 +16,10 @@
 void Init_Config(void)
 {
     ESP_LOGI(TAG,"Start Init");
-
     Event_Init();
     Sem_Init();
     Queue_Init();
     Times_Init();
-
     nvs_flash_init();
     if(read_wifi_from_nvs() == ESP_OK) 
     {
@@ -34,15 +32,11 @@ void Init_Config(void)
     speech_recognition_init();
     cam_config_init(); 
     xTaskCreatePinnedToCore(appguiTask, "App_Gui",  1024 * 8, NULL, 2, NULL, 1);
-
     wifi_ap_sta_init();
     mount_storage(ESP_FS_PATH);
     start_wifi_config_server(ESP_FS_PATH);
-    
     vTaskDelay(500/portTICK_PERIOD_MS);
-
     Tasks_Init();
-
     ESP_LOGI(TAG,"Start Succrss");
 }
 

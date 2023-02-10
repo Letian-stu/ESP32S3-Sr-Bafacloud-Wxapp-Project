@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: letian
- * @LastEditTime: 2023-02-09 14:05
+ * @LastEditTime: 2023-02-10 17:36
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_image.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
@@ -40,12 +40,33 @@ void lv_btn_img_event_cb(lv_event_t *e)
     switch (code)
     {
     case LV_EVENT_CLICKED:
-        buf = toLower(lv_list_get_btn_text(guider_ui.img_list, obj) , strlen(lv_list_get_btn_text(guider_ui.img_list, obj)) );
+        buf = toLower((char *)lv_list_get_btn_text(guider_ui.img_list, obj) , strlen(lv_list_get_btn_text(guider_ui.img_list, obj)) );
         sprintf(file_name, "S:/picture/%s", buf);
         lv_img_set_src(img_pic, file_name);	
         break;
     case LV_EVENT_FOCUSED:
-        printf("%s\n", lv_list_get_btn_text(guider_ui.img_list, obj));
+        // if( guider_ui.back_btn == obj )
+        // {
+        //     lv_label_set_text_fmt(guider_ui.label, "#ff0080 Back Btn #");
+        //     printf("back btn\n");
+        // }
+        // else
+        // {
+        //     lv_label_set_text_fmt(guider_ui.label, "#ff0080 focused img:%s #", lv_list_get_btn_text(guider_ui.img_list, obj));
+        //     printf("img name:%s\n", lv_list_get_btn_text(guider_ui.img_list, obj));
+        // }
+
+        if(lv_obj_get_parent(obj) == guider_ui.page)
+        {
+            printf("back btn\n");
+            lv_label_set_text(guider_ui.label, "#ff0080 BackBtn #");
+        }
+        else if(lv_obj_get_parent(obj) == guider_ui.img_list)
+        {
+            printf("img name:%s\n", lv_list_get_btn_text(guider_ui.img_list, obj));
+            lv_label_set_text_fmt(guider_ui.label, "#ff0080 focused img:%s #", lv_list_get_btn_text(guider_ui.img_list, obj));
+        }
+        
         break;
     default:
         break;
@@ -54,7 +75,7 @@ void lv_btn_img_event_cb(lv_event_t *e)
 
 void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 {
-    ui->page = lv_obj_create(lv_scr_act());
+    ui->page = lv_obj_create(lv_scr_act());   
     lv_obj_set_size(ui->page, 280, 240);
     lv_obj_align(ui->page, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_scrollbar_mode(ui->page, LV_SCROLLBAR_MODE_OFF);
@@ -124,9 +145,13 @@ void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay)
         //printf("child_id = %d \n", lv_obj_get_child_id(ui->img_btn));
     }
     //printf("get child %d \n", lv_obj_get_child_cnt(ui->img_list));
-    img_pic = lv_img_create(lv_scr_act());
+    img_pic = lv_img_create(ui->page);
     lv_obj_remove_style_all(img_pic);
     lv_obj_align(img_pic, LV_ALIGN_CENTER, 0, 0);
+
+    ui->label = lv_label_create(img_pic);
+    lv_label_set_recolor(ui->label, true);
+    lv_obj_align(ui->label, LV_ALIGN_TOP_MID, 0, 5);
 
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }

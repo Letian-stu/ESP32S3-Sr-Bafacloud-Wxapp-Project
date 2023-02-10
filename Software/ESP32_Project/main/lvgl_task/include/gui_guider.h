@@ -66,10 +66,10 @@ typedef struct
 		//cam
 			lv_obj_t *takepic_btn;
 			lv_obj_t *takepic;
+			lv_obj_t *img_cam;
 		//image
 			lv_obj_t *img_list;
 			lv_obj_t *img_btn;
-			lv_obj_t *img_cam;
 			
 
 } lv_ui;

@@ -19,9 +19,7 @@ void app_main(void)
 {
     ESP_LOGI(TAG, "HELLO TIAN");
     Init_Config();
-
     vTaskDelay(1000/portTICK_PERIOD_MS);
-
     // 获取剩余的dram大小
     size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
     ESP_LOGW(TAG, "DMA RAM=%dkb  ", dram/1024);

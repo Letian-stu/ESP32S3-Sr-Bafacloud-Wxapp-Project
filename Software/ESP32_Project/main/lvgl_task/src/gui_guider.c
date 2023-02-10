@@ -34,19 +34,7 @@ enum PAGE page = PAGE_HOME;
  */
 static void add_home_group_obj(uint16_t pagenum)
 {
-    if (guider_ui.back_btn != NULL)
-    {
-        lv_group_remove_obj(guider_ui.back_btn);
-        lv_group_remove_obj(guider_ui.takepic_btn);
-    }
-    if(guider_ui.img_list != NULL)
-    {
-        int num = lv_obj_get_child_cnt(guider_ui.img_list);
-        for (int i = 0; i < num; i++)
-        {
-            lv_group_remove_obj(lv_obj_get_child(guider_ui.img_list,i));
-        }
-    }
+    lv_group_remove_all_objs(guider_ui.group);
 
     switch (pagenum)
     {

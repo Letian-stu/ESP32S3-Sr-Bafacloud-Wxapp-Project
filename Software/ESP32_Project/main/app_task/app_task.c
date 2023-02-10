@@ -135,6 +135,7 @@ void  Tasks_Init(void)
     vTaskSuspend(Cam_Handle);  
 
     xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
+    vTaskSuspend(AHT_Handle);  
     xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
     vTaskSuspend(Mqtt_Handle);  
 }

@@ -27,7 +27,7 @@ static camera_config_t camera_config = {
 
     .pixel_format = PIXFORMAT_RGB565,
     .frame_size = FRAMESIZE_QVGA, // QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
-    .fb_location = CAMERA_FB_IN_PSRAM,
+    // .fb_location = CAMERA_FB_IN_PSRAM,
 
     .jpeg_quality = 32, // 0-63, for OV series camera sensors, lower number means higher quality
     .fb_count = 1,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
@@ -44,7 +44,6 @@ lv_img_dsc_t img_dsc = {
 
 camera_fb_t *pic;
 cam_mode_t cam_mode;
-
 
 esp_err_t cam_config_init(void)
 {
@@ -110,11 +109,6 @@ void cam_show_task(void *p)
     ESP_LOGI(TAG, "cam task init");
     while (1)
     {
-        // static int64_t last_frame = 0;
-        // if (!last_frame)
-        // {
-        //     last_frame = esp_timer_get_time();
-        // }
         pic = esp_camera_fb_get();
 
         img_dsc.data = pic->buf;
@@ -129,11 +123,9 @@ void cam_show_task(void *p)
 
             pic = esp_camera_fb_get();
             // First create a file.
-            sprintf(file_name, "S:/picture/picture%d.jpg", picnum);
-            ESP_LOGI(TAG, "Opening file %s", file_name);
-
-            // int64_t read_start = esp_timer_get_time();
-
+            sprintf(file_name, "S:/picture/num%dpic.jpg", picnum);
+            ESP_LOGE(TAG, "create file %s", file_name);
+            
             lv_fs_file_t img;
             err = lv_fs_open(&img, file_name, LV_FS_MODE_WR);
             if(err != LV_FS_RES_OK)
@@ -156,6 +148,7 @@ void cam_show_task(void *p)
                 ESP_LOGW(TAG, "img %s written",file_name);
             }
             esp_camera_fb_return(pic);
+
             // FILE *img = fopen(file_name, "w");
             // if (img == NULL)
             // {
@@ -176,8 +169,7 @@ void cam_show_task(void *p)
             //     fclose(img);
             //     ESP_LOGI(TAG, "img written");
             // }
-            // int64_t read_end = esp_timer_get_time();
-            // ESP_LOGW(TAG, "time = %lld",read_end - read_start);
+
 
             cam_take_pic_config(lvgl_show_mode);
         }
