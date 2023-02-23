@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 14:57
  * @LastEditors: error: git config user.name & please set dead value or install git
- * @LastEditTime: 2023-02-23 14:11
+ * @LastEditTime: 2023-02-23 18:34
  * @FilePath: \ESP32_Project\main\Init_Config\spiffsconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -41,7 +41,7 @@ esp_err_t mount_storage(const char* base_path)
         ESP_LOGE(TAG, "Failed to get SPIFFS partition information (%s)", esp_err_to_name(ret));
         return ret;
     }
-
     ESP_LOGI(TAG, "Partition size: total: %d, used: %d", total, used);
+
     return ESP_OK;
 }

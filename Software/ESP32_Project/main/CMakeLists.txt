@@ -50,8 +50,8 @@ INCLUDE_DIRS    "."
 				"speech_rec"
                 "lvgl_task/include"
 
-EMBED_FILES     "../spiffs/home.html"
-EMBED_FILES     "../spiffs/config.html"
+EMBED_FILES     "../spiffs/main.html"
+EMBED_FILES     "../spiffs/wificonfig.html"
 EMBED_FILES     "../spiffs/webfs.html"
 )
 

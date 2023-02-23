@@ -1,0 +1,71 @@
+<!--
+ * @Author: error: git config user.name & please set dead value or install git
+ * @Date: 2022-12-04 17:10
+ * @LastEditors: error: git config user.name & please set dead value or install git
+ * @LastEditTime: 2023-02-23 17:45
+ * @FilePath: \ESP32_Project\spiffs\config.html
+ * @Description: 
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+-->
+
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>esp32 配网界面</title>
+</head>
+
+<body>
+    <table align="center" width="400px" height="100px" border="1">
+        <td></td>
+        <td>wifi 密码配置</td>
+        <tr>
+            <td>wifi name</td>
+            <td>
+                <input type="text" id="wifissid" name="car_name" placeholder="ssid">
+            </td>
+        </tr>
+        <tr>
+            <td>passward</td>
+            <td>
+                <input type="text" id="wifipassward" name="car_type" placeholder="password">
+            </td>
+        </tr>
+        <td></td>
+        <td align="center"><button id="send_WIFI" type="button" onclick="send_wifi()">提交</button></td>
+    </table>
+</body>
+
+</html>
+<script>
+    function setpath() {
+        var default_path = document.getElementById("newfile").files[0].name;
+        document.getElementById("filepath").value = default_path;
+    }
+
+    function send_wifi() {
+        var input_ssid = document.getElementById("wifissid").value;
+        var input_pass = document.getElementById("wifipassward").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/wificonfig", true);
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4) {
+                if (xhttp.status == 200) {
+                    alert("WIFI配置完成,设备连接中!!!");
+                    console.log(xhttp.responseText);
+                } else if (xhttp.status == 0) {
+                    alert("Server closed the connection abruptly!");
+                    location.reload()
+                } else {
+                    alert(xhttp.status + " Error!\n" + xhttp.responseText);
+                    location.reload()
+                }
+            }
+        };
+        var data = {
+            "wifi_ssid": input_ssid,
+            "wifi_pass": input_pass
+        }
+        xhttp.send(JSON.stringify(data));
+    }
+</script>
