@@ -1,6 +1,6 @@
 {
   "C_Cpp.intelliSenseEngine": "Tag Parser",
-  "idf.portWin": "COM3",
+  "idf.portWin": "COM16",
   "idf.adapterTargetName": "esp32s3",
   "idf.openOcdConfigs": [
     "interface/ftdi/esp32_devkitj_v1.cfg",
@@ -91,7 +91,8 @@
     "dirent.h": "c",
     "lv_fs_if.h": "c",
     "lv_fs.h": "c",
-    "ctype.h": "c"
+    "ctype.h": "c",
+    "file_serving_example_common.h": "c"
   },
   "idf.flashType": "UART"
 }

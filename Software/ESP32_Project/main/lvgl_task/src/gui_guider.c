@@ -427,7 +427,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
  */
 void setup_ui(lv_ui *ui)
 {
-#define UI_WRITE
+// #define UI_WRITE
 
     lv_obj_set_scrollbar_mode(lv_scr_act(), LV_SCROLLBAR_MODE_OFF);
 #ifdef UI_WRITE

@@ -1,14 +1,13 @@
 /*
  * @Author: letian
  * @Date: 2022-11-29 13:57
- * @LastEditors: letian
- * @LastEditTime: 2023-02-10 14:52
+ * @LastEditors: error: git config user.name & please set dead value or install git
+ * @LastEditTime: 2023-02-23 17:53
  * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
 #include "BaseConfig.h"
-
 
 #define TAG "init"
 

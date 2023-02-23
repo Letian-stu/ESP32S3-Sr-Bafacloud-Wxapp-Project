@@ -1,8 +1,8 @@
 /*
  * @Author: letian
  * @Date: 2022-11-29 14:57
- * @LastEditors: letian
- * @LastEditTime: 2023-02-07 19:23
+ * @LastEditors: error: git config user.name & please set dead value or install git
+ * @LastEditTime: 2023-02-23 14:11
  * @FilePath: \ESP32_Project\main\Init_Config\spiffsconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -19,7 +19,7 @@ esp_err_t mount_storage(const char* base_path)
     esp_vfs_spiffs_conf_t conf = {
         .base_path = base_path,
         .partition_label = NULL,
-        .max_files = 5,   // This sets the maximum number of files that can be open at the same time
+        .max_files = 8,   // This sets the maximum number of files that can be open at the same time
         .format_if_mount_failed = true
     };
 
