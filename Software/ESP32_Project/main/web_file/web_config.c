@@ -8,7 +8,7 @@ httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 nvs_handle_t nvs_wifi_config;
 recv_wifi_buf_t recv_wifi_buf;
 
-static const char *get_path_from_uri(char *dest, const char *base_path, const char *uri, size_t destsize)
+static char *get_path_from_uri(char *dest, const char *base_path, const char *uri, size_t destsize)
 {
     const size_t base_pathlen = strlen(base_path);
     size_t pathlen = strlen(uri);
@@ -155,7 +155,7 @@ static esp_err_t home_get_handler(httpd_req_t *req)
     char destfilepath[FILE_PATH_MAX] = "/sdcard";
     FILE *fd = NULL;
     struct stat file_stat;
-    const char *filename = get_path_from_uri(filepath, ((struct file_server_data *)req->user_ctx)->base_path,
+    char *filename = get_path_from_uri(filepath, ((struct file_server_data *)req->user_ctx)->base_path,
                                              req->uri, sizeof(filepath));
     if (!filename)
     {
@@ -163,6 +163,7 @@ static esp_err_t home_get_handler(httpd_req_t *req)
         httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Filename too long");
         return ESP_FAIL;
     }
+
     printf("return filepath:%s filename:%s\n", filepath, filename);
     if (strcmp(filename, "/wificonfig") == 0)
     {
@@ -172,12 +173,12 @@ static esp_err_t home_get_handler(httpd_req_t *req)
         size_t size = (wificonfig_end - wificonfig_start);
         return httpd_resp_send(req, (const char *)wificonfig_start, size);
     }
-    else if (strcmp(filename, "/webfs/") == 0)
+    else if ( strcmp(filename, "/webfs/") == 0 )
     {
         ESP_LOGI(TAG, "open webfs html");
         return http_resp_dir_html(req, filepath);
     }
-    else if ((strcmp(filename, "/main") == 0) || (strcmp(filename, "/") == 0))
+    else if ( strcmp(filename, "/") == 0 )
     {
         ESP_LOGI(TAG, "open main html");
         extern const unsigned char main_start[] asm("_binary_main_html_start");
@@ -185,8 +186,10 @@ static esp_err_t home_get_handler(httpd_req_t *req)
         size_t size = (main_end - main_start);
         return httpd_resp_send(req, (const char *)main_start, size);
     }
+
     strcat(destfilepath, strrchr(filepath, '/'));
-    // printf("%s\n",destfilepath);
+
+    printf("destfilepath:%s\n",destfilepath);
     if (stat(destfilepath, &file_stat) == -1)
     {
         // /* If file not present on SPIFFS check if URI
@@ -303,6 +306,7 @@ static esp_err_t wificonfig_post_handler(httpd_req_t *req)
 static esp_err_t upload_post_handler(httpd_req_t *req)
 {
     char filepath[FILE_PATH_MAX];
+    char destfilepath[FILE_PATH_MAX] = "/sdcard";
     FILE *fd = NULL;
     struct stat file_stat;
 
@@ -317,17 +321,19 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
-    /* Filename cannot have a trailing '/' */
-    if (filename[strlen(filename) - 1] == '/')
-    {
-        ESP_LOGE(TAG, "Invalid filename : %s", filename);
-        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
-        return ESP_FAIL;
-    }
+    // /* Filename cannot have a trailing '/' */
+    // if (filename[strlen(filename) - 1] == '/')
+    // {
+    //     ESP_LOGE(TAG, "Invalid filename : %s", filename);
+    //     httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
+    //     return ESP_FAIL;
+    // }
 
-    if (stat(filepath, &file_stat) == 0)
+    strcat(destfilepath, strrchr(filepath, '/'));
+
+    if (stat(destfilepath, &file_stat) == 0)
     {
-        ESP_LOGE(TAG, "File already exists : %s", filepath);
+        ESP_LOGE(TAG, "File already exists : %s", destfilepath);
         /* Respond with 400 Bad Request */
         httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "File already exists");
         return ESP_FAIL;
@@ -345,10 +351,10 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
-    fd = fopen(filepath, "w");
+    fd = fopen(destfilepath, "w");
     if (!fd)
     {
-        ESP_LOGE(TAG, "Failed to create file : %s", filepath);
+        ESP_LOGE(TAG, "Failed to create file : %s", destfilepath);
         /* Respond with 500 Internal Server Error */
         httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Failed to create file");
         return ESP_FAIL;
@@ -380,7 +386,7 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
             /* In case of unrecoverable error,
              * close and delete the unfinished file*/
             fclose(fd);
-            unlink(filepath);
+            unlink(destfilepath);
 
             ESP_LOGE(TAG, "File reception failed!");
             /* Respond with 500 Internal Server Error */
@@ -394,7 +400,7 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
             /* Couldn't write everything to file!
              * Storage may be full? */
             fclose(fd);
-            unlink(filepath);
+            unlink(destfilepath);
 
             ESP_LOGE(TAG, "File write failed!");
             /* Respond with 500 Internal Server Error */
@@ -425,6 +431,7 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
 static esp_err_t delete_post_handler(httpd_req_t *req)
 {
     char filepath[FILE_PATH_MAX];
+    char destfilepath[FILE_PATH_MAX] = "/sdcard";
     struct stat file_stat;
 
     /* Skip leading "/delete" from URI to get filename */
@@ -438,15 +445,17 @@ static esp_err_t delete_post_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
-    /* Filename cannot have a trailing '/' */
-    if (filename[strlen(filename) - 1] == '/')
-    {
-        ESP_LOGE(TAG, "Invalid filename : %s", filename);
-        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
-        return ESP_FAIL;
-    }
+    // /* Filename cannot have a trailing '/' */
+    // if (filename[strlen(filename) - 1] == '/')
+    // {
+    //     ESP_LOGE(TAG, "Invalid filename : %s", filename);
+    //     httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
+    //     return ESP_FAIL;
+    // }
 
-    if (stat(filepath, &file_stat) == -1)
+    strcat(destfilepath, strrchr(filepath, '/'));
+
+    if (stat(destfilepath, &file_stat) == -1)
     {
         ESP_LOGE(TAG, "File does not exist : %s", filename);
         /* Respond with 400 Bad Request */
@@ -456,7 +465,7 @@ static esp_err_t delete_post_handler(httpd_req_t *req)
 
     ESP_LOGI(TAG, "Deleting file : %s", filename);
     /* Delete file */
-    unlink(filepath);
+    unlink(destfilepath);
 
     /* Redirect onto root to see the updated file list */
     httpd_resp_set_status(req, "303 See Other");
