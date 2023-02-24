@@ -173,12 +173,7 @@ static esp_err_t home_get_handler(httpd_req_t *req)
         size_t size = (wificonfig_end - wificonfig_start);
         return httpd_resp_send(req, (const char *)wificonfig_start, size);
     }
-    else if ( strcmp(filename, "/webfs/") == 0 )
-    {
-        ESP_LOGI(TAG, "open webfs html");
-        return http_resp_dir_html(req, filepath);
-    }
-    else if ( strcmp(filename, "/") == 0 )
+    else if ( strcmp(filename, "/main") == 0 )
     {
         ESP_LOGI(TAG, "open main html");
         extern const unsigned char main_start[] asm("_binary_main_html_start");
@@ -186,16 +181,17 @@ static esp_err_t home_get_handler(httpd_req_t *req)
         size_t size = (main_end - main_start);
         return httpd_resp_send(req, (const char *)main_start, size);
     }
+    else if ( (strcmp(filename, "/webfs/") == 0) || (strcmp(filename, "/") == 0))
+    {
+        ESP_LOGI(TAG, "open webfs html");
+        return http_resp_dir_html(req, filepath);
+    }
 
     strcat(destfilepath, strrchr(filepath, '/'));
 
-    printf("destfilepath:%s\n",destfilepath);
+    printf("get destfilepath:%s\n",destfilepath);
     if (stat(destfilepath, &file_stat) == -1)
     {
-        // /* If file not present on SPIFFS check if URI
-        //  * corresponds to one of the hardcoded paths */
-        // if (strcmp(filename, "/index.html") == 0) {
-        //     return index_html_get_handler(req);
         if (strcmp(filename, "/favicon.ico") == 0)
         {
             return favicon_get_handler(req);
@@ -321,16 +317,17 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
-    // /* Filename cannot have a trailing '/' */
-    // if (filename[strlen(filename) - 1] == '/')
-    // {
-    //     ESP_LOGE(TAG, "Invalid filename : %s", filename);
-    //     httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
-    //     return ESP_FAIL;
-    // }
+    /* Filename cannot have a trailing '/' */
+    if (filename[strlen(filename) - 1] == '/')
+    {
+        ESP_LOGE(TAG, "Invalid filename : %s", filename);
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
+        return ESP_FAIL;
+    }
 
     strcat(destfilepath, strrchr(filepath, '/'));
 
+    printf("upload destfilepath:%s\n",destfilepath);
     if (stat(destfilepath, &file_stat) == 0)
     {
         ESP_LOGE(TAG, "File already exists : %s", destfilepath);
@@ -420,9 +417,7 @@ static esp_err_t upload_post_handler(httpd_req_t *req)
     /* Redirect onto root to see the updated file list */
     httpd_resp_set_status(req, "303 See Other");
     httpd_resp_set_hdr(req, "Location", "/");
-#ifdef CONFIG_EXAMPLE_HTTPD_CONN_CLOSE_HEADER
-    httpd_resp_set_hdr(req, "Connection", "close");
-#endif
+
     httpd_resp_sendstr(req, "File uploaded successfully");
     return ESP_OK;
 }
@@ -445,16 +440,17 @@ static esp_err_t delete_post_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
-    // /* Filename cannot have a trailing '/' */
-    // if (filename[strlen(filename) - 1] == '/')
-    // {
-    //     ESP_LOGE(TAG, "Invalid filename : %s", filename);
-    //     httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
-    //     return ESP_FAIL;
-    // }
+    /* Filename cannot have a trailing '/' */
+    if (filename[strlen(filename) - 1] == '/')
+    {
+        ESP_LOGE(TAG, "Invalid filename : %s", filename);
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Invalid filename");
+        return ESP_FAIL;
+    }
 
     strcat(destfilepath, strrchr(filepath, '/'));
 
+    printf("delete destfilepath:%s\n",destfilepath);
     if (stat(destfilepath, &file_stat) == -1)
     {
         ESP_LOGE(TAG, "File does not exist : %s", filename);
@@ -470,9 +466,7 @@ static esp_err_t delete_post_handler(httpd_req_t *req)
     /* Redirect onto root to see the updated file list */
     httpd_resp_set_status(req, "303 See Other");
     httpd_resp_set_hdr(req, "Location", "/");
-#ifdef CONFIG_EXAMPLE_HTTPD_CONN_CLOSE_HEADER
-    httpd_resp_set_hdr(req, "Connection", "close");
-#endif
+
     httpd_resp_sendstr(req, "File deleted successfully");
     return ESP_OK;
 }
