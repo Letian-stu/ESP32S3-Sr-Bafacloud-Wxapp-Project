@@ -1,3 +1,12 @@
+/*
+ * @Author: error: git config user.name & please set dead value or install git
+ * @Date: 2023-01-29 10:55
+ * @LastEditors: error: git config user.name & please set dead value or install git
+ * @LastEditTime: 2023-02-24 23:32
+ * @FilePath: \ESP32_Project\main\cam_task\cam_task.h
+ * @Description: 
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+ */
 #ifndef _CAM_TASK_H
 #define _CAM_TASK_H
 
@@ -37,6 +46,6 @@ typedef enum
 
 esp_err_t cam_config_init(void);
 void cam_show_task(void *p);
-
+esp_err_t cam_take_pic_config(cam_mode_t mode);
 #endif
 

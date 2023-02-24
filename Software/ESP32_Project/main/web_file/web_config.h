@@ -1,9 +1,9 @@
 /*
  * @Author: letian
  * @Date: 2022-11-30 09:21
- * @LastEditors: letian
- * @LastEditTime: 2023-02-03 14:43
- * @FilePath: \ESP32_Project\main\web_file\include\web_config.h
+ * @LastEditors: error: git config user.name & please set dead value or install git
+ * @LastEditTime: 2023-02-24 22:51
+ * @FilePath: \ESP32_Project\main\web_file\web_config.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -33,6 +33,7 @@
 
 //add by tian
 #include "app_task.h"
+#include "esp_camera.h"
 
 #define WIFISSIDLEN "WIFISSIDLEN"
 #define WIFISSID    "WIFISSID"
@@ -50,6 +51,8 @@
 #define MAX_FILE_SIZE_STR "200KB"
 
 #define SCRATCH_BUFSIZE 4096
+
+
 
 typedef struct {
     char *ssid;

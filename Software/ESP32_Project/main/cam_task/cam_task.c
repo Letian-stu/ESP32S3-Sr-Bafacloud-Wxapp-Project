@@ -61,7 +61,7 @@ esp_err_t cam_config_init(void)
  * @param {_Bool} Mode
  * @return {*}
  */
-static esp_err_t cam_take_pic_config(cam_mode_t mode)
+esp_err_t cam_take_pic_config(cam_mode_t mode)
 {
     // //err
     // sensor_t *camera_cfg = esp_camera_sensor_get();
@@ -84,9 +84,10 @@ static esp_err_t cam_take_pic_config(cam_mode_t mode)
     if(mode == http_stream_mode)
     {
         printf("change size qvga\n");
-        camera_config.frame_size = FRAMESIZE_QVGA;
+        camera_config.frame_size = FRAMESIZE_HVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.jpeg_quality = 32;
+        camera_config.jpeg_quality = 12;
+        camera_config.fb_count = 5;
     }
     else if(mode == lvgl_show_mode)
     {
@@ -112,6 +113,7 @@ void cam_show_task(void *p)
     static char file_name[32];
     static uint32_t picnum = 0;
     static size_t picwritelen = 0;
+    cam_take_pic_config(lvgl_show_mode);
     ESP_LOGI(TAG, "cam task init");
     while (1)
     {
