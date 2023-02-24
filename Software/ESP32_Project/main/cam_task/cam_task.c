@@ -83,16 +83,24 @@ static esp_err_t cam_take_pic_config(cam_mode_t mode)
     esp_camera_deinit();
     if(mode == http_stream_mode)
     {
+        printf("change size qvga\n");
+        camera_config.frame_size = FRAMESIZE_QVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
+        camera_config.jpeg_quality = 32;
     }
     else if(mode == lvgl_show_mode)
     {
+        printf("change size qvga\n");
+        camera_config.frame_size = FRAMESIZE_QVGA;
         camera_config.pixel_format = PIXFORMAT_RGB565;
+        camera_config.jpeg_quality = 32;
     }
     else if(mode == take_pic_mode)
     {
+        printf("change size svga\n");
+        camera_config.frame_size = FRAMESIZE_SVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
-
+        camera_config.jpeg_quality = 8;
     }
     cam_config_init();
     return ESP_OK;
@@ -121,7 +129,8 @@ void cam_show_task(void *p)
 
             pic = esp_camera_fb_get();
             // First create a file.
-            sprintf(file_name, "S:/picture/num%dpic.jpg", picnum);
+            //sd path
+            sprintf(file_name, "S:/num%dpic.jpg", picnum);
             ESP_LOGE(TAG, "create file %s", file_name);
             
             lv_fs_file_t img;

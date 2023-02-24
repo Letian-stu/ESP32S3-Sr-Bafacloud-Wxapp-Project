@@ -92,7 +92,8 @@
     "lv_fs_if.h": "c",
     "lv_fs.h": "c",
     "ctype.h": "c",
-    "file_serving_example_common.h": "c"
+    "file_serving_example_common.h": "c",
+    "cstring": "c"
   },
   "idf.flashType": "UART"
 }

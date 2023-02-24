@@ -39,10 +39,28 @@
 #define WIFIPASSLEN "WIFIPASSLEN"
 #define WIFIPASS    "WIFIPASS"
 
+#define IS_FILE_EXT(filename, ext) \
+    (strcasecmp(&filename[strlen(filename) - sizeof(ext) + 1], ext) == 0)
+
+#define FILE_PATH_MAX (ESP_VFS_PATH_MAX + CONFIG_SPIFFS_OBJ_NAME_LEN)
+
+/* Max size of an individual file. Make sure this
+ * value is same as that set in upload_script.html */
+#define MAX_FILE_SIZE   (200*1024) // 200 KB
+#define MAX_FILE_SIZE_STR "200KB"
+
+#define SCRATCH_BUFSIZE 4096
+
 typedef struct {
     char *ssid;
     char *passward;
 } recv_wifi_buf_t;
+
+struct file_server_data
+{
+    char base_path[ESP_VFS_PATH_MAX + 1];
+    char scratch[SCRATCH_BUFSIZE];
+};
 
 extern nvs_handle_t nvs_wifi_config;
 extern httpd_handle_t server;

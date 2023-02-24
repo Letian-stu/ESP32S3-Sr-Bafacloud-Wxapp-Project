@@ -5,3 +5,4 @@
 COMPONENT_EMBED_FILES += ../spiffs/main.html
 COMPONENT_EMBED_FILES += ../spiffs/wificonfig.html
 COMPONENT_EMBED_FILES += ../spiffs/webfs.html
+COMPONENT_EMBED_FILES += ../spiffs/favicon.ico

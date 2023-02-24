@@ -1,8 +1,8 @@
 /*
  * @Author: letian
  * @Date: 2023-01-18 20:41
- * @LastEditors: letian
- * @LastEditTime: 2023-02-10 17:36
+ * @LastEditors: error: git config user.name & please set dead value or install git
+ * @LastEditTime: 2023-02-24 12:00
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_image.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
@@ -41,7 +41,8 @@ void lv_btn_img_event_cb(lv_event_t *e)
     {
     case LV_EVENT_CLICKED:
         buf = toLower((char *)lv_list_get_btn_text(guider_ui.img_list, obj) , strlen(lv_list_get_btn_text(guider_ui.img_list, obj)) );
-        sprintf(file_name, "S:/picture/%s", buf);
+        //sd path
+        sprintf(file_name, "S:/%s", buf);
         lv_img_set_src(img_pic, file_name);	
         break;
     case LV_EVENT_FOCUSED:
@@ -129,7 +130,8 @@ void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     // }
     // lv_fs_dir_close(&img_dir);
 
-    DIR *dir = opendir(ESP_FS_PIC_PATH);
+    //sd path
+    DIR *dir = opendir(ESP_SD_FS_PATH);
     if(dir == NULL)
     {
         printf("open err\n");

@@ -53,6 +53,7 @@ INCLUDE_DIRS    "."
 EMBED_FILES     "../spiffs/main.html"
 EMBED_FILES     "../spiffs/wificonfig.html"
 EMBED_FILES     "../spiffs/webfs.html"
+EMBED_FILES     "../spiffs/favicon.ico"
 )
 
 spiffs_create_partition_image(storage ../spiffs FLASH_IN_PROJECT)

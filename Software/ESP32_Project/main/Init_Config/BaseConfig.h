@@ -35,7 +35,7 @@
 
 #define ESP_FS_PATH        "/spiffs"
 #define ESP_SD_FS_PATH     "/sdcard"
-#define ESP_FS_PIC_PATH    "/sdcard/picture"
+//#define ESP_FS_PIC_PATH    "/sdcard/picture"
 
 typedef struct {
     char ssid[32];
