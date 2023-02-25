@@ -63,30 +63,13 @@ esp_err_t cam_config_init(void)
  */
 esp_err_t cam_take_pic_config(cam_mode_t mode)
 {
-    // //err
-    // sensor_t *camera_cfg = esp_camera_sensor_get();
-    // if(mode == http_stream_mode)
-    // {
-    //     camera_cfg->set_pixformat(camera_cfg, PIXFORMAT_JPEG );
-    //     camera_cfg->set_framesize(camera_cfg, FRAMESIZE_SVGA );
-    // }
-    // else if(mode == lvgl_show_mode)
-    // {
-    //     camera_cfg->set_pixformat(camera_cfg, PIXFORMAT_RGB565 );
-    //     camera_cfg->set_framesize(camera_cfg, FRAMESIZE_QVGA );        
-    // }
-    // else if(mode == take_pic_mode)
-    // {
-    //     camera_cfg->set_pixformat(camera_cfg, PIXFORMAT_JPEG );
-    //     camera_cfg->set_framesize(camera_cfg, FRAMESIZE_QVGA ); 
-    // }
     esp_camera_deinit();
     if(mode == http_stream_mode)
     {
         printf("change size qvga\n");
         camera_config.frame_size = FRAMESIZE_HVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.jpeg_quality = 12;
+        camera_config.jpeg_quality = 16;
         camera_config.fb_count = 5;
     }
     else if(mode == lvgl_show_mode)

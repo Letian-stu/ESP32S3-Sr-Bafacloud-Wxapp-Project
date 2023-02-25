@@ -154,38 +154,75 @@ static esp_err_t http_resp_dir_html(httpd_req_t *req, const char *dirpath)
     return ESP_OK;
 }
 
-static esp_err_t main_handler(httpd_req_t *req)
+/*
+ * MJPEG stream handler on http://<host>/
+ */
+esp_err_t jpg_stream_httpd_handler(httpd_req_t *req)
 {
-    ESP_LOGI(TAG, "open main html");
-    extern const unsigned char main_start[] asm("_binary_main_html_start");
-    extern const unsigned char main_end[] asm("_binary_main_html_end");
-    size_t size = (main_end - main_start);
-    return httpd_resp_send(req, (const char *)main_start, size);
-}
-
-static esp_err_t getwificonfig_handler(httpd_req_t *req)
-{
-    ESP_LOGI(TAG, "open wificonfig html");
-    extern const unsigned char wificonfig_start[] asm("_binary_wificonfig_html_start");
-    extern const unsigned char wificonfig_end[] asm("_binary_wificonfig_html_end");
-    size_t size = (wificonfig_end - wificonfig_start);
-    return httpd_resp_send(req, (const char *)wificonfig_start, size);
-}
-
-static esp_err_t webfs_handler(httpd_req_t *req)
-{
-    char filepath[FILE_PATH_MAX];
-    char *filename = get_path_from_uri(filepath, ((struct file_server_data *)req->user_ctx)->base_path,
-                                             req->uri, sizeof(filepath));
-    if (!filename)
+    cam_take_pic_config(http_stream_mode);
+    camera_fb_t *fb = NULL;
+    esp_err_t res = ESP_OK;
+    size_t _jpg_buf_len;
+    uint8_t *_jpg_buf;
+    char *part_buf[64];
+    static int64_t last_frame = 0;
+    if (!last_frame)
     {
-        ESP_LOGE(TAG, "Filename is too long");
-        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Filename too long");
-        return ESP_FAIL;
+        last_frame = esp_timer_get_time();
     }
-
-    ESP_LOGI(TAG, "open webfs html");
-    return http_resp_dir_html(req, filepath);
+    httpd_resp_set_type(req, _STREAM_CONTENT_TYPE);
+    while (1)
+    {
+        fb = esp_camera_fb_get();
+        if (!fb)
+        {
+            printf(("Camera capture failed"));
+            res = ESP_FAIL;
+        }
+        else
+        {
+            if (fb->format != PIXFORMAT_JPEG)
+            {
+                bool jpeg_converted = frame2jpg(fb, 80, &_jpg_buf, &_jpg_buf_len);
+                if (!jpeg_converted)
+                {
+                    printf(("JPEG compression failed"));
+                    esp_camera_fb_return(fb);
+                    res = ESP_FAIL;
+                }
+            }
+            else
+            {
+                _jpg_buf_len = fb->len;
+                _jpg_buf = fb->buf;
+            }
+        }
+        if (res == ESP_OK)
+        {
+            size_t hlen = snprintf((char *)part_buf, 64, _STREAM_PART, _jpg_buf_len);
+            res = httpd_resp_send_chunk(req, (const char *)part_buf, hlen);
+        }
+        if (res == ESP_OK)
+        {
+            res = httpd_resp_send_chunk(req, (const char *)_jpg_buf, _jpg_buf_len);
+        }
+        if (res == ESP_OK)
+        {
+            res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, strlen(_STREAM_BOUNDARY));
+        }
+        if (fb->format != PIXFORMAT_JPEG)
+        {
+            free(_jpg_buf);
+        }
+        esp_camera_fb_return(fb);
+        int64_t fr_end = esp_timer_get_time();
+        int64_t frame_time = fr_end - last_frame;
+        last_frame = fr_end;
+        frame_time /= 1000;
+        ESP_LOGI("MJPG:","%u KB %u ms (%.1ffps)",(uint32_t)(_jpg_buf_len / 1024),(uint32_t)(frame_time),1000.0 / (uint32_t)(frame_time));
+    }
+    last_frame = 0;
+    return res;
 }
 
 static esp_err_t home_get_handler(httpd_req_t *req)
@@ -204,7 +241,27 @@ static esp_err_t home_get_handler(httpd_req_t *req)
     }
 
     printf("return filepath:%s filename:%s\n", filepath, filename);
-    if (strcmp(filename, "/") == 0)
+    if(strcmp(filename, "/webcam") == 0)
+    {
+        jpg_stream_httpd_handler(req);
+    }
+    else if (strcmp(filename, "/wificonfig") == 0)
+    {
+        ESP_LOGI(TAG, "open wificonfig html");
+        extern const unsigned char wificonfig_start[] asm("_binary_wificonfig_html_start");
+        extern const unsigned char wificonfig_end[] asm("_binary_wificonfig_html_end");
+        size_t size = (wificonfig_end - wificonfig_start);
+        return httpd_resp_send(req, (const char *)wificonfig_start, size);
+    }
+    else if ( strcmp(filename, "/main") == 0 )
+    {
+        ESP_LOGI(TAG, "open main html");
+        extern const unsigned char main_start[] asm("_binary_main_html_start");
+        extern const unsigned char main_end[] asm("_binary_main_html_end");
+        size_t size = (main_end - main_start);
+        return httpd_resp_send(req, (const char *)main_start, size);
+    }
+    else if ( (strcmp(filename, "/webfs/") == 0) || (strcmp(filename, "/") == 0))
     {
         ESP_LOGI(TAG, "open webfs html");
         return http_resp_dir_html(req, filepath);
@@ -494,86 +551,6 @@ static esp_err_t delete_post_handler(httpd_req_t *req)
     return ESP_OK;
 }
 
-/*
- * MJPEG stream handler on http://<host>/
- */
-esp_err_t jpg_stream_httpd_handler(httpd_req_t *req)
-{
-    cam_take_pic_config(http_stream_mode);
-    camera_fb_t *fb = NULL;
-    esp_err_t res = ESP_OK;
-    size_t _jpg_buf_len;
-    uint8_t *_jpg_buf;
-    char *part_buf[64];
-    static int64_t last_frame = 0;
-    if (!last_frame)
-    {
-        last_frame = esp_timer_get_time();
-    }
-    res = httpd_resp_set_type(req, _STREAM_CONTENT_TYPE);
-    if (res != ESP_OK)
-    {
-        return res;
-    }
-    
-    while (1)
-    {
-        fb = esp_camera_fb_get();
-        if (!fb)
-        {
-            printf(("Camera capture failed"));
-            res = ESP_FAIL;
-        }
-        else
-        {
-            if (fb->format != PIXFORMAT_JPEG)
-            {
-                bool jpeg_converted = frame2jpg(fb, 80, &_jpg_buf, &_jpg_buf_len);
-                if (!jpeg_converted)
-                {
-                    printf(("JPEG compression failed"));
-                    esp_camera_fb_return(fb);
-                    res = ESP_FAIL;
-                }
-            }
-            else
-            {
-                _jpg_buf_len = fb->len;
-                _jpg_buf = fb->buf;
-            }
-        }
-        if (res == ESP_OK)
-        {
-            size_t hlen = snprintf((char *)part_buf, 64, _STREAM_PART, _jpg_buf_len);
-            res = httpd_resp_send_chunk(req, (const char *)part_buf, hlen);
-        }
-        if (res == ESP_OK)
-        {
-            res = httpd_resp_send_chunk(req, (const char *)_jpg_buf, _jpg_buf_len);
-        }
-        if (res == ESP_OK)
-        {
-            res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, strlen(_STREAM_BOUNDARY));
-        }
-        if (fb->format != PIXFORMAT_JPEG)
-        {
-            free(_jpg_buf);
-        }
-        esp_camera_fb_return(fb);
-        if (res != ESP_OK)
-        {
-            break;
-        }
-        int64_t fr_end = esp_timer_get_time();
-        int64_t frame_time = fr_end - last_frame;
-        last_frame = fr_end;
-        frame_time /= 1000;
-        printf("MJPG: %u KB %u ms (%.1ffps)\n",(uint32_t)(_jpg_buf_len / 1024),(uint32_t)(frame_time),1000.0 / (uint32_t)(frame_time));
-    }
-    last_frame = 0;
-    return res;
-}
-
 /* Function to start the file server */
 esp_err_t start_wifi_config_server(const char *base_path)
 {
@@ -603,27 +580,13 @@ esp_err_t start_wifi_config_server(const char *base_path)
     }
     /* URI handler for getting uploaded files */
     httpd_uri_t home = {
-        .uri = "/", // Match all URIs of type /path/to/file
+        .uri = "/*", // Match all URIs of type /path/to/file
         .method = HTTP_GET,
         .handler = home_get_handler,
         .user_ctx = server_data // Pass server data as context
     };
     httpd_register_uri_handler(server, &home);
-    /* URI handler for getting uploaded files */
-    httpd_uri_t mainweb = {
-        .uri = "/main", // Match all URIs of type /path/to/file
-        .method = HTTP_GET,
-        .handler = main_handler,
-        .user_ctx = server_data // Pass server data as context
-    };
-    httpd_register_uri_handler(server, &mainweb);
-    httpd_uri_t getwificonfig = {
-        .uri = "/getwificonfig", // Match all URIs of type /path/to/file
-        .method = HTTP_GET,
-        .handler = getwificonfig_handler,
-        .user_ctx = server_data // Pass server data as context
-    };
-    httpd_register_uri_handler(server, &getwificonfig);
+
     /* URI handler for getting uploaded files */
     httpd_uri_t wificonfig = {
         .uri = "/wificonfig", // Match all URIs of type /path/to/file
@@ -632,13 +595,7 @@ esp_err_t start_wifi_config_server(const char *base_path)
         .user_ctx = server_data // Pass server data as context
     };
     httpd_register_uri_handler(server, &wificonfig);
-    httpd_uri_t webfs = {
-        .uri = "/webfs/", // Match all URIs of type /path/to/file
-        .method = HTTP_GET,
-        .handler = webfs_handler,
-        .user_ctx = server_data // Pass server data as context
-    };
-    httpd_register_uri_handler(server, &webfs);
+
     /* URI handler for uploading files to server */
     httpd_uri_t file_upload = {
         .uri = "/upload/*", // Match all URIs of type /upload/path/to/file
@@ -655,14 +612,6 @@ esp_err_t start_wifi_config_server(const char *base_path)
         .user_ctx = server_data // Pass server data as context
     };
     httpd_register_uri_handler(server, &file_delete);
-    /* URI handler structure for GET / */
-    httpd_uri_t get_mjpeg = {
-        .uri = "/webcam",
-        .method = HTTP_GET,
-        .handler = jpg_stream_httpd_handler,
-        .user_ctx = NULL
-    };
-    httpd_register_uri_handler(server, &get_mjpeg);
 
     return ESP_OK;
 }
