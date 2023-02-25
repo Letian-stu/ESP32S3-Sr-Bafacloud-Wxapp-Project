@@ -53,6 +53,7 @@ esp_err_t cam_config_init(void)
         ESP_LOGE(TAG, "Camera Init Failed");
         return ESP_FAIL;
     }
+    // sensor_t *s = esp_camera_sensor_get();
     return ESP_OK;
 }
 
@@ -67,9 +68,9 @@ esp_err_t cam_take_pic_config(cam_mode_t mode)
     if(mode == http_stream_mode)
     {
         printf("change size qvga\n");
-        camera_config.frame_size = FRAMESIZE_HVGA;
+        camera_config.frame_size = FRAMESIZE_QVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.jpeg_quality = 16;
+        camera_config.jpeg_quality = 10;
         camera_config.fb_count = 5;
     }
     else if(mode == lvgl_show_mode)
