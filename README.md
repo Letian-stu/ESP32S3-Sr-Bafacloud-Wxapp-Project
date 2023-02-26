@@ -51,12 +51,12 @@
 
 ## 4.图片
 
-- pcb<img src="Other\pcb1.png"/>
+- pcb<img src="3.Other\pcb1.png"/>
 
-- 实物<img src="Other\pcb2.png"/>
+- 实物<img src="3.Other\pcb2.png"/>
 
-- web main界面<img src="Other\main.png"/>
-- web wifi配置<img src="Other\wificonfig.png"/>
+- web main界面<img src="3.Other\main.png"/>
+- web wifi配置<img src="3.Other\wificonfig.png"/>
 
-- web fs<img src="Other\webfs.png"/>
-- web 视频流<img src="Other\webcam.png"/>
+- web fs<img src="3.Other\webfs.png"/>
+- web 视频流<img src="3.Other\webcam.png"/>

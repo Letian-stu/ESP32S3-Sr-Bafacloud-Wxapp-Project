@@ -20,7 +20,7 @@
 
 ## 3.遇到问题
 
-- 语音识别需要由DIO转QIO,但是使用QIO的时候打开wifi到十分钟左右的时候会闪退
+- ~~语音识别需要由DIO转QIO,但是使用QIO的时候打开wifi到十分钟左右的时候会闪退~~
 
 ```c
 I (477734) main: count:477
@@ -43,5 +43,5 @@ invalid header: 0x69049920
 ```
 
 
--   size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
--   dma ram 申请失败 lvgl和cam和sr的初始化需要注意
+-   ~~size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);~~
+-   ~~dma ram 申请失败 lvgl和cam和sr的初始化需要注意~~
