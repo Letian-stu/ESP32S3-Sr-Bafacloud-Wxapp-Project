@@ -25,8 +25,10 @@
   - 读取温湿度输入，通过mqtt接入法巴
   - 语音识别
   - web配网写入nvs
+- 23/02/26
+  - web mian、web wificonfig、web fs、web cam
 
-- 23/
+- 23/02/
 
 ## 2.希望实现功能
 
@@ -49,7 +51,12 @@
 
 ## 4.图片
 
-<img src="Other\pcb1.png" alt="背面"  />
+- pcb<img src="Other\pcb1.png"/>
 
-<img src="Other\pcb2.png" alt="正面"  />
+- 实物<img src="Other\pcb2.png"/>
 
+- web main界面<img src="Other\main.png"/>
+- web wifi配置<img src="Other\wificonfig.png"/>
+
+- web fs<img src="Other\webfs.png"/>
+- web 视频流<img src="Other\webcam.png"/>

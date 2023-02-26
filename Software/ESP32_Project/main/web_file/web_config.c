@@ -173,7 +173,6 @@ esp_err_t jpg_stream_httpd_handler(httpd_req_t *req)
     httpd_resp_set_type(req, _STREAM_CONTENT_TYPE);
     while (1)
     {
-        
         fb = esp_camera_fb_get();
         _jpg_buf_len = fb->len;
         _jpg_buf = fb->buf;
@@ -191,7 +190,10 @@ esp_err_t jpg_stream_httpd_handler(httpd_req_t *req)
             res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, strlen(_STREAM_BOUNDARY));
         }
         esp_camera_fb_return(fb);
-
+        if (res != ESP_OK)
+        {
+            break;
+        }
         int64_t fr_end = esp_timer_get_time();
         int64_t frame_time = fr_end - last_frame;
         last_frame = fr_end;

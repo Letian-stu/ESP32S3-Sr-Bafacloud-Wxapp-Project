@@ -27,7 +27,7 @@ static camera_config_t camera_config = {
 
     .pixel_format = PIXFORMAT_RGB565,
     .frame_size = FRAMESIZE_QVGA, // QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
-    .fb_location = CAMERA_FB_IN_PSRAM,
+    // .fb_location = CAMERA_FB_IN_PSRAM,
 
     .jpeg_quality = 32, // 0-63, for OV series camera sensors, lower number means higher quality
     .fb_count = 1,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
@@ -68,10 +68,10 @@ esp_err_t cam_take_pic_config(cam_mode_t mode)
     if(mode == http_stream_mode)
     {
         printf("change size qvga\n");
-        camera_config.frame_size = FRAMESIZE_QVGA;
+        camera_config.frame_size = FRAMESIZE_VGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.jpeg_quality = 10;
-        camera_config.fb_count = 5;
+        camera_config.jpeg_quality = 16;
+        camera_config.fb_count = 6;
     }
     else if(mode == lvgl_show_mode)
     {
@@ -79,6 +79,7 @@ esp_err_t cam_take_pic_config(cam_mode_t mode)
         camera_config.frame_size = FRAMESIZE_QVGA;
         camera_config.pixel_format = PIXFORMAT_RGB565;
         camera_config.jpeg_quality = 32;
+        camera_config.fb_count = 1;
     }
     else if(mode == take_pic_mode)
     {
@@ -86,6 +87,7 @@ esp_err_t cam_take_pic_config(cam_mode_t mode)
         camera_config.frame_size = FRAMESIZE_SVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
         camera_config.jpeg_quality = 8;
+        camera_config.fb_count = 1;
     }
     cam_config_init();
     return ESP_OK;
