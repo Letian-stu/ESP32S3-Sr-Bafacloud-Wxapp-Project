@@ -26,7 +26,7 @@
   - 语音识别
   - web配网写入nvs
 - 23/02/26
-  - web mian、web wificonfig、web fs、web cam
+  - web main、web wificonfig、web fs、web cam
 
 - 23/02/
 
