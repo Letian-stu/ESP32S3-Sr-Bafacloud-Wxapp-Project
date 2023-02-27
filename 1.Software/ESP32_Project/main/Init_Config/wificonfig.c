@@ -1,8 +1,8 @@
 /*
  * @Author: letian
  * @Date: 2022-11-29 14:28
- * @LastEditors: letian
- * @LastEditTime: 2023-02-10 15:18
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-02-27 21:19
  * @FilePath: \ESP32_Project\main\Init_Config\wificonfig.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -12,6 +12,7 @@
 #define TAG "ap_sta"
 
 read_wifi_buf_t read_wifi_buf;
+
 sta_ap_wifi_config_t sta_ap_wifi_config = {
     .sta = {
         .ssid = "home",
@@ -40,8 +41,7 @@ static void wifi_sta_ap_cb(void *arg, esp_event_base_t event_base,int32_t event_
     else if(event_id == IP_EVENT_STA_GOT_IP)
     {
         ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
-        ESP_LOGI(TAG, "Got IP IPv4 address: " IPSTR, IP2STR(&event->ip_info.ip));
-
+        ESP_LOGI(TAG, "Got IP IPv4 address: %d.%d.%d.%d", IP2STR(&event->ip_info.ip));
         vTaskResume(AHT_Handle);
         vTaskResume(Mqtt_Handle);
 

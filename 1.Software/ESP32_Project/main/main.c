@@ -22,8 +22,8 @@ void app_main(void)
     vTaskDelay(1000/portTICK_PERIOD_MS);
     // 获取剩余的dram大小
     size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);
-    ESP_LOGW(TAG, "DMA RAM=%dkb  ", dram/1024);
+    ESP_LOGW(TAG, "dram=%dkb  ", dram/1024);
     dram = heap_caps_get_free_size(MALLOC_CAP_8BIT);
-    ESP_LOGW(TAG, "DRAM=%dkb  ", dram/1024);
+    ESP_LOGW(TAG, "psram=%dkb  ", dram/1024);
 }
 

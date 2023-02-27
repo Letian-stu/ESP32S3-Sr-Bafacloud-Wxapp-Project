@@ -1,8 +1,8 @@
 /*
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
- * @LastEditors: letian
- * @LastEditTime: 2023-02-08 21:20
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-02-27 22:07
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -123,7 +123,6 @@ void lv_btn_back_event_cb(lv_event_t *e)
             vTaskSuspend(Cam_Handle);
         }
         
-
         page_screen_anim(guider_ui.page, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
         page_screen_anim(guider_ui.home, -240, 0, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
         add_home_group_obj(page);

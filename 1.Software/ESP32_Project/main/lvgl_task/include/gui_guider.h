@@ -1,8 +1,8 @@
 /*
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
- * @LastEditors: letian
- * @LastEditTime: 2023-02-06 19:27
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-02-26 17:09
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -70,8 +70,12 @@ typedef struct
 		//image
 			lv_obj_t *img_list;
 			lv_obj_t *img_btn;
-			
-
+		//sd	
+		lv_obj_t *psram;
+		lv_obj_t *dram;
+		lv_obj_t *spiffs;	
+		lv_obj_t *sdcard;	
+			lv_obj_t *iplabel;
 } lv_ui;
 
 extern lv_ui guider_ui;

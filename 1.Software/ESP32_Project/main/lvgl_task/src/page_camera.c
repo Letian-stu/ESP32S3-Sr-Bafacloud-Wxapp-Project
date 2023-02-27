@@ -72,7 +72,7 @@ void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_remove_style_all(ui->takepic_btn);                                                      // 移除样式
     lv_obj_set_size(ui->takepic_btn, 50, 40);                                                      // 设置大小
     lv_obj_align(ui->takepic_btn, LV_ALIGN_RIGHT_MID, -20, 0);
-    lv_obj_set_style_radius(ui->takepic_btn, 5, 0);                                               // 设置倒圆角
+    lv_obj_set_style_radius(ui->takepic_btn, 5, 0);                                                // 设置倒圆角
     lv_obj_set_style_bg_color(ui->takepic_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // 设置背景颜色
     lv_obj_set_style_bg_opa(ui->takepic_btn, LV_OPA_0, 0);                                         // 背景透明度
     lv_obj_set_style_bg_color(ui->takepic_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // 设置被聚焦时候的状态颜色
