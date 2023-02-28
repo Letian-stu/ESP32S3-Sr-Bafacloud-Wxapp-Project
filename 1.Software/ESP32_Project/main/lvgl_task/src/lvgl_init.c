@@ -27,12 +27,12 @@ void appguiTask(void *p)
     lv_init();
     lvgl_driver_init();
     lv_fs_if_init();
-    lv_color_t *buf1 = heap_caps_malloc(DISP_BUF_SIZE, MALLOC_CAP_DMA);
+    lv_color_t *buf1 = heap_caps_malloc(DISP_BUF_SIZE*2, MALLOC_CAP_DMA);
     assert(buf1 != NULL);
-    lv_color_t *buf2 = heap_caps_malloc(DISP_BUF_SIZE, MALLOC_CAP_DMA);
+    lv_color_t *buf2 = heap_caps_malloc(DISP_BUF_SIZE*2, MALLOC_CAP_DMA);
     assert(buf2 != NULL);
     static lv_disp_draw_buf_t disp_buf;
-    lv_disp_draw_buf_init(&disp_buf, buf1, buf2, DISP_BUF_SIZE / 2);
+    lv_disp_draw_buf_init(&disp_buf, buf1, buf2, DISP_BUF_SIZE / 2 * 2);
     lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
     disp_drv.hor_res = LV_HOR_RES_MAX;

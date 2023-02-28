@@ -1,8 +1,8 @@
 /*
  * @Author: letian
  * @Date: 2022-12-04 17:10
- * @LastEditors: letian
- * @LastEditTime: 2023-02-08 16:33
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-02-28 22:10
  * @FilePath: \ESP32_Project\main\app_task\app_task.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -35,16 +35,19 @@ void AHT_Task(void *p)
     while (1)
     {
         vTaskDelay(1000 / portTICK_PERIOD_MS);
-        int count = 12;
+        int count = 10;
         while (count--)
         {
             vTaskDelay(5000 / portTICK_PERIOD_MS);
         }
+
         AHT20_GetRawData(aht20);
         AHT20_StandardUnitCon(aht20, &H, &T);
         ESP_LOGI(TAG, "====aht20 send mqtt buff====");
         // ESP_LOGI(TAG, "temperature = %d humidity = %d \n", (uint16_t)T, (uint16_t)H);
         sprintf(Send_mqtt_buff, "#%d#%d", (uint16_t)T, (uint16_t)H);
+        lv_label_set_text_fmt(guider_ui.labeltemp, "temp\n%d C",(uint16_t)T);
+        lv_label_set_text_fmt(guider_ui.labelhumi, "humi\n%dRH",(uint16_t)H);
         ESP_LOGI(TAG, "send mqtt buff:%s", Send_mqtt_buff);
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverAHT004", Send_mqtt_buff, 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);

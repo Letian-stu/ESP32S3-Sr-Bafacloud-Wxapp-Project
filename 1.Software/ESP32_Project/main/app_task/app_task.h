@@ -48,6 +48,7 @@ extern SemaphoreHandle_t Reav_Mqtt_Buff_Handle;
 extern SemaphoreHandle_t takepic_Handle;
 extern SemaphoreHandle_t SpeechMutex;
 extern SemaphoreHandle_t KeyreadMutex;
+extern SemaphoreHandle_t startcam_Handle;
 void Sem_Init(void);
 //queue
 

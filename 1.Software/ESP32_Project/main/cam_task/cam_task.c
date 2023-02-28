@@ -29,8 +29,8 @@ static camera_config_t camera_config = {
     .frame_size = FRAMESIZE_QVGA, // QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
     // .fb_location = CAMERA_FB_IN_PSRAM,
 
-    .jpeg_quality = 32, // 0-63, for OV series camera sensors, lower number means higher quality
-    .fb_count = 1,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
+    .jpeg_quality = 16, // 0-63, for OV series camera sensors, lower number means higher quality
+    .fb_count = 3,                  // When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
 };
 
 lv_img_dsc_t img_dsc = {
@@ -67,26 +67,26 @@ esp_err_t cam_take_pic_config(cam_mode_t mode)
     esp_camera_deinit();
     if(mode == http_stream_mode)
     {
-        printf("change size qvga\n");
-        camera_config.frame_size = FRAMESIZE_VGA;
+        //printf("change size qvga\n");
+        camera_config.frame_size = FRAMESIZE_HVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.jpeg_quality = 16;
-        camera_config.fb_count = 6;
+        camera_config.jpeg_quality = 12;
+        camera_config.fb_count = 5;
     }
     else if(mode == lvgl_show_mode)
     {
-        printf("change size qvga\n");
+        //printf("change size qvga\n");
         camera_config.frame_size = FRAMESIZE_QVGA;
         camera_config.pixel_format = PIXFORMAT_RGB565;
-        camera_config.jpeg_quality = 32;
-        camera_config.fb_count = 1;
+        camera_config.jpeg_quality = 6;
+        camera_config.fb_count = 4;
     }
     else if(mode == take_pic_mode)
     {
-        printf("change size svga\n");
-        camera_config.frame_size = FRAMESIZE_SVGA;
+        //printf("change size svga\n");
+        camera_config.frame_size = FRAMESIZE_QVGA;
         camera_config.pixel_format = PIXFORMAT_JPEG;
-        camera_config.jpeg_quality = 8;
+        camera_config.jpeg_quality = 6;
         camera_config.fb_count = 1;
     }
     cam_config_init();

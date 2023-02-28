@@ -39,7 +39,11 @@ SRCS            "main.c"
                 "lvgl_task/img/_weather_110x110.c"
                 "lvgl_task/img/_back_40x40.c"
                 "lvgl_task/img/_takepic_50x50.c"
-            
+                "lvgl_task/img/_led_50x50.c"
+                "lvgl_task/img/_key_50x50.c"
+                "lvgl_task/img/_fan_50x50.c"
+                "lvgl_task/img/_humi_70x70.c"
+                "lvgl_task/img/_temperature_70x70.c"            
 
 INCLUDE_DIRS    "."
                 "Init_Config"

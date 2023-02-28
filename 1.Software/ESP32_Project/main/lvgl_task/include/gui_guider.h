@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-02-26 17:09
+ * @LastEditTime: 2023-02-28 16:34
  * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -75,7 +75,18 @@ typedef struct
 		lv_obj_t *dram;
 		lv_obj_t *spiffs;	
 		lv_obj_t *sdcard;	
-			lv_obj_t *iplabel;
+		lv_obj_t *iplabel;
+		//set
+		lv_obj_t *imgled;
+		lv_obj_t *ledbtn;
+		lv_obj_t *imgkey;
+		lv_obj_t *keybtn;
+		lv_obj_t *imgfan;
+		lv_obj_t *fanbtn;
+		lv_obj_t *imghumi;
+		lv_obj_t *labelhumi;
+		lv_obj_t *imgtemp;
+		lv_obj_t *labeltemp;
 } lv_ui;
 
 extern lv_ui guider_ui;
@@ -105,5 +116,11 @@ LV_IMG_DECLARE(_image_110x110);
 LV_IMG_DECLARE(_sd_110x110);
 LV_IMG_DECLARE(_back_40x40);
 LV_IMG_DECLARE(_takepic_50x50);
+
+LV_IMG_DECLARE(_led_50x50);
+LV_IMG_DECLARE(_key_50x50);
+LV_IMG_DECLARE(_fan_50x50);
+LV_IMG_DECLARE(_humi_70x70);
+LV_IMG_DECLARE(_temperature_70x70);
 
 #endif
