@@ -73,10 +73,12 @@ void Mqtt_Task(void *p)
         {
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
+                lv_obj_add_state(guider_ui.ledbtn, LV_STATE_CHECKED);
                 ESP_LOGI(TAG, "recv led buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
+                lv_obj_clear_state(guider_ui.ledbtn, LV_STATE_CHECKED);
                 ESP_LOGI(TAG, "recv led buff off");
             }
             else
@@ -88,10 +90,12 @@ void Mqtt_Task(void *p)
         {
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
+                lv_obj_add_state(guider_ui.fanbtn, LV_STATE_CHECKED);
                 ESP_LOGI(TAG, "recv fan buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
+                lv_obj_clear_state(guider_ui.fanbtn, LV_STATE_CHECKED);
                 ESP_LOGI(TAG, "recv fan buff off");
             }
             else
@@ -103,10 +107,12 @@ void Mqtt_Task(void *p)
         {
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
+                lv_obj_add_state(guider_ui.keybtn, LV_STATE_CHECKED);
                 ESP_LOGI(TAG, "recv key buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
+                lv_obj_clear_state(guider_ui.keybtn, LV_STATE_CHECKED);
                 ESP_LOGI(TAG, "recv key buff off");
             }
             else

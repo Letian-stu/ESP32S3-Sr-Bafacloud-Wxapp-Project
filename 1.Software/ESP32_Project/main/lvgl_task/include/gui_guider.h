@@ -83,6 +83,7 @@ typedef struct
 		lv_obj_t *keybtn;
 		lv_obj_t *imgfan;
 		lv_obj_t *fanbtn;
+
 		lv_obj_t *imghumi;
 		lv_obj_t *labelhumi;
 		lv_obj_t *imgtemp;

@@ -17,8 +17,7 @@
 #include "cam_task.h"
 #include "app_task.h"
 
-
-#define TAG "page_cam"
+#define TAG "PAGE_CAM"
 
 void lv_btn_takepic_event_cb(lv_event_t *e)
 {

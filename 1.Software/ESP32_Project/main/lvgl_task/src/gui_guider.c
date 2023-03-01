@@ -184,6 +184,9 @@ static void lv_btn_event_cb(lv_event_t *e)
             page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
             setup_set_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
+            lv_group_add_obj(guider_ui.group, guider_ui.ledbtn);
+            lv_group_add_obj(guider_ui.group, guider_ui.fanbtn);
+            lv_group_add_obj(guider_ui.group, guider_ui.keybtn);
             page = PAGE_CONTROL;
             break;
         case LV_EVENT_FOCUSED:

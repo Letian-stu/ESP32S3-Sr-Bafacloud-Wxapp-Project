@@ -18,8 +18,7 @@
 #include "esp_log.h"
 #include "esp_wifi.h"
 
-#define TAG "page sd"
-
+#define TAG "PAGE_SD"
 
 void setup_sd_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 {

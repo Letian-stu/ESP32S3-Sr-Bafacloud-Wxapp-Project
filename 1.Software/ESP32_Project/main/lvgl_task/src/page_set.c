@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-02-28 22:21
+ * @LastEditTime: 2023-03-01 13:55
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_set.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -14,13 +14,52 @@
 #include "freertos/task.h"
 #include "gui_guider.h"
 #include "gui_anim.h"
+#include "tcp_mqtt.h"
+
+#define TAG "PAGE_CONTROL"
 
 static void event_handler(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
-    if(code == LV_EVENT_VALUE_CHANGED) {
-        LV_LOG_USER("State: %s\n", lv_obj_has_state(obj, LV_STATE_CHECKED) ? "On" : "Off");
+    if(obj == guider_ui.ledbtn)
+    {
+        if(lv_obj_has_state(obj, LV_STATE_CHECKED))
+        {
+            esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 0, 0);
+            ESP_LOGI(TAG,"led btn on");
+        }
+        else
+        {
+            esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 0, 0);
+            ESP_LOGI(TAG,"led btn off");
+        }
+    }
+    else if(obj == guider_ui.keybtn)
+    {
+        if(lv_obj_has_state(obj, LV_STATE_CHECKED))
+        {
+            esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 0, 0);
+            ESP_LOGI(TAG,"led btn on");
+        }
+        else
+        {
+            esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 0, 0);
+            ESP_LOGI(TAG,"led btn off");
+        }
+    }
+    else if(obj == guider_ui.fanbtn)
+    {
+        if(lv_obj_has_state(obj, LV_STATE_CHECKED))
+        {
+            esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 0, 0);
+            ESP_LOGI(TAG,"led btn on");
+        }
+        else
+        {
+            esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 0, 0);
+            ESP_LOGI(TAG,"led btn off");
+        }
     }
 }
 
@@ -53,44 +92,49 @@ void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_img_set_src(ui->imgtemp, &_temperature_70x70);
     ui->labeltemp = lv_label_create(ui->page);
     lv_obj_align_to(ui->labeltemp, ui->imgtemp, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
-    lv_label_set_text_fmt(ui->labeltemp, "temp");
+    lv_label_set_text_fmt(ui->labeltemp, "temp\n? C");
 
     ui->imghumi = lv_img_create(ui->page);
     lv_obj_set_pos(ui->imghumi, 175, 40);
     lv_img_set_src(ui->imghumi, &_humi_70x70);
     ui->labelhumi = lv_label_create(ui->page);
     lv_obj_align_to(ui->labelhumi, ui->imghumi, LV_ALIGN_OUT_LEFT_TOP, 0, 0);
-    lv_label_set_text_fmt(ui->labelhumi, "humi");
+    lv_label_set_text_fmt(ui->labelhumi, "humi\n?RH");
 
     ui->imgled = lv_img_create(ui->page);
-    lv_obj_set_pos(ui->imgled, 100, 120);
+    lv_obj_set_pos(ui->imgled, 30, 120);
     lv_img_set_src(ui->imgled, &_led_50x50);
-
-    ui->ledbtn = lv_switch_create(ui->page);
-    lv_obj_align_to(ui->ledbtn, ui->imgled, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
-    lv_obj_add_event_cb(ui->ledbtn, event_handler, LV_EVENT_ALL, NULL);
-
-    ui->imgkey = lv_img_create(ui->page);
-    lv_obj_set_pos(ui->imgkey, 30, 120);
-    lv_img_set_src(ui->imgkey, &_key_50x50);
     
-    ui->keybtn = lv_switch_create(ui->page);
-    lv_obj_align_to(ui->keybtn, ui->imgkey, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
-    lv_obj_add_event_cb(ui->keybtn, event_handler, LV_EVENT_ALL, NULL);
+    ui->ledbtn = lv_switch_create(ui->page);
+    lv_obj_align_to(ui->ledbtn, ui->imgled, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
+    lv_obj_add_event_cb(ui->ledbtn, event_handler, LV_EVENT_CLICKED, NULL);
 
     ui->imgfan = lv_img_create(ui->page);
-    lv_obj_set_pos(ui->imgfan, 170, 120);
+    lv_obj_set_pos(ui->imgfan, 100, 120);
     lv_img_set_src(ui->imgfan, &_fan_50x50);
 
     ui->fanbtn = lv_switch_create(ui->page);
     lv_obj_align_to(ui->fanbtn, ui->imgfan, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
-    lv_obj_add_event_cb(ui->fanbtn, event_handler, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui->fanbtn, event_handler, LV_EVENT_CLICKED, NULL);
 
-    page_screen_anim(ui->imgtemp, -85, 40, time, delay+800, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->imghumi, -85, 40, time, delay+800, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->imgled, 240, 120, time, delay+800, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->imgkey, -60, 30, time, delay+800, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
-    page_screen_anim(ui->imgfan, 280, 170, time, delay+800, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
+    ui->imgkey = lv_img_create(ui->page);
+    lv_obj_set_pos(ui->imgkey, 170, 120);
+    lv_img_set_src(ui->imgkey, &_key_50x50);
+
+    ui->keybtn = lv_switch_create(ui->page);
+    lv_obj_align_to(ui->keybtn, ui->imgkey, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
+    lv_obj_add_event_cb(ui->keybtn, event_handler, LV_EVENT_CLICKED, NULL);
+
+    page_screen_anim(ui->imgtemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->labeltemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->imghumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->labelhumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->imgfan, 240, 120, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->fanbtn, 240, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->imgled, -60, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
+    page_screen_anim(ui->ledbtn, -60, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
+    page_screen_anim(ui->imgkey, 280, 170, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
+    page_screen_anim(ui->keybtn, 280, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }
 

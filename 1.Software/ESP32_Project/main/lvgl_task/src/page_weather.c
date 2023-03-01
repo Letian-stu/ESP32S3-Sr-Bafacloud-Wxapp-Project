@@ -15,6 +15,7 @@
 #include "gui_guider.h"
 #include "gui_anim.h"
 
+#define TAG "PAGE_WEATHER"
 
 void setup_weather_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 {
