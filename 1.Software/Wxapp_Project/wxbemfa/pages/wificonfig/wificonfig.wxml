@@ -1,0 +1,5 @@
+<!--pages/httpvideo/httpvideo.wxml-->
+<text>pages/wificonfig/wificonfig.wxml</text>
+<view>
+  <web-view src="http://192.168.122.253/main"></web-view>  
+</view>

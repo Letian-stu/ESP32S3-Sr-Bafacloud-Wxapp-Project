@@ -2,19 +2,10 @@
  * @Author: letian
  * @Date: 2022-12-04 17:10
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-02-28 22:10
+ * @LastEditTime: 2023-03-02 12:51
  * @FilePath: \ESP32_Project\main\app_task\app_task.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
- */
-/*
- * @Author: letian
- * @Date: 2022-11-30 15:38
- * @LastEditors: letian
- * @LastEditTime: 2023-01-29 12:10
- * @FilePath: \ESP32_Project\main\app_task\app_task.c
- * @Description:
- * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
  */
 #include "app_task.h"
 
@@ -46,10 +37,14 @@ void AHT_Task(void *p)
         ESP_LOGI(TAG, "====aht20 send mqtt buff====");
         // ESP_LOGI(TAG, "temperature = %d humidity = %d \n", (uint16_t)T, (uint16_t)H);
         sprintf(Send_mqtt_buff, "#%d#%d", (uint16_t)T, (uint16_t)H);
-        lv_label_set_text_fmt(guider_ui.labeltemp, "temp\n%d C",(uint16_t)T);
-        lv_label_set_text_fmt(guider_ui.labelhumi, "humi\n%dRH",(uint16_t)H);
+        if(guider_ui.labeltemp != NULL && guider_ui.labelhumi != NULL)
+        {
+            lv_label_set_text_fmt(guider_ui.labeltemp, "temp\n%d C",(uint16_t)T);
+            lv_label_set_text_fmt(guider_ui.labelhumi, "humi\n%dRH",(uint16_t)H);            
+        }
+
         ESP_LOGI(TAG, "send mqtt buff:%s", Send_mqtt_buff);
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverAHT004", Send_mqtt_buff, 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverAHT004", Send_mqtt_buff, 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         ESP_LOGI(TAG, "============================");
     }
@@ -74,11 +69,13 @@ void Mqtt_Task(void *p)
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
                 lv_obj_add_state(guider_ui.ledbtn, LV_STATE_CHECKED);
+                Driver_state.led = 1;
                 ESP_LOGI(TAG, "recv led buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
                 lv_obj_clear_state(guider_ui.ledbtn, LV_STATE_CHECKED);
+                Driver_state.led = 0;
                 ESP_LOGI(TAG, "recv led buff off");
             }
             else
@@ -91,11 +88,13 @@ void Mqtt_Task(void *p)
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
                 lv_obj_add_state(guider_ui.fanbtn, LV_STATE_CHECKED);
+                Driver_state.fan = 1;
                 ESP_LOGI(TAG, "recv fan buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
                 lv_obj_clear_state(guider_ui.fanbtn, LV_STATE_CHECKED);
+                Driver_state.fan = 0;
                 ESP_LOGI(TAG, "recv fan buff off");
             }
             else
@@ -108,11 +107,13 @@ void Mqtt_Task(void *p)
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
                 lv_obj_add_state(guider_ui.keybtn, LV_STATE_CHECKED);
+                Driver_state.key = 1;
                 ESP_LOGI(TAG, "recv key buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
                 lv_obj_clear_state(guider_ui.keybtn, LV_STATE_CHECKED);
+                Driver_state.key = 0;
                 ESP_LOGI(TAG, "recv key buff off");
             }
             else

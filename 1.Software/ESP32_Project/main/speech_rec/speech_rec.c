@@ -283,32 +283,32 @@ void sr_cmd(void *arg)
     case 0:
         break;
     case 1:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         printf("open led\n");
         break;
     case 2:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         printf("close led\n");
         break;
     case 3:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         printf("open fan\n");
         break;
     case 4:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         printf("close fan\n");
         break;
     case 5:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         printf("open button\n");
         break;
     case 6:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 0, 0);
+        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         printf("close button\n");
         break;

@@ -77,7 +77,7 @@ void lv_btn_img_event_cb(lv_event_t *e)
 void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 {
     ui->page = lv_obj_create(lv_scr_act());   
-    lv_obj_set_size(ui->page, 280, 240);
+    lv_obj_set_size(ui->page, 285, 245);
     lv_obj_align(ui->page, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_scrollbar_mode(ui->page, LV_SCROLLBAR_MODE_OFF);
 

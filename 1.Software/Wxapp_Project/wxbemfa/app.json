@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/video/video",
-    "pages/httpvideo/httpvideo"
+    "pages/httpvideo/httpvideo",
+    "pages/wificonfig/wificonfig"
   ],
   "window":{
     "backgroundTextStyle":"light",

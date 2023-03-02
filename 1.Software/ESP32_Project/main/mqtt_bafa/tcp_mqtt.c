@@ -1,8 +1,8 @@
 /*
  * @Author: letian
  * @Date: 2022-12-01 09:25
- * @LastEditors: letian
- * @LastEditTime: 2022-12-02 17:59
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-02 13:06
  * @FilePath: \ESP32_Project\main\mqtt_bafa\tcp_mqtt.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -11,7 +11,8 @@
 
 #define TAG "mqtt"
 
-mqtt_data mqtt_buff;
+mqtt_data_t mqtt_buff;
+LEDFANKEY_t Driver_state;
 esp_mqtt_client_handle_t mqtt_client;
 
 void log_error_if_nonzero(const char *message, int error_code)
@@ -33,30 +34,23 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-        msg_id = esp_mqtt_client_subscribe(client, "DriverLED002", 0);
+        esp_mqtt_client_publish(client, "DriverLED002", "off", 0, 0, 0);  
+        esp_mqtt_client_publish(client, "DriverKEY006", "off", 0, 0, 0);
+        esp_mqtt_client_publish(client, "DriverFAN003", "off", 0, 0, 0);
+        msg_id = esp_mqtt_client_subscribe(client, "DriverLED002", 1);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-        msg_id = esp_mqtt_client_subscribe(client, "DriverKEY006", 0);
+        msg_id = esp_mqtt_client_subscribe(client, "DriverKEY006", 1);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-        msg_id = esp_mqtt_client_subscribe(client, "DriverFAN003", 0);
+        msg_id = esp_mqtt_client_subscribe(client, "DriverFAN003", 1);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-        msg_id = esp_mqtt_client_subscribe(client, "DriverAHT004", 0);
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);        
+        msg_id = esp_mqtt_client_subscribe(client, "DriverAHT004", 1);
+        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);   
         break;
     case MQTT_EVENT_DISCONNECTED:
-        ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
-        msg_id = esp_mqtt_client_unsubscribe(client, "DriverLED002");
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);        
-        msg_id = esp_mqtt_client_unsubscribe(client, "DriverKEY006");
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);        
-        msg_id = esp_mqtt_client_unsubscribe(client, "DriverFAN003");
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);        
-        msg_id = esp_mqtt_client_unsubscribe(client, "DriverAHT004");
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_SUBSCRIBED:
         // msg_id = esp_mqtt_client_publish(client, "DriverLED002", "SUBSCRIBED", 0, 0, 0);
         //ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
-        ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED");
         break;
     case MQTT_EVENT_UNSUBSCRIBED:
         //ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
@@ -72,10 +66,6 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
         strncpy(mqtt_buff.data,mqtt_event->data,mqtt_event->data_len );
 
         xSemaphoreGive(Reav_Mqtt_Buff_Handle);
-        // printf("==========================\r\n");
-        // printf("TOPIC=%.*s\r\n", mqtt_event->topic_len, mqtt_event->topic);
-        // printf("DATA=%.*s\r\n", mqtt_event->data_len, mqtt_event->data);
-        // printf("==========================\r\n");
 
         break;
     case MQTT_EVENT_ERROR:

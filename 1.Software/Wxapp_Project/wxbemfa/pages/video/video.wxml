@@ -2,8 +2,8 @@
 
 
 
-<text>pages/httpvideo/httpvideo.wxml</text>
+<text>video</text>
 <view class="video">
-    <web-view src="http://192.168.0.99:8081"></web-view>
+    <web-view src="http://192.168.122.253/webcam"></web-view>
 </view>
 

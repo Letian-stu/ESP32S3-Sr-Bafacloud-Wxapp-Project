@@ -29,4 +29,3 @@ void page_screen_anim(lv_obj_t *obj, int32_t start, int32_t end, uint32_t time, 
 
 
 
-
