@@ -1,5 +1,5 @@
 --flash_mode dio --flash_freq 80m --flash_size 4MB
 0x0 bootloader/bootloader.bin
-0xf0000 main.bin
+0x40000 main.bin
 0x8000 partition_table/partition-table.bin
 0x22000 storage.bin

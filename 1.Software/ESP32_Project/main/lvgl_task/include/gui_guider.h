@@ -106,6 +106,8 @@ void setup_sd_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 void setup_weather_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 
+LV_FONT_DECLARE(myFont);
+
 LV_IMG_DECLARE(img_skew_strip);
 LV_IMG_DECLARE(_StuLeTian_200x60);
 LV_IMG_DECLARE(_rocket_60x35);

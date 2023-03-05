@@ -132,7 +132,10 @@
     "http_parser.h": "c",
     "esp_transport_tcp.h": "c",
     "mqtt_outbox.h": "c",
-    "mqtt_supported_features.h": "c"
+    "mqtt_supported_features.h": "c",
+    "lv_font.h": "c",
+    "esp_partition.h": "c",
+    "lvgl_helpers.h": "c"
   },
   "idf.flashType": "UART"
 }

@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-01 18:40
+ * @LastEditTime: 2023-03-05 22:53
  * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -28,7 +28,7 @@
 enum PAGE page = PAGE_HOME;
 
 /**
- * @description: Ñ¡Ôñ¼ÓÈëµÄpageË³Ðò£¬·ÀÖ¹·µ»ØhomeÊ±²»»Øµ½½øÈëµÄÍ¼±ê
+ * @description: 
  * @param {uint16_t} pagenum
  * @return {*}
  */
@@ -90,7 +90,7 @@ static void add_home_group_obj(uint16_t pagenum)
 }
 
 /**
- * @description: Çå³ýgroup
+ * @description: 
  * @return {*}
  */
 static void remove_home_group_obj(void)
@@ -108,7 +108,7 @@ static void remove_home_group_obj(void)
 }
 
 /**
- * @description: ·µ»Ø¼üµÄ»Øµ÷
+ * @description: 
  * @param {lv_event_t} *e
  * @return {*}
  */
@@ -134,7 +134,7 @@ void lv_btn_back_event_cb(lv_event_t *e)
 }
 
 /**
- * @description: page¼ü»Øµ÷
+ * @description: 
  * @param {lv_event_t} *e
  * @return {*}
  */
@@ -154,7 +154,8 @@ static void lv_btn_event_cb(lv_event_t *e)
             page = PAGE_CLOCK;
             break;
         case LV_EVENT_FOCUSED:
-            lv_label_set_text(guider_ui.home_label, "Clock");
+            lv_obj_set_style_text_font(guider_ui.home_label, &myFont, 0);
+            lv_label_set_text(guider_ui.home_label, "Clock:æ—¶é’Ÿ");
         default:
             break;
         }
@@ -170,7 +171,7 @@ static void lv_btn_event_cb(lv_event_t *e)
             page = PAGE_WEATHER;
             break;
         case LV_EVENT_FOCUSED:
-            lv_label_set_text(guider_ui.home_label, "Weather");
+            lv_label_set_text(guider_ui.home_label, "Weather:å¤©æ°”");
             break;
         default:
             break;
@@ -190,7 +191,7 @@ static void lv_btn_event_cb(lv_event_t *e)
             page = PAGE_CONTROL;
             break;
         case LV_EVENT_FOCUSED:
-            lv_label_set_text(guider_ui.home_label, "Control");
+            lv_label_set_text(guider_ui.home_label, "Control:æŽ§åˆ¶");
             break;
         default:
             break;
@@ -208,7 +209,7 @@ static void lv_btn_event_cb(lv_event_t *e)
             page = PAGE_CAMERA;
             break;
         case LV_EVENT_FOCUSED:
-            lv_label_set_text(guider_ui.home_label, "Camera");
+            lv_label_set_text(guider_ui.home_label, "Camera:æ‹æ‘„");
             break;
         default:
             break;
@@ -225,7 +226,7 @@ static void lv_btn_event_cb(lv_event_t *e)
             page = PAGE_IMAGE;
             break;
         case LV_EVENT_FOCUSED:
-            lv_label_set_text(guider_ui.home_label, "Photo");
+            lv_label_set_text(guider_ui.home_label, "Photo:å›¾ç‰‡");
             break;
         default:
             break;
@@ -242,7 +243,7 @@ static void lv_btn_event_cb(lv_event_t *e)
             page = PAGE_SDCARD;
             break;
         case LV_EVENT_FOCUSED:
-            lv_label_set_text(guider_ui.home_label, "Sd Card");
+            lv_label_set_text(guider_ui.home_label, "Sd Card:å†…å­˜");
             break;
         default:
             break;
@@ -256,7 +257,7 @@ static void set_temp(void *bar, int32_t temp)
 }
 
 /**
- * @description: Æô¶¯½ø¶ÈÌõµÄ½çÃæ
+ * @description: 
  * @param {lv_ui} *ui
  * @return {*}
  */
@@ -297,7 +298,7 @@ void setup_boot_screen(lv_ui *ui)
 }
 
 /**
- * @description: Æô¶¯home page
+ * @description: 
  * @param {lv_ui} *ui
  * @param {uint32_t} delay
  * @return {*}
@@ -323,14 +324,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_set_scrollbar_mode(ui->panel, LV_SCROLLBAR_MODE_OFF);
 
     ui->clock_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->clock_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->clock_btn, IMGSIZE, IMGSIZE);                                            // ÉèÖÃ´óÐ¡
-    lv_obj_set_style_radius(ui->clock_btn, 20, 0);                                               // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_remove_style_all(ui->clock_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->clock_btn, IMGSIZE, IMGSIZE);                                            // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
+    lv_obj_set_style_radius(ui->clock_btn, 20, 0);                                               // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->clock_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->clock = lv_img_create(ui->clock_btn);
     lv_obj_set_size(ui->clock, IMGSIZE, IMGSIZE);
@@ -338,14 +339,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->clock, &_clock_110x110);
 
     ui->weather_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->weather_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->weather_btn, IMGSIZE, IMGSIZE);                                            // ÉèÖÃ´óÐ¡
-    lv_obj_set_style_radius(ui->weather_btn, 20, 0);                                               // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_remove_style_all(ui->weather_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->weather_btn, IMGSIZE, IMGSIZE);                                            // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
+    lv_obj_set_style_radius(ui->weather_btn, 20, 0);                                               // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->weather_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->weather = lv_img_create(ui->weather_btn);
     lv_obj_set_size(ui->weather, IMGSIZE, IMGSIZE);
@@ -353,14 +354,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->weather, &_weather_110x110);
 
     ui->set_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->set_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->set_btn, IMGSIZE, IMGSIZE);                                            // ÉèÖÃ´óÐ¡
-    lv_obj_set_style_radius(ui->set_btn, 20, 0);                                               // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_remove_style_all(ui->set_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->set_btn, IMGSIZE, IMGSIZE);                                            // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
+    lv_obj_set_style_radius(ui->set_btn, 20, 0);                                               // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->set_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->set = lv_img_create(ui->set_btn);
     lv_obj_set_size(ui->set, IMGSIZE, IMGSIZE);
@@ -368,14 +369,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->set, &_set_110x110);
 
     ui->camera_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->camera_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->camera_btn, IMGSIZE, IMGSIZE);                                            // ÉèÖÃ´óÐ¡
-    lv_obj_set_style_radius(ui->camera_btn, 20, 0);                                               // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_remove_style_all(ui->camera_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->camera_btn, IMGSIZE, IMGSIZE);                                            // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
+    lv_obj_set_style_radius(ui->camera_btn, 20, 0);                                               // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->camera_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->camera = lv_img_create(ui->camera_btn);
     lv_obj_set_size(ui->camera, IMGSIZE, IMGSIZE);
@@ -383,14 +384,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->camera, &_camera_110x110);
 
     ui->image_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->image_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->image_btn, IMGSIZE, IMGSIZE);                                            // ÉèÖÃ´óÐ¡
-    lv_obj_set_style_radius(ui->image_btn, 20, 0);                                               // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_remove_style_all(ui->image_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->image_btn, IMGSIZE, IMGSIZE);                                            // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
+    lv_obj_set_style_radius(ui->image_btn, 20, 0);                                               // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->image_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->image = lv_img_create(ui->image_btn);
     lv_obj_set_size(ui->image, IMGSIZE, IMGSIZE);
@@ -398,14 +399,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->image, &_image_110x110);
 
     ui->sd_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->sd_btn);                                       // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->sd_btn, IMGSIZE, IMGSIZE);                             // ÉèÖÃ´óÐ¡
-    lv_obj_set_style_radius(ui->sd_btn, 20, 0);                                // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), 0); // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_0, 0);                          // ±³¾°Í¸Ã÷¶È
+    lv_obj_remove_style_all(ui->sd_btn);                                       // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->sd_btn, IMGSIZE, IMGSIZE);                             // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
+    lv_obj_set_style_radius(ui->sd_btn, 20, 0);                                // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), 0); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_0, 0);                          // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED);
-    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_20, LV_STATE_FOCUSED); // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_50, LV_STATE_PRESSED); // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_20, LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_50, LV_STATE_PRESSED); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->sd_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->sd = lv_img_create(ui->sd_btn);
     lv_obj_set_size(ui->sd, IMGSIZE, IMGSIZE);
@@ -423,7 +424,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
 }
 
 /**
- * @description: Æô¶¯ui
+ * @description: 
  * @param {lv_ui} *ui
  * @return {*}
  */

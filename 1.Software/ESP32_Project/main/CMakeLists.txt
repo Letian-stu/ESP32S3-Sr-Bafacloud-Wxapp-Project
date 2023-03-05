@@ -20,7 +20,8 @@ SRCS            "main.c"
                 "lvgl_task/src/gui_anim.c" 
                 "lvgl_task/src/gui_guider.c" 
                 "lvgl_task/src/lv_port_indev.c" 
-
+                "lvgl_task/src/lv_font_20.c" 
+                
                 "lvgl_task/src/page_clock.c" 
                 "lvgl_task/src/page_weather.c" 
                 "lvgl_task/src/page_set.c" 
@@ -43,7 +44,8 @@ SRCS            "main.c"
                 "lvgl_task/img/_key_50x50.c"
                 "lvgl_task/img/_fan_50x50.c"
                 "lvgl_task/img/_humi_70x70.c"
-                "lvgl_task/img/_temperature_70x70.c"            
+                "lvgl_task/img/_temperature_70x70.c"    
+                
 
 INCLUDE_DIRS    "."
                 "Init_Config"
