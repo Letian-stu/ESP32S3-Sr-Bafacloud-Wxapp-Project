@@ -247,9 +247,12 @@ esp_err_t speech_recognition_init(void)
     return ESP_OK;
 }
 
+lv_obj_t *imggif;
+
 static void breath_light_task(void *arg)
 {
     ESP_LOGI(TAG, "hi, my friend!");
+
     while (1)
     {
         // printf("2. LEDC fade down to duty = %d\n", LEDC_MIN_DUTY);
@@ -265,6 +268,9 @@ static void breath_light_task(void *arg)
 // »½ÐÑ»Øµ÷
 void sr_wake(void *arg)
 {
+    imggif = lv_gif_create(lv_scr_act());
+    lv_obj_align(imggif, LV_ALIGN_CENTER, 0, 0);
+    lv_gif_set_src(imggif, "S:/speech.gif");
     /**< Turn on the breathing light */
     xTaskCreate(breath_light_task, "breath_light_task", 1024 * 2, NULL, configMAX_PRIORITIES - 1, &g_breath_light_task_handle);
 }
@@ -276,12 +282,14 @@ void sr_cmd(void *arg)
     {
         vTaskDelete(g_breath_light_task_handle);
     }
-
+    if(imggif != NULL)
+    {
+        lv_obj_del_async(imggif);
+    }
     int32_t cmd_id = (int32_t)arg;
     switch (cmd_id)
     {
-    case 0:
-        break;
+
     case 1:
         msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 1, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
@@ -335,5 +343,9 @@ void sr_cmd_exit(void *arg)
     if (NULL != g_breath_light_task_handle)
     {
         vTaskDelete(g_breath_light_task_handle);
+    }
+    if(imggif != NULL)
+    {
+        lv_obj_del_async(imggif);
     }
 }
