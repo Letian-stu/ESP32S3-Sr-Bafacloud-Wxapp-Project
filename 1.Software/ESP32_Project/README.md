@@ -62,5 +62,6 @@ factory ,  app   , factory ,        ,  3M       ,
 font    ,  data  , 0x40    ,        ,  600K     ,
 (如上设置会编译通过)
 我不理解
+注意:在中文显示时，编码设置为utf-8
 esptool.py --chip esp32s3 --port COM3 --baud 115200 write_flash -z 0x9f000(分区地址) lv_font_18.bin
 ```

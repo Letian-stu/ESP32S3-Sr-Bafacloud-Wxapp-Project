@@ -135,7 +135,8 @@
     "mqtt_supported_features.h": "c",
     "lv_font.h": "c",
     "esp_partition.h": "c",
-    "lvgl_helpers.h": "c"
+    "lvgl_helpers.h": "c",
+    "lv_rlottie.h": "c"
   },
   "idf.flashType": "UART"
 }

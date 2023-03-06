@@ -1,8 +1,8 @@
 /*
  * @Author: letian
  * @Date: 2023-01-18 20:41
- * @LastEditors: error: git config user.name & please set dead value or install git
- * @LastEditTime: 2023-02-24 12:00
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-06 12:57
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_image.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
@@ -57,12 +57,12 @@ void lv_btn_img_event_cb(lv_event_t *e)
         //     printf("img name:%s\n", lv_list_get_btn_text(guider_ui.img_list, obj));
         // }
 
-        if(lv_obj_get_parent(obj) == guider_ui.page)
+        if(obj == guider_ui.back_btn || obj == guider_ui.back)
         {
             printf("back btn\n");
             lv_label_set_text(guider_ui.label, "#ff0080 BackBtn #");
         }
-        else if(lv_obj_get_parent(obj) == guider_ui.img_list)
+        if(lv_obj_get_parent(obj) == guider_ui.img_list)
         {
             printf("img name:%s\n", lv_list_get_btn_text(guider_ui.img_list, obj));
             lv_label_set_text_fmt(guider_ui.label, "#ff0080 focused img:%s #", lv_list_get_btn_text(guider_ui.img_list, obj));

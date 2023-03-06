@@ -1,8 +1,8 @@
 /*
  * @Author: StuTian
  * @Date: 2022-09-03 22:14
- * @LastEditors: letian
- * @LastEditTime: 2023-02-08 17:54
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-06 12:49
  * @FilePath: \ESP32_Project\main\lvgl_task\src\lvgl_init.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -27,12 +27,12 @@ void appguiTask(void *p)
     lv_init();
     lvgl_driver_init();
     lv_fs_if_init();
-    lv_color_t *buf1 = heap_caps_malloc(DISP_BUF_SIZE*2, MALLOC_CAP_DMA);
+    lv_color_t *buf1 = heap_caps_malloc(LV_HOR_RES_MAX * 60, MALLOC_CAP_DMA);
     assert(buf1 != NULL);
-    lv_color_t *buf2 = heap_caps_malloc(DISP_BUF_SIZE*2, MALLOC_CAP_DMA);
+    lv_color_t *buf2 = heap_caps_malloc(LV_HOR_RES_MAX * 60, MALLOC_CAP_DMA);
     assert(buf2 != NULL);
     static lv_disp_draw_buf_t disp_buf;
-    lv_disp_draw_buf_init(&disp_buf, buf1, buf2, DISP_BUF_SIZE / 2 * 2);
+    lv_disp_draw_buf_init(&disp_buf, buf1, buf2, LV_HOR_RES_MAX * 60 / 2);
     lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
     disp_drv.hor_res = LV_HOR_RES_MAX;

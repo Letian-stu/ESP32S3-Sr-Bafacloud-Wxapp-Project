@@ -154,7 +154,7 @@ static void lv_btn_event_cb(lv_event_t *e)
             page = PAGE_CLOCK;
             break;
         case LV_EVENT_FOCUSED:
-            lv_obj_set_style_text_font(guider_ui.home_label, &myFont, 0);
+
             lv_label_set_text(guider_ui.home_label, "Clock:时钟");
         default:
             break;
@@ -312,6 +312,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
 
     ui->home_label = lv_label_create(ui->home);
     lv_obj_align(ui->home_label, LV_ALIGN_BOTTOM_MID, 0, -20);
+    lv_obj_set_style_text_font(guider_ui.home_label, &myFont, 0);
     lv_label_set_text(ui->home_label, "Clock");
 
     ui->panel = lv_obj_create(ui->home);
@@ -354,14 +355,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->weather, &_weather_110x110);
 
     ui->set_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->set_btn);                                                      // �Ƴ���ʽ
-    lv_obj_set_size(ui->set_btn, IMGSIZE, IMGSIZE);                                            // ���ô�С
-    lv_obj_set_style_radius(ui->set_btn, 20, 0);                                               // ���õ�Բ��
-    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ���ñ�����ɫ
-    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_0, 0);                                         // ����͸����
-    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ���ñ��۽�ʱ���״̬��ɫ
-    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ���۽�ʱ���͸���ȣ��Ӷ�����������
-    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ������ʱ��ı���͸����
+    lv_obj_remove_style_all(ui->set_btn);                                                
+    lv_obj_set_size(ui->set_btn, IMGSIZE, IMGSIZE);                                        
+    lv_obj_set_style_radius(ui->set_btn, 20, 0);                                           
+    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);               
+    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_0, 0);                                         
+    lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); 
+    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_20, LV_STATE_FOCUSED);                         
+    lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_50, LV_STATE_PRESSED);                        
     lv_obj_add_event_cb(ui->set_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->set = lv_img_create(ui->set_btn);
     lv_obj_set_size(ui->set, IMGSIZE, IMGSIZE);
@@ -369,14 +370,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->set, &_set_110x110);
 
     ui->camera_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->camera_btn);                                                      // �Ƴ���ʽ
-    lv_obj_set_size(ui->camera_btn, IMGSIZE, IMGSIZE);                                            // ���ô�С
-    lv_obj_set_style_radius(ui->camera_btn, 20, 0);                                               // ���õ�Բ��
-    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ���ñ�����ɫ
-    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_0, 0);                                         // ����͸����
-    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ���ñ��۽�ʱ���״̬��ɫ
-    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ���۽�ʱ���͸���ȣ��Ӷ�����������
-    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ������ʱ��ı���͸����
+    lv_obj_remove_style_all(ui->camera_btn);                                                  
+    lv_obj_set_size(ui->camera_btn, IMGSIZE, IMGSIZE);                                         
+    lv_obj_set_style_radius(ui->camera_btn, 20, 0);                                           
+    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);               
+    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_0, 0);                                         
+    lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); 
+    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_20, LV_STATE_FOCUSED);                         
+    lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_50, LV_STATE_PRESSED);                        
     lv_obj_add_event_cb(ui->camera_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->camera = lv_img_create(ui->camera_btn);
     lv_obj_set_size(ui->camera, IMGSIZE, IMGSIZE);
@@ -384,14 +385,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->camera, &_camera_110x110);
 
     ui->image_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->image_btn);                                                      // �Ƴ���ʽ
-    lv_obj_set_size(ui->image_btn, IMGSIZE, IMGSIZE);                                            // ���ô�С
-    lv_obj_set_style_radius(ui->image_btn, 20, 0);                                               // ���õ�Բ��
-    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ���ñ�����ɫ
-    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_0, 0);                                         // ����͸����
-    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ���ñ��۽�ʱ���״̬��ɫ
-    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ���۽�ʱ���͸���ȣ��Ӷ�����������
-    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ������ʱ��ı���͸����
+    lv_obj_remove_style_all(ui->image_btn);                                                      
+    lv_obj_set_size(ui->image_btn, IMGSIZE, IMGSIZE);                                           
+    lv_obj_set_style_radius(ui->image_btn, 20, 0);                                               
+    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                
+    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_0, 0);                                         
+    lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); 
+    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_20, LV_STATE_FOCUSED);                         
+    lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_50, LV_STATE_PRESSED);                         
     lv_obj_add_event_cb(ui->image_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->image = lv_img_create(ui->image_btn);
     lv_obj_set_size(ui->image, IMGSIZE, IMGSIZE);
@@ -399,14 +400,14 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_img_set_src(ui->image, &_image_110x110);
 
     ui->sd_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->sd_btn);                                       // �Ƴ���ʽ
-    lv_obj_set_size(ui->sd_btn, IMGSIZE, IMGSIZE);                             // ���ô�С
-    lv_obj_set_style_radius(ui->sd_btn, 20, 0);                                // ���õ�Բ��
-    lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), 0); // ���ñ�����ɫ
-    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_0, 0);                          // ����͸����
+    lv_obj_remove_style_all(ui->sd_btn);                                      
+    lv_obj_set_size(ui->sd_btn, IMGSIZE, IMGSIZE);                            
+    lv_obj_set_style_radius(ui->sd_btn, 20, 0);                                
+    lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), 0); 
+    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_0, 0);                          
     lv_obj_set_style_bg_color(ui->sd_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED);
-    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_20, LV_STATE_FOCUSED); // ���۽�ʱ���͸���ȣ��Ӷ�����������
-    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_50, LV_STATE_PRESSED); // ������ʱ��ı���͸����
+    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_20, LV_STATE_FOCUSED); 
+    lv_obj_set_style_bg_opa(ui->sd_btn, LV_OPA_50, LV_STATE_PRESSED); 
     lv_obj_add_event_cb(ui->sd_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->sd = lv_img_create(ui->sd_btn);
     lv_obj_set_size(ui->sd, IMGSIZE, IMGSIZE);

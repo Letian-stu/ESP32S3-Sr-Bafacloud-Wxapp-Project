@@ -2,10 +2,10 @@
  * @Author: letian
  * @Date: 2022-12-04 17:10
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-02 12:51
+ * @LastEditTime: 2023-03-06 13:51
  * @FilePath: \ESP32_Project\main\app_task\app_task.c
- * @Description: 
- * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
+ * @Description:
+ * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
  */
 #include "app_task.h"
 
@@ -23,24 +23,23 @@ void AHT_Task(void *p)
     char Send_mqtt_buff[20];
     I2cMaster_handle_t i2c_0 = I2cMaster_Init(I2C_NUM_0, 41, 42, 400000);
     AHT20_handle_t aht20 = AHT20_Init(i2c_0, AHT20_ADDR);
+    int count = 10;
     while (1)
     {
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-        int count = 10;
-        while (count--)
-        {
-            vTaskDelay(5000 / portTICK_PERIOD_MS);
-        }
-
+        vTaskDelay(6000 / portTICK_PERIOD_MS);
+        vTaskDelay(6000 / portTICK_PERIOD_MS);
+        vTaskDelay(6000 / portTICK_PERIOD_MS);
+        vTaskDelay(6000 / portTICK_PERIOD_MS);
+        vTaskDelay(6000 / portTICK_PERIOD_MS);
         AHT20_GetRawData(aht20);
         AHT20_StandardUnitCon(aht20, &H, &T);
         ESP_LOGI(TAG, "====aht20 send mqtt buff====");
         // ESP_LOGI(TAG, "temperature = %d humidity = %d \n", (uint16_t)T, (uint16_t)H);
         sprintf(Send_mqtt_buff, "#%d#%d", (uint16_t)T, (uint16_t)H);
-        if(guider_ui.labeltemp != NULL && guider_ui.labelhumi != NULL)
+        if (guider_ui.labeltemp != NULL && guider_ui.labelhumi != NULL)
         {
-            lv_label_set_text_fmt(guider_ui.labeltemp, "temp\n%d C",(uint16_t)T);
-            lv_label_set_text_fmt(guider_ui.labelhumi, "humi\n%dRH",(uint16_t)H);            
+            lv_label_set_text_fmt(guider_ui.labeltemp, "温度\n%d C", (uint16_t)T);
+            lv_label_set_text_fmt(guider_ui.labelhumi, "湿度\n%dRH", (uint16_t)H);
         }
 
         ESP_LOGI(TAG, "send mqtt buff:%s", Send_mqtt_buff);
@@ -68,13 +67,19 @@ void Mqtt_Task(void *p)
         {
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
-                lv_obj_add_state(guider_ui.ledbtn, LV_STATE_CHECKED);
+                if(guider_ui.ledbtn != NULL)
+                {
+                    lv_obj_add_state(guider_ui.ledbtn, LV_STATE_CHECKED);
+                }
                 Driver_state.led = 1;
                 ESP_LOGI(TAG, "recv led buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
-                lv_obj_clear_state(guider_ui.ledbtn, LV_STATE_CHECKED);
+                if(guider_ui.ledbtn != NULL)
+                {
+                    lv_obj_clear_state(guider_ui.ledbtn, LV_STATE_CHECKED);
+                }
                 Driver_state.led = 0;
                 ESP_LOGI(TAG, "recv led buff off");
             }
@@ -87,13 +92,19 @@ void Mqtt_Task(void *p)
         {
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
-                lv_obj_add_state(guider_ui.fanbtn, LV_STATE_CHECKED);
+                if(guider_ui.fanbtn != NULL)
+                {
+                    lv_obj_add_state(guider_ui.fanbtn, LV_STATE_CHECKED);
+                }                
                 Driver_state.fan = 1;
                 ESP_LOGI(TAG, "recv fan buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
-                lv_obj_clear_state(guider_ui.fanbtn, LV_STATE_CHECKED);
+                if(guider_ui.fanbtn != NULL)
+                {
+                    lv_obj_clear_state(guider_ui.fanbtn, LV_STATE_CHECKED);
+                }                   
                 Driver_state.fan = 0;
                 ESP_LOGI(TAG, "recv fan buff off");
             }
@@ -106,13 +117,19 @@ void Mqtt_Task(void *p)
         {
             if (!strncmp(mqtt_buff.data, "on", mqtt_buff.datalen))
             {
-                lv_obj_add_state(guider_ui.keybtn, LV_STATE_CHECKED);
+                if(guider_ui.keybtn != NULL)
+                {
+                    lv_obj_add_state(guider_ui.keybtn, LV_STATE_CHECKED);
+                }   
                 Driver_state.key = 1;
                 ESP_LOGI(TAG, "recv key buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
-                lv_obj_clear_state(guider_ui.keybtn, LV_STATE_CHECKED);
+                if(guider_ui.keybtn != NULL)
+                {
+                    lv_obj_clear_state(guider_ui.keybtn, LV_STATE_CHECKED);
+                }   
                 Driver_state.key = 0;
                 ESP_LOGI(TAG, "recv key buff off");
             }
@@ -121,6 +138,7 @@ void Mqtt_Task(void *p)
                 ESP_LOGI(TAG, "buff err");
             }
         }
+        
     }
 }
 
@@ -133,21 +151,19 @@ void KEYScan_Task(void *p)
         {
             Button_Process();
             xSemaphoreGive(KeyreadMutex);
-        }        
+        }
         vTaskDelay(20 / portTICK_PERIOD_MS);
     }
 }
 
-void  Tasks_Init(void)
-{    
-    xTaskCreate(KEYScan_Task,   "Key_Scan",         1024 * 8, NULL, 5, &KeyScan_Handle); 
-    xTaskCreate(cam_show_task,   "cam_task",        1024 * 8, NULL, 1, &Cam_Handle);
-    vTaskSuspend(Cam_Handle);  
+void Tasks_Init(void)
+{
+    xTaskCreate(KEYScan_Task, "Key_Scan", 1024 * 8, NULL, 5, &KeyScan_Handle);
+    xTaskCreate(cam_show_task, "cam_task", 1024 * 8, NULL, 1, &Cam_Handle);
+    vTaskSuspend(Cam_Handle);
 
-    xTaskCreate(AHT_Task,       "AHT",              1024 * 4, NULL, 1, &AHT_Handle);
-    vTaskSuspend(AHT_Handle);  
-    xTaskCreate(Mqtt_Task,      "Mqtt",             1024 * 4, NULL, 1, &Mqtt_Handle);
-    vTaskSuspend(Mqtt_Handle);  
+    xTaskCreate(AHT_Task, "AHT", 1024 * 4, NULL, 1, &AHT_Handle);
+    vTaskSuspend(AHT_Handle);
+    xTaskCreate(Mqtt_Task, "Mqtt", 1024 * 4, NULL, 1, &Mqtt_Handle);
+    vTaskSuspend(Mqtt_Handle);
 }
-
-

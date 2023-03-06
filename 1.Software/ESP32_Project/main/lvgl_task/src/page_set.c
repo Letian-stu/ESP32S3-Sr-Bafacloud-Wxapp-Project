@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-01 13:55
+ * @LastEditTime: 2023-03-06 12:52
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_set.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -71,15 +71,15 @@ void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_set_scrollbar_mode(ui->page, LV_SCROLLBAR_MODE_OFF);
 
     ui->back_btn = lv_btn_create(ui->page);
-    lv_obj_remove_style_all(ui->back_btn);                                                      // 移除样式
-    lv_obj_set_size(ui->back_btn, 40, 40);                                                      // 设置大小
+    lv_obj_remove_style_all(ui->back_btn);                                                      
+    lv_obj_set_size(ui->back_btn, 40, 40);                                                      
     lv_obj_align(ui->back_btn, LV_ALIGN_TOP_LEFT, -10, -10);
-    lv_obj_set_style_radius(ui->back_btn, 20, 0);                                               // 设置倒圆角
-    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // 设置背景颜色
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_0, 0);                                         // 背景透明度
-    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // 设置被聚焦时候的状态颜色
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_50, LV_STATE_FOCUSED);                         // 被聚焦时候的透明度，从而让人眼区分
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_80, LV_STATE_PRESSED);                         // 被按下时候的背景透明度
+    lv_obj_set_style_radius(ui->back_btn, 20, 0);                                               
+    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_0, 0);                                         
+    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); 
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_50, LV_STATE_FOCUSED);                         
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_80, LV_STATE_PRESSED);                         
     lv_obj_add_event_cb(ui->back_btn, lv_btn_back_event_cb, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(ui->back_btn, lv_btn_back_event_cb, LV_EVENT_FOCUSED, NULL);
     ui->back = lv_img_create(ui->back_btn);
@@ -91,15 +91,17 @@ void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_set_pos(ui->imgtemp, 5, 40);
     lv_img_set_src(ui->imgtemp, &_temperature_70x70);
     ui->labeltemp = lv_label_create(ui->page);
+    lv_obj_set_style_text_font(ui->labeltemp, &myFont, 0);
     lv_obj_align_to(ui->labeltemp, ui->imgtemp, LV_ALIGN_OUT_RIGHT_TOP, 0, 0);
-    lv_label_set_text_fmt(ui->labeltemp, "temp\n? C");
+    lv_label_set_text_fmt(ui->labeltemp, "娓╁害\n? C");
 
     ui->imghumi = lv_img_create(ui->page);
     lv_obj_set_pos(ui->imghumi, 175, 40);
     lv_img_set_src(ui->imghumi, &_humi_70x70);
     ui->labelhumi = lv_label_create(ui->page);
-    lv_obj_align_to(ui->labelhumi, ui->imghumi, LV_ALIGN_OUT_LEFT_TOP, 0, 0);
-    lv_label_set_text_fmt(ui->labelhumi, "humi\n?RH");
+    lv_obj_set_style_text_font(ui->labelhumi, &myFont, 0);
+    lv_obj_align_to(ui->labelhumi, ui->imghumi, LV_ALIGN_OUT_LEFT_TOP, 5, 0);
+    lv_label_set_text_fmt(ui->labelhumi, "婀垮害\n?RH");
 
     ui->imgled = lv_img_create(ui->page);
     lv_obj_set_pos(ui->imgled, 30, 120);
@@ -158,8 +160,8 @@ void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     page_screen_anim(ui->labelhumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
     page_screen_anim(ui->imgfan, 240, 120, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
     page_screen_anim(ui->fanbtn, 240, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->imgled, -60, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
-    page_screen_anim(ui->ledbtn, -60, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
+    page_screen_anim(ui->imgled, -100, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
+    page_screen_anim(ui->ledbtn, -100, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
     page_screen_anim(ui->imgkey, 280, 170, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
     page_screen_anim(ui->keybtn, 280, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);

@@ -2,10 +2,10 @@
  * @Author: letian
  * @Date: 2022-12-01 09:25
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-02 13:06
+ * @LastEditTime: 2023-03-06 13:17
  * @FilePath: \ESP32_Project\main\mqtt_bafa\tcp_mqtt.c
- * @Description: 
- * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
+ * @Description:
+ * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
  */
 #include "tcp_mqtt.h"
 
@@ -34,7 +34,7 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-        esp_mqtt_client_publish(client, "DriverLED002", "off", 0, 0, 0);  
+        esp_mqtt_client_publish(client, "DriverLED002", "off", 0, 0, 0);
         esp_mqtt_client_publish(client, "DriverKEY006", "off", 0, 0, 0);
         esp_mqtt_client_publish(client, "DriverFAN003", "off", 0, 0, 0);
         msg_id = esp_mqtt_client_subscribe(client, "DriverLED002", 1);
@@ -44,26 +44,31 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
         msg_id = esp_mqtt_client_subscribe(client, "DriverFAN003", 1);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         msg_id = esp_mqtt_client_subscribe(client, "DriverAHT004", 1);
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);   
+        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_DISCONNECTED:
         break;
     case MQTT_EVENT_SUBSCRIBED:
         // msg_id = esp_mqtt_client_publish(client, "DriverLED002", "SUBSCRIBED", 0, 0, 0);
-        //ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+        // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_UNSUBSCRIBED:
-        //ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
+        // ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
         break;
     case MQTT_EVENT_PUBLISHED:
-        //ESP_LOGI(TAG, "MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
+        // ESP_LOGI(TAG, "MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
         break;
     case MQTT_EVENT_DATA:
         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
         mqtt_buff.topiclen = mqtt_event->topic_len;
         mqtt_buff.datalen = mqtt_event->data_len;
-        strncpy(mqtt_buff.topic,mqtt_event->topic,mqtt_event->topic_len );
-        strncpy(mqtt_buff.data,mqtt_event->data,mqtt_event->data_len );
+        strncpy(mqtt_buff.topic, mqtt_event->topic, mqtt_event->topic_len);
+        strncpy(mqtt_buff.data, mqtt_event->data, mqtt_event->data_len);
+        mqtt_buff.topic[mqtt_buff.topiclen] = '\0';
+        mqtt_buff.data[mqtt_buff.datalen]   = '\0';
+
+        // printf("len:%d top:%s\n", mqtt_buff.topiclen, mqtt_buff.topic);
+        // printf("len:%d top:%s\n", mqtt_buff.datalen, mqtt_buff.data);
 
         xSemaphoreGive(Reav_Mqtt_Buff_Handle);
 
@@ -84,7 +89,6 @@ void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event
     }
 }
 
-
 void mqtt_app_start(void)
 {
     esp_mqtt_client_config_t mqtt_cfg = {
@@ -96,6 +100,3 @@ void mqtt_app_start(void)
     esp_mqtt_client_register_event(mqtt_client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     esp_mqtt_client_start(mqtt_client);
 }
-
-
-

@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:43
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-05 22:44
+ * @LastEditTime: 2023-03-06 12:35
  * @FilePath: \ESP32_Project\main\lvgl_task\src\page_sd.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
@@ -80,7 +80,8 @@ void setup_sd_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     tcpip_adapter_get_ip_info(TCPIP_ADAPTER_IF_STA,&ipaddr);
     ui->iplabel = lv_label_create(ui->page);
     lv_obj_align(ui->iplabel, LV_ALIGN_BOTTOM_MID, 0, -10);
-    lv_label_set_text_fmt(ui->iplabel, "get web from %d.%d.%d.%d", IP2STR(&ipaddr.ip));
+    lv_obj_set_style_text_font(ui->iplabel, &myFont, 0);
+    lv_label_set_text_fmt(ui->iplabel, "输入IP:%d.%d.%d.%d", IP2STR(&ipaddr.ip));
 
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }

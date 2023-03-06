@@ -812,7 +812,7 @@
     "LV_USE_PNG": false,
     "LV_USE_QRCODE": false,
     "LV_USE_REFR_DEBUG": false,
-    "LV_USE_RLOTTIE": false,
+    "LV_USE_RLOTTIE": true,
     "LV_USE_ROLLER": true,
     "LV_USE_SJPG": true,
     "LV_USE_SLIDER": true,
