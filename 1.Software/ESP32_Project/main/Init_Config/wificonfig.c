@@ -47,6 +47,7 @@ static void wifi_sta_ap_cb(void *arg, esp_event_base_t event_base,int32_t event_
     }
     else if(event_id == WIFI_EVENT_STA_DISCONNECTED)   
     {
+        esp_mqtt_client_stop(mqtt_client);
         static int count = 10;
         esp_err_t err;
         ESP_LOGI(TAG, "Wi-Fi disconnected, trying to reconnect...");

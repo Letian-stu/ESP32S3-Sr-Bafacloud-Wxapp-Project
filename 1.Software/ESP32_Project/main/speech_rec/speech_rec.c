@@ -130,26 +130,21 @@ void recsrcTask(void *arg)
         if (enable_wn)
         {
             int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-            if (command_id == 0) // ID0为唤醒词
+            if (command_id == 0)
             {
                 ESP_LOGI(TAG, "Wake up id: %d", command_id);
-
                 if (NULL != g_sr_callback_func[SR_CB_TYPE_WAKE].fn)
                 {
                     g_sr_callback_func[SR_CB_TYPE_WAKE].fn(g_sr_callback_func[SR_CB_TYPE_WAKE].args);
                 }
                 enable_wn = false;
             }
-            // else
-            // {
-            //     printf("please wake up");
-            // }
         }
         else
         {
             mn_count++;
             int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-            if (command_id > -1) // 识别到口令
+            if (command_id > -1) 
             {
                 ESP_LOGI(TAG, "MN test successfully, Commands ID: %d", command_id);
                 if (NULL != g_sr_callback_func[SR_CB_TYPE_CMD].fn)
@@ -182,7 +177,7 @@ void recsrcTask(void *arg)
         }
 #else
         int command_id = g_multinet->detect(g_model_mn_data, (int16_t *)buffer);
-        if (command_id > -1) // 识别到口令
+        if (command_id > -1) 
         {
             ESP_LOGI(TAG, "MN test successfully, Commands ID: %d", command_id);
             if (NULL != g_sr_callback_func[SR_CB_TYPE_CMD].fn)
@@ -202,7 +197,6 @@ void recsrcTask(void *arg)
         else
         {
         }
-        // vTaskDelay(10/portTICK_PERIOD_MS);
 #endif
     }
     vTaskDelete(NULL);
@@ -239,7 +233,6 @@ esp_err_t speech_recognition_init(void)
 {
     xTaskCreatePinnedToCore(recsrcTask, "recsrcTask", 8 * 1024, NULL, 8, NULL, 1);
 
-    // 安装回调函数
     sr_handler_install(SR_CB_TYPE_WAKE, sr_wake, NULL);
     sr_handler_install(SR_CB_TYPE_CMD, sr_cmd, NULL);
     sr_handler_install(SR_CB_TYPE_CMD_EXIT, sr_cmd_exit, NULL);
@@ -247,12 +240,11 @@ esp_err_t speech_recognition_init(void)
     return ESP_OK;
 }
 
-lv_obj_t *imggif;
+
 
 static void breath_light_task(void *arg)
 {
     ESP_LOGI(TAG, "hi, my friend!");
-
     while (1)
     {
         // printf("2. LEDC fade down to duty = %d\n", LEDC_MIN_DUTY);
@@ -265,7 +257,8 @@ static void breath_light_task(void *arg)
     }
 }
 
-// 唤醒回调
+lv_obj_t *imggif;
+
 void sr_wake(void *arg)
 {
     imggif = lv_gif_create(lv_scr_act());
@@ -274,11 +267,11 @@ void sr_wake(void *arg)
     /**< Turn on the breathing light */
     xTaskCreate(breath_light_task, "breath_light_task", 1024 * 2, NULL, configMAX_PRIORITIES - 1, &g_breath_light_task_handle);
 }
-// 命令回调
+
 void sr_cmd(void *arg)
 {
-    static int msg_id = 0;
-    if (NULL != g_breath_light_task_handle)
+    int msg_id = 0;
+    if (g_breath_light_task_handle != NULL)
     {
         vTaskDelete(g_breath_light_task_handle);
     }
@@ -322,25 +315,26 @@ void sr_cmd(void *arg)
         break;
     case 7:
 
-
         break;
     case 8:
-
 
         break;
     case 9:
 
-
         break;
+    case 10:
+        printf(" tui xia ba\n");
+
+        break;    
     default:
         printf(" speeech recognition err\n");
         break;
     }
 }
-// 结束回调
+
 void sr_cmd_exit(void *arg)
 {
-    if (NULL != g_breath_light_task_handle)
+    if (g_breath_light_task_handle != NULL)
     {
         vTaskDelete(g_breath_light_task_handle);
     }

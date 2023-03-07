@@ -72,7 +72,7 @@ void Mqtt_Task(void *p)
                     lv_obj_add_state(guider_ui.ledbtn, LV_STATE_CHECKED);
                 }
                 Driver_state.led = 1;
-                ESP_LOGI(TAG, "recv led buff on");
+                // ESP_LOGI(TAG, "recv led buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
@@ -81,7 +81,7 @@ void Mqtt_Task(void *p)
                     lv_obj_clear_state(guider_ui.ledbtn, LV_STATE_CHECKED);
                 }
                 Driver_state.led = 0;
-                ESP_LOGI(TAG, "recv led buff off");
+                // ESP_LOGI(TAG, "recv led buff off");
             }
             else
             {
@@ -97,7 +97,7 @@ void Mqtt_Task(void *p)
                     lv_obj_add_state(guider_ui.fanbtn, LV_STATE_CHECKED);
                 }                
                 Driver_state.fan = 1;
-                ESP_LOGI(TAG, "recv fan buff on");
+                // ESP_LOGI(TAG, "recv fan buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
@@ -106,7 +106,7 @@ void Mqtt_Task(void *p)
                     lv_obj_clear_state(guider_ui.fanbtn, LV_STATE_CHECKED);
                 }                   
                 Driver_state.fan = 0;
-                ESP_LOGI(TAG, "recv fan buff off");
+                // ESP_LOGI(TAG, "recv fan buff off");
             }
             else
             {
@@ -122,7 +122,7 @@ void Mqtt_Task(void *p)
                     lv_obj_add_state(guider_ui.keybtn, LV_STATE_CHECKED);
                 }   
                 Driver_state.key = 1;
-                ESP_LOGI(TAG, "recv key buff on");
+                // ESP_LOGI(TAG, "recv key buff on");
             }
             else if (!strncmp(mqtt_buff.data, "off", mqtt_buff.datalen))
             {
@@ -131,7 +131,7 @@ void Mqtt_Task(void *p)
                     lv_obj_clear_state(guider_ui.keybtn, LV_STATE_CHECKED);
                 }   
                 Driver_state.key = 0;
-                ESP_LOGI(TAG, "recv key buff off");
+                // ESP_LOGI(TAG, "recv key buff off");
             }
             else
             {
@@ -159,11 +159,11 @@ void KEYScan_Task(void *p)
 void Tasks_Init(void)
 {
     xTaskCreate(KEYScan_Task, "Key_Scan", 1024 * 8, NULL, 5, &KeyScan_Handle);
-    xTaskCreate(cam_show_task, "cam_task", 1024 * 8, NULL, 1, &Cam_Handle);
+    xTaskCreate(cam_show_task, "cam_task", 1024 * 8, NULL, 4, &Cam_Handle);
     vTaskSuspend(Cam_Handle);
 
     xTaskCreate(AHT_Task, "AHT", 1024 * 4, NULL, 1, &AHT_Handle);
     vTaskSuspend(AHT_Handle);
-    xTaskCreate(Mqtt_Task, "Mqtt", 1024 * 4, NULL, 1, &Mqtt_Handle);
+    xTaskCreate(Mqtt_Task, "Mqtt", 1024 * 4, NULL, 3, &Mqtt_Handle);
     vTaskSuspend(Mqtt_Handle);
 }
