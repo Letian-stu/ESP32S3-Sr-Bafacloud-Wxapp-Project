@@ -1160,7 +1160,7 @@
                     {
                         "children": [],
                         "depends_on": "SECURE_TARGET_HAS_SECURE_ROM_DL_MODE && <choice SECURE_UART_ROM_DL_MODE>",
-                        "help": "If set, during startup the app will burn an eFuse bit to permanently switch the UART ROM\nDownload Mode into a separate Secure Download mode. This option can only work if\nDownload Mode is not already disabled by eFuse.\n\nSecure Download mode limits the use of Download Mode functions to simple flash read,\nwrite and erase operations, plus a command to return a summary of currently enabled\nsecurity features.\n\nSecure Download mode is not compatible with the esptool.py flasher stub feature,\nespefuse.py, read/writing memory or registers, encrypted download, or any other\nfeatures that interact with unsupported Download Mode commands.\n\nSecure Download mode should be enabled in any application where Flash Encryption\nand/or Secure Boot is enabled. Disabling this option does not immediately cancel\nthe benefits of the security features, but it increases the potential \"attack\nsurface\" for an attacker to try and bypass them with a successful physical attack.\n\nIt is also possible to enable secure download mode at runtime by calling\nesp_efuse_enable_rom_secure_download_mode()\n\nNote: Secure Download mode is not available for ESP32 (includes revisions till ECO3).",
+                        "help": "If set, during startup the app will burn an eFuse bit to permanently switch the UART ROM\nDownload Mode into a separate Secure Download mode. This option can only work if\nDownload Mode is not already disabled by eFuse.\n\nSecure Download mode limits the use of Download Mode functions to update SPI config,\nchanging baud rate, basic flash write and a command to return a summary of currently\nenabled security features (`get_security_info`).\n\nSecure Download mode is not compatible with the esptool.py flasher stub feature,\nespefuse.py, read/writing memory or registers, encrypted download, or any other\nfeatures that interact with unsupported Download Mode commands.\n\nSecure Download mode should be enabled in any application where Flash Encryption\nand/or Secure Boot is enabled. Disabling this option does not immediately cancel\nthe benefits of the security features, but it increases the potential \"attack\nsurface\" for an attacker to try and bypass them with a successful physical attack.\n\nIt is also possible to enable secure download mode at runtime by calling\nesp_efuse_enable_rom_secure_download_mode()\n\nNote: Secure Download mode is not available for ESP32 (includes revisions till ECO3).",
                         "id": "SECURE_ENABLE_SECURE_ROM_DL_MODE",
                         "name": "SECURE_ENABLE_SECURE_ROM_DL_MODE",
                         "range": null,
@@ -2783,38 +2783,24 @@
                                         "type": "int"
                                     },
                                     {
-                                        "children": [
-                                            {
-                                                "children": [],
-                                                "depends_on": "ESP32S3_SPIRAM_SUPPORT && ESP32S3_SPIRAM_SUPPORT",
-                                                "help": "The PSRAM Clock IO can be any unused GPIO, please refer to your hardware design.",
-                                                "id": "DEFAULT_PSRAM_CLK_IO",
-                                                "name": "DEFAULT_PSRAM_CLK_IO",
-                                                "range": [
-                                                    0,
-                                                    33
-                                                ],
-                                                "title": "PSRAM CLK IO number",
-                                                "type": "int"
-                                            },
-                                            {
-                                                "children": [],
-                                                "depends_on": "ESP32S3_SPIRAM_SUPPORT && ESP32S3_SPIRAM_SUPPORT",
-                                                "help": "The PSRAM CS IO can be any unused GPIO, please refer to your hardware design.",
-                                                "id": "DEFAULT_PSRAM_CS_IO",
-                                                "name": "DEFAULT_PSRAM_CS_IO",
-                                                "range": [
-                                                    0,
-                                                    33
-                                                ],
-                                                "title": "PSRAM CS IO number",
-                                                "type": "int"
-                                            }
-                                        ],
-                                        "depends_on": "ESP32S3_SPIRAM_SUPPORT && ESP32S3_SPIRAM_SUPPORT",
-                                        "id": "component-config-esp32s3-specific-support-for-external-spi-connected-ram-spi-ram-config-psram-clock-and-cs-io-for-esp32s3",
-                                        "title": "PSRAM Clock and CS IO for ESP32S3",
-                                        "type": "menu"
+                                        "children": [],
+                                        "depends_on": "ESP32S3_SPIRAM_SUPPORT",
+                                        "help": null,
+                                        "id": "SPIRAM_CLK_IO",
+                                        "name": "SPIRAM_CLK_IO",
+                                        "range": null,
+                                        "title": null,
+                                        "type": "int"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "ESP32S3_SPIRAM_SUPPORT",
+                                        "help": null,
+                                        "id": "SPIRAM_CS_IO",
+                                        "name": "SPIRAM_CS_IO",
+                                        "range": null,
+                                        "title": null,
+                                        "type": "int"
                                     },
                                     {
                                         "children": [],
@@ -2834,6 +2820,16 @@
                                         "name": "SPIRAM_RODATA",
                                         "range": null,
                                         "title": "Cache load read only data from SPI RAM",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "children": [],
+                                        "depends_on": "ESP32S3_SPIRAM_SUPPORT",
+                                        "help": "Accessing memory in SPIRAM has certain restrictions, so task stacks allocated by xTaskCreate\nare by default allocated from internal RAM.\n\nThis option allows for passing memory allocated from SPIRAM to be passed to xTaskCreateStatic.\nThis should only be used for tasks where the stack is never accessed while the cache is disabled.\nCannot be used together with ESP_COREDUMP_ENABLE_TO_FLASH.",
+                                        "id": "SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY",
+                                        "name": "SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY",
+                                        "range": null,
+                                        "title": "Allow external memory as an argument to xTaskCreateStatic",
                                         "type": "bool"
                                     },
                                     {
@@ -3520,7 +3516,7 @@
                             {
                                 "children": [],
                                 "depends_on": "!SPIRAM",
-                                "help": "If enabled, chip will try to power down flash as part of esp_light_sleep_start(), which costs\nmore time when chip wakes up. Can only be enabled if there is no SPIRAM configured.\nThis option will in fact consider VDD_SDIO auto power value (ESP_PD_OPTION_AUTO) as OFF. Also, it is\npossible to force a power domain to stay ON during light sleep by using esp_sleep_pd_config()\nfunction.",
+                                "help": "If enabled, chip will try to power down flash as part of esp_light_sleep_start(), which costs\nmore time when chip wakes up. Can only be enabled if there is no SPIRAM configured.\n\nThis option will power down flash under a strict but relatively safe condition. Also, it is possible to\npower down flash under a relaxed condition by using esp_sleep_pd_config() to set ESP_PD_DOMAIN_VDDSDIO\nto ESP_PD_OPTION_OFF. It should be noted that there is a risk in powering down flash, you can refer\n`ESP-IDF Programming Guide/API Reference/System API/Sleep Modes/Power-down of Flash` for more details.",
                                 "id": "ESP_SLEEP_POWER_DOWN_FLASH",
                                 "name": "ESP_SLEEP_POWER_DOWN_FLASH",
                                 "range": null,
@@ -3540,7 +3536,7 @@
                             {
                                 "children": [],
                                 "depends_on": null,
-                                "help": "esp32c3 and esp32s3 will reset at wake-up if GPIO is received a small electrostatic\npulse during light sleep, with specific condition\n\n- GPIO needs to be configured as input-mode only\n- The pin receives a small electrostatic pulse, and reset occurs when the pulse\n  voltage is higher than 6 V\n\nFor GPIO set to input mode only, it is not a good practice to leave it open/floating,\nThe hardware design needs to controlled it with determined supply or ground voltage\nis necessary.\n\nThis option provides a software workaround for this issue. Configure to isolate all\nGPIO pins in sleep state.",
+                                "help": "esp32c3, esp32s3 and esp32h2 will reset at wake-up if GPIO is received a small electrostatic\npulse during light sleep, with specific condition\n\n- GPIO needs to be configured as input-mode only\n- The pin receives a small electrostatic pulse, and reset occurs when the pulse\n  voltage is higher than 6 V\n\nFor GPIO set to input mode only, it is not a good practice to leave it open/floating,\nThe hardware design needs to controlled it with determined supply or ground voltage\nis necessary.\n\nThis option provides a software workaround for this issue. Configure to isolate all\nGPIO pins in sleep state.",
                                 "id": "ESP_SLEEP_GPIO_RESET_WORKAROUND",
                                 "name": "ESP_SLEEP_GPIO_RESET_WORKAROUND",
                                 "range": null,
@@ -3566,6 +3562,16 @@
                                 "range": null,
                                 "title": "Flash leakage current workaround in light sleep",
                                 "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "ESP_SLEEP_PSRAM_LEAKAGE_WORKAROUND || ESP_SLEEP_FLASH_LEAKAGE_WORKAROUND",
+                                "help": "To reduce leakage current, some types of SPI Flash/RAM only need to pull up the CS pin\nduring light sleep. But there are also some kinds of SPI Flash/RAM that need to pull up\nall pins. It depends on the SPI Flash/RAM chip used.",
+                                "id": "ESP_SLEEP_MSPI_NEED_ALL_IO_PU",
+                                "name": "ESP_SLEEP_MSPI_NEED_ALL_IO_PU",
+                                "range": null,
+                                "title": "All pins of mspi need pull up",
+                                "type": "bool"
                             }
                         ],
                         "depends_on": null,
@@ -3578,7 +3584,7 @@
                             {
                                 "children": [],
                                 "depends_on": "ESP_CONSOLE_USB_SERIAL_JTAG || ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG",
-                                "help": "When the chip goes sleep or software reset, the clock source would change to XTAL\nand switch off the BBPLL clock for saving power. However, this might make the\nUSB_SERIAL_JTAG down which depends on BBPLL as its unique clock source.\nTherefore, this is used for keeping bbpll clock always on when USB_SERIAL_JTAG PORT is using.\nIf you want to use USB_SERIAL_JTAG under sw_reset case or sleep-wakeup case, you shoule select\nthis option. But be aware that this might increase the power consumption.",
+                                "help": "When software switches the CPU clock source from BBPLL clock to XTAL, usually the BBPLL will be\nswitched off. This helps to save some power consumption in sleep modes. However this may also happen\nduring the software reset, resulting in the inactive (disconnected from host) of the USB_SERIAL_JTAG\ndevice during software reset.\n\nWhen USB_SERIAL_JTAG is being used, whether to turn off the clock source during software reset and in\nsleep modes is determined by RTC_CLOCK_BBPLL_POWER_ON_WITH_USB.\n\n  - When RTC_CLOCK_BBPLL_POWER_ON_WITH_USB is enabled, the clock will be kept, so that the\n    USB_SERIAL_JTAG will keep alive during software reset. The side-effect is the increasing of power\n    consumption during sleep modes, even though USB_SERIAL_JTAG will not work in sleep modes.\n\n  - When RTC_CLOCK_BBPLL_POWER_ON_WITH_USB is disabled, the clock will be turned off. USB_SERIAL_JTAG\n    will be inactive during software reset and in sleep modes. This saves some power consumption in\n    sleep modes.\n\nWhen USB_SERIAL_JTAG is not being used, software will always turn off BBPLL regardless of\nRTC_CLOCK_BBPLL_POWER_ON_WITH_USB is set or not.",
                                 "id": "RTC_CLOCK_BBPLL_POWER_ON_WITH_USB",
                                 "name": "RTC_CLOCK_BBPLL_POWER_ON_WITH_USB",
                                 "range": null,
@@ -5493,6 +5499,16 @@
                         "name": "SPI_FLASH_ENABLE_ENCRYPTED_READ_WRITE",
                         "range": null,
                         "title": "Enable encrypted partition read/write operations",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "This option is invisible, and will be selected automatically\nwhen ``ESPTOOLPY_FLASHFREQ_120M`` is selected.",
+                        "id": "SPI_FLASH_HPM_ENABLE",
+                        "name": "SPI_FLASH_HPM_ENABLE",
+                        "range": null,
+                        "title": null,
                         "type": "bool"
                     }
                 ],

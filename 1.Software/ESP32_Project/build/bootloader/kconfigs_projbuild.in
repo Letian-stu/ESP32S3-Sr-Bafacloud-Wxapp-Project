@@ -1,4 +1,4 @@
-source "D:/B_Code/espidf/esp32idf/esp-idf/components/bootloader/Kconfig.projbuild"
-source "D:/B_Code/espidf/esp32idf/esp-idf/components/esp_rom/Kconfig.projbuild"
-source "D:/B_Code/espidf/esp32idf/esp-idf/components/esptool_py/Kconfig.projbuild"
-source "D:/B_Code/espidf/esp32idf/esp-idf/components/partition_table/Kconfig.projbuild"
+source "/home/letian/Desktop/software/esp32/esp-idf/esp-idf/components/bootloader/Kconfig.projbuild"
+source "/home/letian/Desktop/software/esp32/esp-idf/esp-idf/components/esp_rom/Kconfig.projbuild"
+source "/home/letian/Desktop/software/esp32/esp-idf/esp-idf/components/esptool_py/Kconfig.projbuild"
+source "/home/letian/Desktop/software/esp32/esp-idf/esp-idf/components/partition_table/Kconfig.projbuild"

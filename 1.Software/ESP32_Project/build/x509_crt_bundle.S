@@ -1,4 +1,4 @@
-/* * Data converted from D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

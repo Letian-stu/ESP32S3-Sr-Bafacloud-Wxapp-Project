@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/bootloader"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/bootloader.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "D:/C_Github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 
