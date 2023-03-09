@@ -60,7 +60,7 @@ static uint8_t *__user_font_getdata(int offset, int size)
         }
         else
         {
-            printf("Successfully open file for reading\n");
+            printf("Font:Successfully open file for reading\n");
         }
     }
     esp_err_t res = esp_partition_read(partition_res, offset, __g_font_buf, size); // 读取数据
