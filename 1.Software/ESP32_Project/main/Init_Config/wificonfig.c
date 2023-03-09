@@ -2,13 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 14:28
  * @LastEditors: Letian-stu
-<<<<<<< Updated upstream
- * @LastEditTime: 2023-03-09 12:22
+ * @LastEditTime: 2023-03-09 19:56
  * @FilePath: /ESP32_Project/main/Init_Config/wificonfig.c
-=======
- * @LastEditTime: 2023-03-07 15:43
- * @FilePath: \ESP32_Project\main\Init_Config\wificonfig.c
->>>>>>> Stashed changes
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
  */

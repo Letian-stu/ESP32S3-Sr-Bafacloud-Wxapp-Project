@@ -14,18 +14,17 @@
 # EXTERNAL cache entries
 ########################
 
+//No help, variable specified on the command line.
+CCACHE_ENABLE:UNINITIALIZED=1
+
 //Path to a program.
-<<<<<<< Updated upstream
+CCACHE_FOUND:FILEPATH=/usr/bin/ccache
+
+//Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/home/letian/Desktop/software/esp32/esp-tools/tools/xtensa-esp32s3-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-addr2line
 
 //Path to a program.
 CMAKE_AR:FILEPATH=/home/letian/Desktop/software/esp32/esp-tools/tools/xtensa-esp32s3-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-ar
-=======
-CMAKE_ADDR2LINE:FILEPATH=D:/B_Code/espidf/idftools/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-addr2line.exe
-
-//Path to a program.
-CMAKE_AR:FILEPATH=D:/B_Code/espidf/idftools/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-ar.exe
->>>>>>> Stashed changes
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler

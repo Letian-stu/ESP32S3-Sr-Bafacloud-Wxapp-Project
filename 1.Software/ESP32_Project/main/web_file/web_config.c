@@ -354,6 +354,10 @@ static esp_err_t wificonfig_post_handler(httpd_req_t *req)
     }
     cJSON_Delete(root);
     httpd_resp_sendstr(req, "Link wifi successfully");
+
+    //设置软件重启
+    //软重启后会一直重启
+    // abort();
     return ESP_OK;
 }
 

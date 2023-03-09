@@ -1,9 +1,9 @@
 <!--
  * @Author: letian
  * @Date: 2022-12-04 17:10
- * @LastEditors: letian
- * @LastEditTime: 2023-01-01 19:59
- * @FilePath: \ESP32_Project\README.md
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-09 16:34
+ * @FilePath: /ESP32_Project/README.md
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
 -->
@@ -63,5 +63,6 @@ font    ,  data  , 0x40    ,        ,  600K     ,
 (如上设置会编译通过)
 我不理解
 注意:在中文显示时，编码设置为utf-8
-esptool.py --chip esp32s3 --port COM3 --baud 115200 write_flash -z 0x9f000(分区地址) lv_font_18.bin
+esptool.py --chip esp32s3 --port COM3 --baud 115200 write_flash -z 0x9f000 lv_font.bin
+esptool.py --chip esp32s3 --port /dev/ttyUSB0 --baud 115200 write_flash -z 0x340000  lv_font.bin
 ```

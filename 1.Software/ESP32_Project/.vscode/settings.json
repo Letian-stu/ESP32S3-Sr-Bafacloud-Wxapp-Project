@@ -12,6 +12,9 @@
     "*.inc": "c",
     "array": "c",
     "string": "c",
-    "string_view": "c"
+    "string_view": "c",
+    "typeinfo": "c",
+    "lv_demos.h": "c",
+    "*.ipp": "c"
   }
 }
