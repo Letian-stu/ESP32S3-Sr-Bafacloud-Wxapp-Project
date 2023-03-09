@@ -18,7 +18,7 @@ set(HEAD_HASH)
 file(READ "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
 
 string(STRIP "${HEAD_CONTENTS}" HEAD_CONTENTS)
-set(GIT_DIR "/home/letian/Desktop/software/esp32/esp-idf/esp-idf/.git")
+set(GIT_DIR "/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/.git")
 # handle git-worktree
 if(EXISTS "${GIT_DIR}/commondir")
 	file(READ "${GIT_DIR}/commondir" GIT_DIR_NEW LIMIT 1024)

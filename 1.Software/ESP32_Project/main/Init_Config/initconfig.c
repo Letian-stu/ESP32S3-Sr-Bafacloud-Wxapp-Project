@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-02-28 16:59
- * @FilePath: \ESP32_Project\main\Init_Config\initconfig.c
+ * @LastEditTime: 2023-03-09 12:17
+ * @FilePath: /ESP32_Project/main/Init_Config/initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -29,10 +29,15 @@ void Init_Config(void)
     }
     sdcard_init(ESP_SD_FS_PATH);
     speech_recognition_init();
+    vTaskDelay(100/portTICK_PERIOD_MS);
     cam_config_init(); 
+    vTaskDelay(100/portTICK_PERIOD_MS);
     xTaskCreatePinnedToCore(appguiTask, "App_Gui",  1024 * 8, NULL, 2, NULL, 1);
+    vTaskDelay(100/portTICK_PERIOD_MS);
     wifi_ap_sta_init();
+    vTaskDelay(100/portTICK_PERIOD_MS);
     mount_storage(ESP_FS_PATH);
+    vTaskDelay(100/portTICK_PERIOD_MS);
     start_wifi_config_server(ESP_SD_FS_PATH);  
     vTaskDelay(500/portTICK_PERIOD_MS);
     Tasks_Init();

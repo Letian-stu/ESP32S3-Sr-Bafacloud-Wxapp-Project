@@ -95,6 +95,7 @@ esp_err_t cam_take_pic_config(cam_mode_t mode)
 
 void cam_show_task(void *p)
 {
+    vTaskSuspend(NULL);
     BaseType_t err;
     static char file_name[32];
     static uint32_t picnum = 0;

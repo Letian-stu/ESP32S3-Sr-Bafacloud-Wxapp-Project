@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 14:28
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-06 13:46
- * @FilePath: \ESP32_Project\main\Init_Config\wificonfig.c
+ * @LastEditTime: 2023-03-09 12:22
+ * @FilePath: /ESP32_Project/main/Init_Config/wificonfig.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
  */
@@ -47,7 +47,6 @@ static void wifi_sta_ap_cb(void *arg, esp_event_base_t event_base,int32_t event_
     }
     else if(event_id == WIFI_EVENT_STA_DISCONNECTED)   
     {
-        esp_mqtt_client_stop(mqtt_client);
         static int count = 10;
         esp_err_t err;
         ESP_LOGI(TAG, "Wi-Fi disconnected, trying to reconnect...");
