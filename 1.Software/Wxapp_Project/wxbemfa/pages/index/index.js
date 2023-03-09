@@ -5,7 +5,7 @@ import mqtt from '../../utils/js/mqtt.min.js';//加载mqtt库
 
 Page({
   data: {
-    uid:"6bf959ef20e34a08a876c765108576a8",//用户密钥，巴法云控制台获取
+    uid:"519077c32d182d4ff93fba987e840dda",//用户密钥，巴法云控制台获取
     E2Wtopic:"DriverAHT004",//传输温湿度的主题，控制台创建
     device_status:"离线",// 显示led是否在线的字符串，默认离线
     wendu:0,//温度值，默认为空

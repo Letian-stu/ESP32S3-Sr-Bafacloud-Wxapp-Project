@@ -30,7 +30,7 @@ enum PAGE
 	PAGE_CONTROL,
 	PAGE_CAMERA,
 	PAGE_IMAGE,
-	PAGE_SDCARD
+	PAGE_WEBCARD
 };
 
 typedef struct
@@ -56,8 +56,8 @@ typedef struct
 			lv_obj_t *camera;
 			lv_obj_t *image_btn;
 			lv_obj_t *image;
-			lv_obj_t *sd_btn;
-			lv_obj_t *sd;
+			lv_obj_t *web_btn;
+			lv_obj_t *web;
 		//3
 		lv_obj_t *page;
 			lv_obj_t *back_btn;
@@ -71,11 +71,8 @@ typedef struct
 			lv_obj_t *img_list;
 			lv_obj_t *img_btn;
 		//sd	
-		lv_obj_t *psram;
-		lv_obj_t *dram;
-		lv_obj_t *spiffs;	
-		lv_obj_t *sdcard;	
-		lv_obj_t *iplabel;
+		lv_obj_t *jpg;
+
 		//set
 		lv_obj_t *imgled;
 		lv_obj_t *ledbtn;
@@ -102,7 +99,7 @@ void setup_ui(lv_ui *ui);
 void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 void setup_clock_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 void setup_image_screen(lv_ui *ui, uint32_t time, uint32_t delay);
-void setup_sd_screen(lv_ui *ui, uint32_t time, uint32_t delay);
+void setup_web_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 void setup_weather_screen(lv_ui *ui, uint32_t time, uint32_t delay);
 
@@ -116,7 +113,7 @@ LV_IMG_DECLARE(_weather_110x110);
 LV_IMG_DECLARE(_set_110x110);
 LV_IMG_DECLARE(_camera_110x110);
 LV_IMG_DECLARE(_image_110x110);
-LV_IMG_DECLARE(_sd_110x110);
+LV_IMG_DECLARE(_web_110x110);
 LV_IMG_DECLARE(_back_40x40);
 LV_IMG_DECLARE(_takepic_50x50);
 
@@ -125,5 +122,8 @@ LV_IMG_DECLARE(_key_50x50);
 LV_IMG_DECLARE(_fan_50x50);
 LV_IMG_DECLARE(_humi_70x70);
 LV_IMG_DECLARE(_temperature_70x70);
+
+LV_IMG_DECLARE(_esp_120x140);
+LV_IMG_DECLARE(_wifi_120x140);
 
 #endif
