@@ -1,9 +1,9 @@
 /*
  * @Author: letian
  * @Date: 2022-11-30 09:21
- * @LastEditors: error: git config user.name & please set dead value or install git
- * @LastEditTime: 2023-02-24 22:51
- * @FilePath: \ESP32_Project\main\web_file\web_config.h
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-09 21:59
+ * @FilePath: /ESP32_Project/main/web_file/web_config.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -51,8 +51,6 @@
 #define MAX_FILE_SIZE_STR "200KB"
 
 #define SCRATCH_BUFSIZE 4096
-
-
 
 typedef struct {
     char *ssid;

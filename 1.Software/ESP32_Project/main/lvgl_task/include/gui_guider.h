@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-02-28 16:34
- * @FilePath: \ESP32_Project\main\lvgl_task\include\gui_guider.h
+ * @LastEditTime: 2023-03-09 22:01
+ * @FilePath: /ESP32_Project/main/lvgl_task/include/gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
  */
@@ -25,7 +25,6 @@
 enum PAGE
 {
 	PAGE_HOME = 0,
-	PAGE_CLOCK,
 	PAGE_WEATHER,
 	PAGE_CONTROL,
 	PAGE_CAMERA,
@@ -46,8 +45,6 @@ typedef struct
 		lv_obj_t *home;
 		lv_obj_t *home_label;
 		lv_obj_t *panel;
-			lv_obj_t *clock_btn;
-			lv_obj_t *clock;
 			lv_obj_t *weather_btn;
 			lv_obj_t *weather;
 			lv_obj_t *set_btn;

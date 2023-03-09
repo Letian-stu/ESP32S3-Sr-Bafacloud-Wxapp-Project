@@ -15,6 +15,9 @@
     "string_view": "c",
     "typeinfo": "c",
     "lv_demos.h": "c",
-    "*.ipp": "c"
+    "*.ipp": "c",
+    "future": "c",
+    "system_error": "c",
+    "regex": "c"
   }
 }

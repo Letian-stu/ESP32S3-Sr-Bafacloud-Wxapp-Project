@@ -2,8 +2,8 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-07 17:54
- * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_guider.c
+ * @LastEditTime: 2023-03-09 22:14
+ * @FilePath: /ESP32_Project/main/lvgl_task/src/gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
  */
@@ -38,49 +38,36 @@ static void add_home_group_obj(uint16_t pagenum)
 
     switch (pagenum)
     {
-    case PAGE_CLOCK:
-        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.web_btn);
-        break;
     case PAGE_WEATHER:
         lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.web_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
         break;
     case PAGE_CONTROL:
         lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.web_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
         break;
     case PAGE_CAMERA:
         lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.web_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
         break;
     case PAGE_IMAGE:
         lv_group_add_obj(guider_ui.group, guider_ui.image_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.web_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
         break;
     case PAGE_WEBCARD:
         lv_group_add_obj(guider_ui.group, guider_ui.web_btn);
-        lv_group_add_obj(guider_ui.group, guider_ui.clock_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.weather_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.set_btn);
         lv_group_add_obj(guider_ui.group, guider_ui.camera_btn);
@@ -95,7 +82,6 @@ static void add_home_group_obj(uint16_t pagenum)
  */
 static void remove_home_group_obj(void)
 {
-    lv_group_remove_obj(guider_ui.clock_btn);
     lv_group_remove_obj(guider_ui.weather_btn);
     lv_group_remove_obj(guider_ui.set_btn);
     lv_group_remove_obj(guider_ui.camera_btn);
@@ -143,24 +129,7 @@ static void lv_btn_event_cb(lv_event_t *e)
     lv_obj_t *obj = lv_event_get_target(e);
     lv_event_code_t code = lv_event_get_code(e);
 
-    if (obj == guider_ui.clock_btn)
-    {
-        switch (code)
-        {
-        case LV_EVENT_CLICKED:
-            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
-            setup_clock_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
-            remove_home_group_obj();
-            page = PAGE_CLOCK;
-            break;
-        case LV_EVENT_FOCUSED:
-
-            lv_label_set_text(guider_ui.home_label, "Clock:时钟");
-        default:
-            break;
-        }
-    }
-    else if (obj == guider_ui.weather_btn)
+    if (obj == guider_ui.weather_btn)
     {
         switch (code)
         {
@@ -276,22 +245,22 @@ void setup_boot_screen(lv_ui *ui)
 
     ui->user_img = lv_img_create(ui->boot);
     lv_obj_set_size(ui->user_img, 200, 60);
-    lv_obj_align(ui->user_img, LV_ALIGN_CENTER, 0, -70);
+    lv_obj_align(ui->user_img, LV_ALIGN_CENTER, 0, -50);
     lv_img_set_src(ui->user_img, &_StuLeTian_200x60);
 
     ui->bar = lv_bar_create(ui->boot);
     lv_obj_add_style(ui->bar, &style_indic, LV_PART_INDICATOR);
     lv_obj_set_size(ui->bar, 250, 20); // 15
-    lv_obj_align(ui->bar, LV_ALIGN_CENTER, 0, 65);
+    lv_obj_align(ui->bar, LV_ALIGN_CENTER, 0, 60);
     lv_bar_set_mode(ui->bar, LV_BAR_MODE_RANGE);
     lv_bar_set_value(ui->bar, 0, LV_ANIM_ON);
     
-    ui->bar_img = lv_gif_create(ui->boot);
-    lv_obj_align(ui->bar_img, LV_ALIGN_LEFT_MID, 0, 0);
-    lv_gif_set_src(ui->bar_img, "S:/join.gif");
+    ui->bar_img = lv_img_create(ui->boot);
+    lv_obj_align(ui->bar_img, LV_ALIGN_LEFT_MID, 0, 20);
+    lv_img_set_src(ui->bar_img, &_rocket_60x35);
 
     page_screen_anim(ui->bar, 0, 100, 3000, (uint32_t)NULL, (lv_anim_exec_xcb_t)set_temp, lv_anim_path_ease_in);
-    page_screen_anim(ui->bar_img, 0, 150, 3000, (uint32_t)NULL, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_ease_in);
+    page_screen_anim(ui->bar_img, 0, 200, 3000, (uint32_t)NULL, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_ease_in);
 
     lv_obj_del_delayed(ui->boot, 3000);
 }
@@ -323,30 +292,15 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_set_flex_flow(ui->panel, LV_FLEX_FLOW_ROW);
     lv_obj_set_scrollbar_mode(ui->panel, LV_SCROLLBAR_MODE_OFF);
 
-    ui->clock_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->clock_btn);                                                      // ??????
-    lv_obj_set_size(ui->clock_btn, IMGSIZE, IMGSIZE);                                            // ?????§³
-    lv_obj_set_style_radius(ui->clock_btn, 20, 0);                                               // ????????
-    lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ??????????
-    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_0, 0);                                         // ?????????
-    lv_obj_set_style_bg_color(ui->clock_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ?????????????????
-    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ????????????????????????????
-    lv_obj_set_style_bg_opa(ui->clock_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ??????????????????
-    lv_obj_add_event_cb(ui->clock_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
-    ui->clock = lv_img_create(ui->clock_btn);
-    lv_obj_set_size(ui->clock, IMGSIZE, IMGSIZE);
-    lv_obj_align(ui->clock, LV_ALIGN_CENTER, 0, 0);
-    lv_img_set_src(ui->clock, &_clock_110x110);
-
     ui->weather_btn = lv_btn_create(ui->panel);
-    lv_obj_remove_style_all(ui->weather_btn);                                                      // ??????
-    lv_obj_set_size(ui->weather_btn, IMGSIZE, IMGSIZE);                                            // ?????§³
-    lv_obj_set_style_radius(ui->weather_btn, 20, 0);                                               // ????????
-    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ??????????
-    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_0, 0);                                         // ?????????
-    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ?????????????????
-    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_20, LV_STATE_FOCUSED);                         // ????????????????????????????
-    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_50, LV_STATE_PRESSED);                         // ??????????????????
+    lv_obj_remove_style_all(ui->weather_btn);                                                     
+    lv_obj_set_size(ui->weather_btn, IMGSIZE, IMGSIZE);                                           
+    lv_obj_set_style_radius(ui->weather_btn, 20, 0);                                               
+    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                
+    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_0, 0);                                         
+    lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); 
+    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_20, LV_STATE_FOCUSED);                         
+    lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_50, LV_STATE_PRESSED);                         
     lv_obj_add_event_cb(ui->weather_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->weather = lv_img_create(ui->weather_btn);
     lv_obj_set_size(ui->weather, IMGSIZE, IMGSIZE);
@@ -418,7 +372,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     /*Be sure the fist button is in the middle*/
     lv_obj_scroll_to_view(lv_obj_get_child(ui->panel, 0), LV_ANIM_OFF);
 
-    add_home_group_obj(PAGE_CLOCK);
+    add_home_group_obj(PAGE_WEATHER);
 
     page_screen_anim(ui->home, -240, 0, HOME_PAGE_OUT_TIME, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }

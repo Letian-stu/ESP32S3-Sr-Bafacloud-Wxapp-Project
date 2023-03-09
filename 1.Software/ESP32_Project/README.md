@@ -20,29 +20,6 @@
 
 ## 3.遇到问题
 
-- ~~语音识别需要由DIO转QIO,但是使用QIO的时候打开wifi到十分钟左右的时候会闪退~~
-
-```c
-I (477734) main: count:477
-I (478734) main: count:478
-I (479734) main: count:479
-I (480734) main: count:480
-ESP-ROM:esp32s3-20210327
-Build:Mar 27 2021
-rst:0x8 (TG1WDT_SYS_RST),boot:0x29 (SPI_FAST_FLASH_BOOT)
-Saved PC:0x40378969
-0x40378969: _xt_panic at D:/B_Code/espidf/esp32idf/esp-idf/components/esp_system/port/arch/xtensa/panic_handler_asm.S:30
-invalid header: 0x4200490c
-0x4200490c: get_local_fd at D:/B_Code/espidf/esp32idf/esp-idf/components/vfs/vfs.c:285
- (inlined by) esp_vfs_read at D:/B_Code/espidf/esp32idf/esp-idf/components/vfs/vfs.c:451
-invalid header: 0x0b1cc212
-invalid header: 0x7c2000a0
-invalid header: 0x9200061c
-invalid header: 0x80472404
-invalid header: 0x69049920
-```
-
-
 -   ~~size_t dram = heap_caps_get_free_size(MALLOC_CAP_DMA);~~
 -   ~~dma ram 申请失败 lvgl和cam和sr的初始化需要注意~~
 

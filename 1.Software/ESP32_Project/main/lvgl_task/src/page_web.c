@@ -47,12 +47,12 @@ void setup_web_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 
     ui->jpg = lv_img_create(ui->page);
     lv_obj_remove_style_all(ui->jpg);
-    lv_obj_align(ui->jpg, LV_ALIGN_TOP_LEFT, 0, 30);
+    lv_obj_align(ui->jpg, LV_ALIGN_TOP_LEFT, 0, 50);
     lv_img_set_src(ui->jpg, &_wifi_120x140);	
 
     ui->jpg = lv_img_create(ui->page);
     lv_obj_remove_style_all(ui->jpg);
-    lv_obj_align(ui->jpg, LV_ALIGN_TOP_RIGHT, 0, 30);
+    lv_obj_align(ui->jpg, LV_ALIGN_TOP_RIGHT, 0, 50);
     lv_img_set_src(ui->jpg, &_esp_120x140);	
 
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
