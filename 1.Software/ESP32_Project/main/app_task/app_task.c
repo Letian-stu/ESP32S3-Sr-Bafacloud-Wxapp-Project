@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-12-04 17:10
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-09 12:45
+ * @LastEditTime: 2023-03-10 23:28
  * @FilePath: /ESP32_Project/main/app_task/app_task.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
@@ -15,12 +15,12 @@ TaskHandle_t Mqtt_Handle;
 TaskHandle_t AHT_Handle;
 TaskHandle_t KeyScan_Handle;
 TaskHandle_t Cam_Handle;
+TaskHandle_t Http_Handle;
 
 void AHT_Task(void *p)
 {
     vTaskSuspend(NULL);
     float H, T;
-    static int msg_id = 0;
     char Send_mqtt_buff[20];
     I2cMaster_handle_t i2c_0 = I2cMaster_Init(I2C_NUM_0, 41, 42, 400000);
     AHT20_handle_t aht20 = AHT20_Init(i2c_0, AHT20_ADDR);
@@ -42,8 +42,7 @@ void AHT_Task(void *p)
             lv_label_set_text_fmt(guider_ui.labelhumi, "湿度\n%dRH", (uint16_t)H);
         }
         ESP_LOGI("MQTTSend", "send mqtt buff:%s", Send_mqtt_buff);
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverAHT004", Send_mqtt_buff, 0, 1, 0);
-        // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+        esp_mqtt_client_publish(mqtt_client, "DriverAHT004", Send_mqtt_buff, 0, 1, 0);
         // ESP_LOGI(TAG, "============================");
     }
 }
@@ -157,11 +156,72 @@ void KEYScan_Task(void *p)
     }
 }
 
+static const char *URL = "http://apis.tianapi.com/caihongpi/index?key=74c13561ea03821a85692aefe7d75e82";
+#define MAX_HTTP_OUTPUT_BUFFER 1024
+static char output_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0}; 
+
+void http_task(void *p)
+{
+    vTaskSuspend(NULL);
+    int content_length = 0;                           
+    esp_http_client_config_t config;
+    memset(&config, 0, sizeof(config));
+    config.url = URL;
+    esp_http_client_handle_t client = esp_http_client_init(&config);
+    esp_http_client_set_method(client, HTTP_METHOD_GET);
+    while (1)
+    {
+        esp_err_t err = esp_http_client_open(client, 0);
+        if (err != ESP_OK)
+        {
+            ESP_LOGE(TAG, "Failed to open HTTP connection: %s", esp_err_to_name(err));
+        }
+        else
+        {
+            content_length = esp_http_client_fetch_headers(client);
+            if (content_length < 0)
+            {
+                ESP_LOGE(TAG, "HTTP client fetch headers failed");
+            }
+            else
+            {
+                int data_read = esp_http_client_read_response(client, output_buffer, MAX_HTTP_OUTPUT_BUFFER);
+                if (data_read >= 0)
+                {
+                    ESP_LOGI(TAG, "HTTP GET Status = %d, content_length = %d",
+                            esp_http_client_get_status_code(client),     
+                            esp_http_client_get_content_length(client)); 
+                    ESP_LOGI(TAG, "data:%s", output_buffer);
+                    cJSON *root = NULL;
+                    root = cJSON_Parse(output_buffer);
+                    cJSON *result = cJSON_GetObjectItem(root, "result");
+                    cJSON *content = cJSON_GetObjectItem(result, "content");
+                    //ESP_LOGI(TAG, "return text:%s", content->valuestring);
+                    if(guider_ui.httplabel != NULL)
+                        lv_label_set_text_fmt(guider_ui.httplabel,"%s",content->valuestring);
+                    cJSON_Delete(root);
+                }
+                else
+                {
+                    ESP_LOGE(TAG, "Failed to read response");
+                }
+            }
+            esp_http_client_close(client);
+        }        
+        vTaskDelay(10000 / portTICK_PERIOD_MS);
+    }        
+    ESP_LOGI(TAG, "Finish http example");
+    vTaskDelete(NULL);
+}
+
+
+
 void Tasks_Init(void)
 {
-    xTaskCreate(KEYScan_Task,   "Key_Scan", 1024 * 8, NULL, 5, &KeyScan_Handle);
+    xTaskCreatePinnedToCore(KEYScan_Task,   "Key",   1024 * 8, NULL, 8, &KeyScan_Handle, 1);
     //初始化后挂起
-    xTaskCreate(cam_show_task,  "cam_task", 1024 * 8, NULL, 4, &Cam_Handle);
-    xTaskCreate(AHT_Task,       "AHT",      1024 * 4, NULL, 1, &AHT_Handle);
-    xTaskCreate(Mqtt_Task,      "Mqtt",     1024 * 4, NULL, 3, &Mqtt_Handle);
+    xTaskCreatePinnedToCore(cam_show_task,  "cam",   1024 * 8, NULL, 7, &Cam_Handle,     0);
+    xTaskCreatePinnedToCore(Mqtt_Task,      "Mqtt",  1024 * 4, NULL, 3, &Mqtt_Handle,    0);
+    xTaskCreatePinnedToCore(AHT_Task,       "AHT",   1024 * 4, NULL, 1, &AHT_Handle,     0);
+    xTaskCreatePinnedToCore(http_task,      "http",  1025 * 4, NULL, 4, &Http_Handle,    0);    
 }

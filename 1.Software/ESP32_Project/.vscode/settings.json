@@ -18,6 +18,21 @@
     "*.ipp": "c",
     "future": "c",
     "system_error": "c",
-    "regex": "c"
+    "regex": "c",
+    "nvs_flash.h": "c",
+    "esp_wifi.h": "c",
+    "esp_vfs_fat.h": "c",
+    "err.h": "c",
+    "esp_event.h": "c",
+    "speech_if.h": "c",
+    "app_task.h": "c",
+    "web_config.h": "c",
+    "esp_system.h": "c",
+    "esp_log.h": "c",
+    "cam_task.h": "c",
+    "functional": "c",
+    "deque": "c",
+    "list": "c",
+    "vector": "c"
   }
 }

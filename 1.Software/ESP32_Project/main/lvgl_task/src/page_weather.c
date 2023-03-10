@@ -1,9 +1,9 @@
 /*
  * @Author: letian
  * @Date: 2023-01-18 20:41
- * @LastEditors: letian
- * @LastEditTime: 2023-01-29 16:13
- * @FilePath: \ESP32_Project\main\lvgl_task\src\page_weather.c
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-10 22:46
+ * @FilePath: /ESP32_Project/main/lvgl_task/src/page_weather.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -25,15 +25,15 @@ void setup_weather_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_set_scrollbar_mode(ui->page, LV_SCROLLBAR_MODE_OFF);
 
     ui->back_btn = lv_btn_create(ui->page);
-    lv_obj_remove_style_all(ui->back_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->back_btn, 40, 40);                                                      // ÉèÖÃ´óÐ¡
+    lv_obj_remove_style_all(ui->back_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->back_btn, 40, 40);                                                      // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
     lv_obj_align(ui->back_btn, LV_ALIGN_TOP_LEFT, -10, -10);
-    lv_obj_set_style_radius(ui->back_btn, 20, 0);                                               // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_50, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_80, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_set_style_radius(ui->back_btn, 20, 0);                                               // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_50, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_80, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->back_btn, lv_btn_back_event_cb, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(ui->back_btn, lv_btn_back_event_cb, LV_EVENT_FOCUSED, NULL);
     ui->back = lv_img_create(ui->back_btn);
@@ -41,9 +41,13 @@ void setup_weather_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_align(ui->back, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->back, &_back_40x40);
 
-    ui->label = lv_label_create(ui->page);
-    lv_obj_align(ui->label, LV_ALIGN_CENTER, 0, 0);
-    lv_label_set_text(ui->label, "weather");
+
+    ui->httplabel = lv_label_create(ui->page);
+    lv_obj_set_size(ui->httplabel, 270, 30);
+    lv_obj_align(ui->httplabel, LV_ALIGN_CENTER, 0, 0);
+    lv_label_set_long_mode(ui->httplabel, LV_LABEL_LONG_SCROLL_CIRCULAR); 
+    lv_obj_set_style_text_font(ui->httplabel, &myFont, 0);
+    lv_label_set_text(ui->httplabel, "NULL");
 
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
 }

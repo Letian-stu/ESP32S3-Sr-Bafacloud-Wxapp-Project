@@ -1,9 +1,9 @@
 /*
  * @Author: letian
  * @Date: 2022-11-30 22:22
- * @LastEditors: letian
- * @LastEditTime: 2023-01-29 20:58
- * @FilePath: \ESP32_Project\main\app_task\include\app_task.h
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-10 21:59
+ * @FilePath: /ESP32_Project/main/app_task/app_task.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */
@@ -29,7 +29,8 @@
 #include "button.h"
 #include "lvgl_init.h"
 #include "cam_task.h"
-
+#include "cJSON.h"
+#include "esp_http_client.h"
 
 #define AHT20_ADDR 0x38
 
@@ -37,6 +38,7 @@
 extern TaskHandle_t Cam_Handle;
 extern TaskHandle_t Mqtt_Handle;
 extern TaskHandle_t AHT_Handle;
+extern TaskHandle_t Http_Handle;
 void Tasks_Init(void);
 
 //timer

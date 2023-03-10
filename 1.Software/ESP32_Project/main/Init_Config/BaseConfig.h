@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-02-27 21:43
- * @FilePath: \ESP32_Project\main\Init_Config\BaseConfig.h
+ * @LastEditTime: 2023-03-10 21:20
+ * @FilePath: /ESP32_Project/main/Init_Config/BaseConfig.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
  */

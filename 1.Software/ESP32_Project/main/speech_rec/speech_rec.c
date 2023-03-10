@@ -231,7 +231,7 @@ esp_err_t sr_handler_install(sr_cb_type_t type, sr_cb_t handler, void *args)
 
 esp_err_t speech_recognition_init(void)
 {
-    xTaskCreatePinnedToCore(recsrcTask, "recsrcTask", 8 * 1024, NULL, 8, NULL, 1);
+    xTaskCreatePinnedToCore(recsrcTask, "recsrcTask", 8 * 1024, NULL, 10, NULL, 1);
 
     sr_handler_install(SR_CB_TYPE_WAKE, sr_wake, NULL);
     sr_handler_install(SR_CB_TYPE_CMD, sr_cmd, NULL);

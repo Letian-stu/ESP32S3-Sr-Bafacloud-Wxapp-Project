@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-09 22:14
+ * @LastEditTime: 2023-03-10 23:01
  * @FilePath: /ESP32_Project/main/lvgl_task/src/gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -278,9 +278,16 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_align(ui->home, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_scrollbar_mode(ui->home, LV_SCROLLBAR_MODE_OFF);
 
+    // ui->home_http_label = lv_label_create(ui->home);
+    // lv_obj_set_size(ui->home_http_label, 270, 30);
+    // lv_obj_align(ui->home_http_label, LV_ALIGN_TOP_MID, 0, 10);
+    // lv_label_set_long_mode(ui->home_http_label, LV_LABEL_LONG_SCROLL_CIRCULAR); 
+    // lv_obj_set_style_text_font(ui->home_http_label, &myFont, 0);
+    // lv_label_set_text(ui->home_http_label, "NULL");
+
     ui->home_label = lv_label_create(ui->home);
     lv_obj_align(ui->home_label, LV_ALIGN_BOTTOM_MID, 0, -20);
-    lv_obj_set_style_text_font(guider_ui.home_label, &myFont, 0);
+    lv_obj_set_style_text_font(ui->home_label, &myFont, 0);
     lv_label_set_text(ui->home_label, "Clock");
 
     ui->panel = lv_obj_create(ui->home);
