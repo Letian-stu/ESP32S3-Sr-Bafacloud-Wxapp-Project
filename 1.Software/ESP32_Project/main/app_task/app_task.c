@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2022-12-04 17:10
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-11 22:51
- * @FilePath: /ESP32_Project/main/app_task/app_task.c
+ * @LastEditTime: 2023-03-11 23:16
+ * @FilePath: \ESP32_Project\main\app_task\app_task.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
  */
@@ -18,9 +18,10 @@ TaskHandle_t Cam_Handle;
 TaskHandle_t Http_Handle;
 
 #define MAX_HTTP_OUTPUT_BUFFER 1024
-static const char *URL = "http://apis.tianapi.com/caihongpi/index?key=74c13561ea03821a85692aefe7d75e82";
+static const char *URL = "http://apis.tianapi.com/hotreview/index?key=74c13561ea03821a85692aefe7d75e82";
 static char output_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0}; 
 char print_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0}; 
+char print_name[32] = {0}; 
 
 void AHT_Task(void *p)
 {
@@ -185,8 +186,11 @@ void http_task(void *p)
                 root = cJSON_Parse(output_buffer);
                 cJSON *result = cJSON_GetObjectItem(root, "result");
                 cJSON *content = cJSON_GetObjectItem(result, "content");
+                cJSON *source = cJSON_GetObjectItem(result, "source");
                 strcpy(print_buffer,content->valuestring);
-                ESP_LOGI(TAG, "return text:%s", print_buffer);
+                strcpy(print_name,source->valuestring);
+                ESP_LOGI(TAG, "return source:%s", print_buffer);
+                ESP_LOGI(TAG, "return source:%s", print_name);
                 cJSON_Delete(root);
             }
         }

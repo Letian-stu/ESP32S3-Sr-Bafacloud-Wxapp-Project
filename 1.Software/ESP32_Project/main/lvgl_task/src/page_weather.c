@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-11 22:48
- * @FilePath: /ESP32_Project/main/lvgl_task/src/page_weather.c
+ * @LastEditTime: 2023-03-12 00:14
+ * @FilePath: \ESP32_Project\main\lvgl_task\src\page_weather.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -16,6 +16,7 @@
 #include "gui_anim.h"
 
 extern char print_buffer[1024]; 
+extern char print_name[32];
 
 #define TAG "PAGE_WEATHER"
 
@@ -43,13 +44,12 @@ void setup_weather_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_align(ui->back, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->back, &_back_40x40);
 
-
     ui->httplabel = lv_label_create(ui->page);
-    lv_obj_set_size(ui->httplabel, 270, 100);
-    lv_obj_align(ui->httplabel, LV_ALIGN_CENTER, 0, -10);
-    //lv_label_set_long_mode(ui->httplabel, LV_LABEL_LONG_SCROLL_CIRCULAR); 
+    lv_obj_set_size(ui->httplabel, 270, 200);
+    lv_obj_align(ui->httplabel, LV_ALIGN_CENTER, 0, 40);
     lv_obj_set_style_text_font(ui->httplabel, &myFont, 0);
     lv_label_set_text(ui->httplabel, print_buffer);
+    lv_label_set_text_fmt(ui->httplabel,"%s\n\n         ---%s",print_buffer,print_name);
 
-    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_in);
 }

@@ -1,6 +1,6 @@
 # ESP-IDF Partition Table
 # Name  ,  Type  , SubType , Offset ,  Size     , Flags
-nvs     ,  data  , nvs     ,        ,  100K     ,
-storage ,  data  , spiffs  ,        ,  100K     ,
-factory ,  app   , factory ,        ,  3M       ,
-font    ,  data  , 0x40    ,        ,  600K     ,
+nvs     ,  data  , nvs     ,        ,  64K      ,
+storage ,  data  , spiffs  ,        ,  20K      ,
+factory ,  app   , factory ,        ,  3072K    ,
+font    ,  data  , 0x40    ,        ,  896K     ,
