@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-10 22:18
+ * @LastEditTime: 2023-03-11 22:43
  * @FilePath: /ESP32_Project/main/lvgl_task/include/gui_guider.h
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -43,7 +43,7 @@ typedef struct
 			lv_obj_t *bar_img;
 		//2
 		lv_obj_t *home;
-		lv_obj_t *home_http_label;
+		// lv_obj_t *home_http_label;
 		lv_obj_t *home_label;
 		lv_obj_t *panel;
 			lv_obj_t *weather_btn;

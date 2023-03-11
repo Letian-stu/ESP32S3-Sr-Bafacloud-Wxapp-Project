@@ -33,6 +33,8 @@
     "functional": "c",
     "deque": "c",
     "list": "c",
-    "vector": "c"
+    "vector": "c",
+    "freertos.h": "c",
+    "gui_anim.h": "c"
   }
 }
