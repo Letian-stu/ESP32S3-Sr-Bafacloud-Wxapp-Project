@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-06 12:52
- * @FilePath: \ESP32_Project\main\lvgl_task\src\page_set.c
+ * @LastEditTime: 2023-03-12 11:09
+ * @FilePath: /ESP32_Project/main/lvgl_task/src/page_set.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -154,16 +154,16 @@ void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     {
         lv_obj_clear_state(ui->fanbtn, LV_STATE_CHECKED);
     }
-    page_screen_anim(ui->imgtemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->labeltemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->imghumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->labelhumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->imgfan, 240, 120, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->fanbtn, 240, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
-    page_screen_anim(ui->imgled, -100, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
-    page_screen_anim(ui->ledbtn, -100, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
-    page_screen_anim(ui->imgkey, 280, 170, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
-    page_screen_anim(ui->keybtn, 280, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_bounce);
-    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->imgtemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
+    page_screen_anim(ui->labeltemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
+    page_screen_anim(ui->imghumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
+    page_screen_anim(ui->labelhumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
+    page_screen_anim(ui->imgfan, 240, 120, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
+    page_screen_anim(ui->fanbtn, 240, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
+    page_screen_anim(ui->imgled, -100, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_linear);
+    page_screen_anim(ui->ledbtn, -100, 30, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_linear);
+    page_screen_anim(ui->imgkey, 280, 170, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_linear);
+    page_screen_anim(ui->keybtn, 280, 175, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_linear);
+    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
 }
 

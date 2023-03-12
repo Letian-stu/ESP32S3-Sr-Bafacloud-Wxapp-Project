@@ -1,9 +1,9 @@
 /*
  * @Author: letian
  * @Date: 2023-01-18 20:41
- * @LastEditors: letian
- * @LastEditTime: 2023-02-07 20:08
- * @FilePath: \ESP32_Project\main\lvgl_task\src\page_camera.c
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-12 11:00
+ * @FilePath: /ESP32_Project/main/lvgl_task/src/page_camera.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
  */
@@ -50,15 +50,15 @@ void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_set_size(ui->img_cam, 280, 240);
 
     ui->back_btn = lv_btn_create(ui->img_cam);
-    lv_obj_remove_style_all(ui->back_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->back_btn, 40, 40);                                                      // ÉèÖÃ´óÐ¡
+    lv_obj_remove_style_all(ui->back_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->back_btn, 40, 40);                                                      // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
     lv_obj_align(ui->back_btn, LV_ALIGN_TOP_LEFT, 10, 10);
-    lv_obj_set_style_radius(ui->back_btn, 20, 0);                                               // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_50, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_80, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_set_style_radius(ui->back_btn, 20, 0);                                               // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->back_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_50, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->back_btn, LV_OPA_80, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->back_btn, lv_btn_back_event_cb, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(ui->back_btn, lv_btn_back_event_cb, LV_EVENT_FOCUSED, NULL);
     
@@ -68,15 +68,15 @@ void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_img_set_src(ui->back, &_back_40x40);
 
     ui->takepic_btn = lv_btn_create(ui->img_cam);
-    lv_obj_remove_style_all(ui->takepic_btn);                                                      // ÒÆ³ýÑùÊ½
-    lv_obj_set_size(ui->takepic_btn, 50, 40);                                                      // ÉèÖÃ´óÐ¡
+    lv_obj_remove_style_all(ui->takepic_btn);                                                      // ï¿½Æ³ï¿½ï¿½ï¿½Ê½
+    lv_obj_set_size(ui->takepic_btn, 50, 40);                                                      // ï¿½ï¿½ï¿½Ã´ï¿½Ð¡
     lv_obj_align(ui->takepic_btn, LV_ALIGN_RIGHT_MID, -20, 0);
-    lv_obj_set_style_radius(ui->takepic_btn, 5, 0);                                                // ÉèÖÃµ¹Ô²½Ç
-    lv_obj_set_style_bg_color(ui->takepic_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ÉèÖÃ±³¾°ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->takepic_btn, LV_OPA_0, 0);                                         // ±³¾°Í¸Ã÷¶È
-    lv_obj_set_style_bg_color(ui->takepic_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ÉèÖÃ±»¾Û½¹Ê±ºòµÄ×´Ì¬ÑÕÉ«
-    lv_obj_set_style_bg_opa(ui->takepic_btn, LV_OPA_50, LV_STATE_FOCUSED);                         // ±»¾Û½¹Ê±ºòµÄÍ¸Ã÷¶È£¬´Ó¶øÈÃÈËÑÛÇø·Ö
-    lv_obj_set_style_bg_opa(ui->takepic_btn, LV_OPA_80, LV_STATE_PRESSED);                         // ±»°´ÏÂÊ±ºòµÄ±³¾°Í¸Ã÷¶È
+    lv_obj_set_style_radius(ui->takepic_btn, 5, 0);                                                // ï¿½ï¿½ï¿½Ãµï¿½Ô²ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->takepic_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->takepic_btn, LV_OPA_0, 0);                                         // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_color(ui->takepic_btn, lv_color_hex(COLOR_DODGER_BLUE), LV_STATE_FOCUSED); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½É«
+    lv_obj_set_style_bg_opa(ui->takepic_btn, LV_OPA_50, LV_STATE_FOCUSED);                         // ï¿½ï¿½ï¿½Û½ï¿½Ê±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lv_obj_set_style_bg_opa(ui->takepic_btn, LV_OPA_80, LV_STATE_PRESSED);                         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
     lv_obj_add_event_cb(ui->takepic_btn, lv_btn_takepic_event_cb, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(ui->takepic_btn, lv_btn_takepic_event_cb, LV_EVENT_FOCUSED, NULL);
     
@@ -87,5 +87,5 @@ void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
 
     vTaskResume(Cam_Handle);
 
-    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
 }

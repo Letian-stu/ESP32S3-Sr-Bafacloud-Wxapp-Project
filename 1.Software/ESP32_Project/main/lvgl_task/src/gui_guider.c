@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-05 14:07
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-10 23:01
+ * @LastEditTime: 2023-03-12 13:27
  * @FilePath: /ESP32_Project/main/lvgl_task/src/gui_guider.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
@@ -22,10 +22,12 @@
 
 #define TAG "UI"
 
-#define IMGSIZE 110
-#define HOME_PAGE_OUT_TIME 500
-
+#define HOME_PAGE_OUT_TIME 300
+#define BOOT_PAGE_OUT_TIME 5000
 enum PAGE page = PAGE_HOME;
+
+static const lv_coord_t obj_width = 110;
+static const lv_coord_t obj_height = 110;
 
 /**
  * @description: 
@@ -108,9 +110,8 @@ void lv_btn_back_event_cb(lv_event_t *e)
         {
             vTaskSuspend(Cam_Handle);
         }
-        
-        page_screen_anim(guider_ui.page, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
-        page_screen_anim(guider_ui.home, -240, 0, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+        page_screen_anim(guider_ui.page, 0, 240, HOME_PAGE_OUT_TIME, 100, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
+        page_screen_anim(guider_ui.home, -240, 0, HOME_PAGE_OUT_TIME, 100, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
         add_home_group_obj(page);
         break;
     case LV_EVENT_FOCUSED:
@@ -134,7 +135,7 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
+            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
             setup_weather_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
             page = PAGE_WEATHER;
@@ -151,7 +152,7 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
+            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
             setup_set_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
             lv_group_add_obj(guider_ui.group, guider_ui.ledbtn);
@@ -171,7 +172,7 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
+            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
             setup_camera_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
             lv_group_add_obj(guider_ui.group, guider_ui.takepic_btn);
@@ -189,7 +190,7 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
+            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
             setup_image_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
             page = PAGE_IMAGE;
@@ -206,7 +207,7 @@ static void lv_btn_event_cb(lv_event_t *e)
         switch (code)
         {
         case LV_EVENT_CLICKED:
-            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_ease_out);
+            page_screen_anim(guider_ui.home, 0, 240, HOME_PAGE_OUT_TIME, 0, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
             setup_web_screen(&guider_ui, HOME_PAGE_OUT_TIME, 0);
             remove_home_group_obj();
             page = PAGE_WEBCARD;
@@ -259,10 +260,10 @@ void setup_boot_screen(lv_ui *ui)
     lv_obj_align(ui->bar_img, LV_ALIGN_LEFT_MID, 0, 20);
     lv_img_set_src(ui->bar_img, &_rocket_60x35);
 
-    page_screen_anim(ui->bar, 0, 100, 3000, (uint32_t)NULL, (lv_anim_exec_xcb_t)set_temp, lv_anim_path_ease_in);
-    page_screen_anim(ui->bar_img, 0, 200, 3000, (uint32_t)NULL, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_ease_in);
+    page_screen_anim(ui->bar, 0, 100, BOOT_PAGE_OUT_TIME, (uint32_t)NULL, (lv_anim_exec_xcb_t)set_temp, lv_anim_path_ease_in);
+    page_screen_anim(ui->bar_img, 0, 200, BOOT_PAGE_OUT_TIME, (uint32_t)NULL, (lv_anim_exec_xcb_t)lv_obj_set_x, lv_anim_path_ease_in);
 
-    lv_obj_del_delayed(ui->boot, 3000);
+    lv_obj_del_delayed(ui->boot, BOOT_PAGE_OUT_TIME);
 }
 
 /**
@@ -301,7 +302,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
 
     ui->weather_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->weather_btn);                                                     
-    lv_obj_set_size(ui->weather_btn, IMGSIZE, IMGSIZE);                                           
+    lv_obj_set_size(ui->weather_btn, obj_width, obj_height);                                           
     lv_obj_set_style_radius(ui->weather_btn, 20, 0);                                               
     lv_obj_set_style_bg_color(ui->weather_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                
     lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_0, 0);                                         
@@ -310,13 +311,13 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_set_style_bg_opa(ui->weather_btn, LV_OPA_50, LV_STATE_PRESSED);                         
     lv_obj_add_event_cb(ui->weather_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->weather = lv_img_create(ui->weather_btn);
-    lv_obj_set_size(ui->weather, IMGSIZE, IMGSIZE);
+    lv_obj_set_size(ui->weather, obj_width, obj_height);
     lv_obj_align(ui->weather, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->weather, &_weather_110x110);
-
+    
     ui->set_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->set_btn);                                                
-    lv_obj_set_size(ui->set_btn, IMGSIZE, IMGSIZE);                                        
+    lv_obj_set_size(ui->set_btn, obj_width, obj_height);                                        
     lv_obj_set_style_radius(ui->set_btn, 20, 0);                                           
     lv_obj_set_style_bg_color(ui->set_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);               
     lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_0, 0);                                         
@@ -325,13 +326,13 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_set_style_bg_opa(ui->set_btn, LV_OPA_50, LV_STATE_PRESSED);                        
     lv_obj_add_event_cb(ui->set_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->set = lv_img_create(ui->set_btn);
-    lv_obj_set_size(ui->set, IMGSIZE, IMGSIZE);
+    lv_obj_set_size(ui->set, obj_width, obj_height);
     lv_obj_align(ui->set, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->set, &_set_110x110);
 
     ui->camera_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->camera_btn);                                                  
-    lv_obj_set_size(ui->camera_btn, IMGSIZE, IMGSIZE);                                         
+    lv_obj_set_size(ui->camera_btn, obj_width, obj_height);                                         
     lv_obj_set_style_radius(ui->camera_btn, 20, 0);                                           
     lv_obj_set_style_bg_color(ui->camera_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);               
     lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_0, 0);                                         
@@ -340,13 +341,13 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_set_style_bg_opa(ui->camera_btn, LV_OPA_50, LV_STATE_PRESSED);                        
     lv_obj_add_event_cb(ui->camera_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->camera = lv_img_create(ui->camera_btn);
-    lv_obj_set_size(ui->camera, IMGSIZE, IMGSIZE);
+    lv_obj_set_size(ui->camera, obj_width, obj_height);
     lv_obj_align(ui->camera, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->camera, &_camera_110x110);
 
     ui->image_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->image_btn);                                                      
-    lv_obj_set_size(ui->image_btn, IMGSIZE, IMGSIZE);                                           
+    lv_obj_set_size(ui->image_btn, obj_width, obj_height);                                           
     lv_obj_set_style_radius(ui->image_btn, 20, 0);                                               
     lv_obj_set_style_bg_color(ui->image_btn, lv_color_hex(COLOR_DODGER_BLUE), 0);                
     lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_0, 0);                                         
@@ -355,13 +356,13 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_set_style_bg_opa(ui->image_btn, LV_OPA_50, LV_STATE_PRESSED);                         
     lv_obj_add_event_cb(ui->image_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->image = lv_img_create(ui->image_btn);
-    lv_obj_set_size(ui->image, IMGSIZE, IMGSIZE);
+    lv_obj_set_size(ui->image, obj_width, obj_height);
     lv_obj_align(ui->image, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->image, &_image_110x110);
 
     ui->web_btn = lv_btn_create(ui->panel);
     lv_obj_remove_style_all(ui->web_btn);                                      
-    lv_obj_set_size(ui->web_btn, IMGSIZE, IMGSIZE);                            
+    lv_obj_set_size(ui->web_btn, obj_width, obj_height);                            
     lv_obj_set_style_radius(ui->web_btn, 20, 0);                                
     lv_obj_set_style_bg_color(ui->web_btn, lv_color_hex(COLOR_DODGER_BLUE), 0); 
     lv_obj_set_style_bg_opa(ui->web_btn, LV_OPA_0, 0);                          
@@ -370,7 +371,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
     lv_obj_set_style_bg_opa(ui->web_btn, LV_OPA_50, LV_STATE_PRESSED); 
     lv_obj_add_event_cb(ui->web_btn, lv_btn_event_cb, LV_EVENT_ALL, NULL);
     ui->web = lv_img_create(ui->web_btn);
-    lv_obj_set_size(ui->web, IMGSIZE, IMGSIZE);
+    lv_obj_set_size(ui->web, obj_width, obj_height);
     lv_obj_align(ui->web, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->web, &_web_110x110);
 
@@ -381,7 +382,7 @@ void setup_home_screen(lv_ui *ui, uint32_t delay)
 
     add_home_group_obj(PAGE_WEATHER);
 
-    page_screen_anim(ui->home, -240, 0, HOME_PAGE_OUT_TIME, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->home, -240, 0, HOME_PAGE_OUT_TIME, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
 }
 
 /**
@@ -396,8 +397,9 @@ void setup_ui(lv_ui *ui)
     lv_obj_set_scrollbar_mode(lv_scr_act(), LV_SCROLLBAR_MODE_OFF);
 #ifdef UI_WRITE
     setup_boot_screen(ui);
-    setup_home_screen(ui, 3000);
+    setup_home_screen(ui, BOOT_PAGE_OUT_TIME);
 #else
     setup_home_screen(ui, 0);
+
 #endif
 }

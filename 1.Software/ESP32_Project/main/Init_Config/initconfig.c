@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 13:57
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-11 22:57
+ * @LastEditTime: 2023-03-12 10:20
  * @FilePath: /ESP32_Project/main/Init_Config/initconfig.c
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 

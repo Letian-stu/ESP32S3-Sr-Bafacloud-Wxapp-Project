@@ -2,8 +2,8 @@
  * @Author: letian
  * @Date: 2023-01-18 20:43
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-07 17:37
- * @FilePath: \ESP32_Project\main\lvgl_task\src\page_sd.c
+ * @LastEditTime: 2023-03-12 11:09
+ * @FilePath: /ESP32_Project/main/lvgl_task/src/page_web.c
  * @Description:
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved.
  */
@@ -55,5 +55,5 @@ void setup_web_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_align(ui->jpg, LV_ALIGN_TOP_RIGHT, 0, 50);
     lv_img_set_src(ui->jpg, &_esp_120x140);	
 
-    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_bounce);
+    page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
 }

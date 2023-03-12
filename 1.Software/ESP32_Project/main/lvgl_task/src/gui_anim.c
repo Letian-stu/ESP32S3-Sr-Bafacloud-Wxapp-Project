@@ -1,9 +1,9 @@
 /*
  * @Author: letian
  * @Date: 2023-01-10 10:51
- * @LastEditors: letian
- * @LastEditTime: 2023-01-20 21:52
- * @FilePath: \ESP32_Project\main\lvgl_task\src\gui_anim.c
+ * @LastEditors: Letian-stu
+ * @LastEditTime: 2023-03-12 10:58
+ * @FilePath: /ESP32_Project/main/lvgl_task/src/gui_anim.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
  */
