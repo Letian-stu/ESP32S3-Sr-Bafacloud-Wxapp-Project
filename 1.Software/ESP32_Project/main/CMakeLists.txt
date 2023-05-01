@@ -5,10 +5,7 @@ SRCS            "main.c"
                 "Init_Config/spiffsconfig.c"
                 "Init_Config/sdconfig.c"
 
-                "web_file/web_config.c"
-                "mqtt_bafa/tcp_mqtt.c"
                 "speech_rec/speech_rec.c"
-                "cam_task/cam_task.c"
 
                 "app_task/app_task.c"
                 "app_task/app_timer.c"
@@ -48,20 +45,17 @@ SRCS            "main.c"
 
 INCLUDE_DIRS    "."
                 "Init_Config"
-                "cam_task"
-                "web_file"
                 "app_task"
-                "mqtt_bafa"
 				"speech_rec"
                 "lvgl_task/include"
 
-EMBED_FILES     "../spiffs/main.html"
-EMBED_FILES     "../spiffs/wificonfig.html"
-EMBED_FILES     "../spiffs/webfs.html"
-EMBED_FILES     "../spiffs/favicon.ico"
+# EMBED_FILES     "../spiffs/main.html"
+# EMBED_FILES     "../spiffs/wificonfig.html"
+# EMBED_FILES     "../spiffs/webfs.html"
+# EMBED_FILES     "../spiffs/favicon.ico"
 )
 
-spiffs_create_partition_image(storage ../spiffs FLASH_IN_PROJECT)
+# spiffs_create_partition_image(storage ../spiffs FLASH_IN_PROJECT)
 
 
 

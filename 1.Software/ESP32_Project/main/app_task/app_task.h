@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-30 22:22
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-10 21:59
+ * @LastEditTime: 2023-05-01 10:35
  * @FilePath: /ESP32_Project/main/app_task/app_task.h
  * @Description: 
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved. 
@@ -21,24 +21,16 @@
 
 //add by tian
 #include "BaseConfig.h"
-#include "web_config.h"
-#include "tcp_mqtt.h"
 #include "speech_if.h"
 #include "i2c_master.h"
 #include "aht20_driver.h"
 #include "button.h"
 #include "lvgl_init.h"
-#include "cam_task.h"
 #include "cJSON.h"
 #include "esp_http_client.h"
 
-#define AHT20_ADDR 0x38
 
 //task
-extern TaskHandle_t Cam_Handle;
-extern TaskHandle_t Mqtt_Handle;
-extern TaskHandle_t AHT_Handle;
-extern TaskHandle_t Http_Handle;
 void Tasks_Init(void);
 
 //timer
@@ -46,11 +38,7 @@ void Tasks_Init(void);
 void Times_Init(void);
 
 //sem
-extern SemaphoreHandle_t Reav_Mqtt_Buff_Handle;
-extern SemaphoreHandle_t takepic_Handle;
-extern SemaphoreHandle_t SpeechMutex;
 extern SemaphoreHandle_t KeyreadMutex;
-extern SemaphoreHandle_t startcam_Handle;
 void Sem_Init(void);
 //queue
 

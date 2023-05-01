@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-12 11:00
+ * @LastEditTime: 2023-05-01 10:45
  * @FilePath: /ESP32_Project/main/lvgl_task/src/page_camera.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -14,7 +14,6 @@
 #include "freertos/task.h"
 #include "gui_guider.h"
 #include "gui_anim.h"
-#include "cam_task.h"
 #include "app_task.h"
 
 #define TAG "PAGE_CAM"
@@ -26,7 +25,6 @@ void lv_btn_takepic_event_cb(lv_event_t *e)
     {
     case LV_EVENT_CLICKED:
         ESP_LOGI(TAG, "Taking picture...");
-        xSemaphoreGive(takepic_Handle);
         break;
     case LV_EVENT_FOCUSED:
     default:
@@ -84,8 +82,6 @@ void setup_camera_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_set_size(ui->takepic, 50, 50);
     lv_obj_align(ui->takepic, LV_ALIGN_CENTER, 0, 0);
     lv_img_set_src(ui->takepic, &_takepic_50x50);
-
-    vTaskResume(Cam_Handle);
 
     page_screen_anim(ui->page, -240, 0, time, delay, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
 }

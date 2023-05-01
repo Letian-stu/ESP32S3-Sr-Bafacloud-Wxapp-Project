@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2022-11-29 14:28
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-12 13:42
+ * @LastEditTime: 2023-05-01 10:44
  * @FilePath: /ESP32_Project/main/Init_Config/wificonfig.c
  * @Description:
  * Copyright (c) 2022 by letian 1656733965@qq.com, All Rights Reserved.
@@ -42,9 +42,6 @@ static void wifi_sta_ap_cb(void *arg, esp_event_base_t event_base,int32_t event_
     {
         ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
         ESP_LOGI(TAG, "Got IP IPv4 address: %d.%d.%d.%d", IP2STR(&event->ip_info.ip));
-        vTaskResume(AHT_Handle);
-        vTaskResume(Mqtt_Handle);
-        vTaskResume(Http_Handle);
     }
     else if(event_id == WIFI_EVENT_STA_DISCONNECTED)   
     {
@@ -109,51 +106,6 @@ esp_err_t wifi_ap_sta_init(void)
     if (ret == ESP_OK)
     {
         ESP_LOGI(TAG, "wificonfig IP:" IPSTR "", IP2STR(&local_ip.ip));
-    }
-    return ESP_OK;
-}
-
-esp_err_t read_wifi_from_nvs(void)
-{
-    esp_err_t err = nvs_open("nvs", NVS_READWRITE, &nvs_wifi_config);
-    if (err != ESP_OK)
-    {
-        return ESP_FAIL;
-        printf("Error (%s) opening NVS handle!\n", esp_err_to_name(err));
-    }
-    else
-    {
-        //read
-        ESP_LOGI(TAG, "=========nvs read data==========");
-        err = nvs_get_u8(nvs_wifi_config, WIFISSIDLEN, &read_wifi_buf.ssidlen);
-        if(err != ESP_OK)
-        {
-            ESP_LOGE(TAG, "read len Failed!");
-            return ESP_FAIL;
-        }
-        err = nvs_get_str(nvs_wifi_config, WIFISSID, read_wifi_buf.ssid, (size_t*)(&read_wifi_buf.ssidlen));
-        if(err != ESP_OK)
-        {
-            ESP_LOGE(TAG, "read name Failed!");
-            return ESP_FAIL;
-        }
-        err = nvs_get_u8(nvs_wifi_config, WIFIPASSLEN, &read_wifi_buf.passlen);
-        if(err != ESP_OK)
-        {   
-            ESP_LOGE(TAG, "read len Failed!");
-            return ESP_FAIL;
-        }
-        err = nvs_get_str(nvs_wifi_config, WIFIPASS, read_wifi_buf.pass, (size_t*)(&read_wifi_buf.passlen));
-        if(err != ESP_OK)
-        {
-            ESP_LOGE(TAG, "read ssid Failed!");
-            return ESP_FAIL;
-        }
-        ESP_LOGI(TAG, "wifiname:len=%d,data=%s",read_wifi_buf.ssidlen,read_wifi_buf.ssid);
-        ESP_LOGI(TAG, "wifissid:len=%d,data=%s",read_wifi_buf.passlen,read_wifi_buf.pass);
-        ESP_LOGI(TAG, "=======================================");
-        // Close
-        nvs_close(nvs_wifi_config);
     }
     return ESP_OK;
 }

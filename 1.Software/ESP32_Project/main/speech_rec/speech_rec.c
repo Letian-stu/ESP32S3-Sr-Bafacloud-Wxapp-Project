@@ -26,9 +26,9 @@
 #include "esp_mn_iface.h"
 #include "esp_mn_models.h"
 #include "speech_if.h"
-#include "tcp_mqtt.h"
 #include "driver/ledc.h"
 #include "driver/gpio.h"
+#include "lvgl.h"
 
 static const char *TAG = "sr";
 
@@ -257,13 +257,10 @@ static void breath_light_task(void *arg)
     }
 }
 
-lv_obj_t *imggif;
+// lv_obj_t *imggif;
 
 void sr_wake(void *arg)
 {
-    imggif = lv_gif_create(lv_scr_act());
-    lv_obj_align(imggif, LV_ALIGN_CENTER, 0, 0);
-    lv_gif_set_src(imggif, "S:/speech.gif");
     /**< Turn on the breathing light */
     xTaskCreate(breath_light_task, "breath_light_task", 1024 * 2, NULL, configMAX_PRIORITIES - 1, &g_breath_light_task_handle);
 }
@@ -275,41 +272,37 @@ void sr_cmd(void *arg)
     {
         vTaskDelete(g_breath_light_task_handle);
     }
-    if(imggif != NULL)
-    {
-        lv_obj_del_async(imggif);
-    }
     int32_t cmd_id = (int32_t)arg;
     switch (cmd_id)
     {
 
     case 1:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 1, 0);
+        
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         // printf("open led\n");
         break;
     case 2:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 1, 0);
+
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         // printf("close led\n");
         break;
     case 3:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 1, 0);
+
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         // printf("open fan\n");
         break;
     case 4:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 1, 0);
+
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         // printf("close fan\n");
         break;
     case 5:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 1, 0);
+    
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         // printf("open button\n");
         break;
     case 6:
-        msg_id = esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 1, 0);
+
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         // printf("close button\n");
         break;
@@ -337,9 +330,5 @@ void sr_cmd_exit(void *arg)
     if (g_breath_light_task_handle != NULL)
     {
         vTaskDelete(g_breath_light_task_handle);
-    }
-    if(imggif != NULL)
-    {
-        lv_obj_del_async(imggif);
     }
 }

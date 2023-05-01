@@ -1,5 +1,10 @@
 {
   "C_Cpp.intelliSenseEngine": "Tag Parser",
   "idf.adapterTargetName": "esp32s3",
-  "idf.port": "/dev/ttyUSB0"
+  "idf.port": "/dev/ttyUSB0",
+  "files.associations": {
+    "*.inc": "c",
+    "app_task.h": "c",
+    "lvgl.h": "c"
+  }
 }

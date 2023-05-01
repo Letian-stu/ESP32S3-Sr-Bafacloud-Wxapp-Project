@@ -2,4 +2,3 @@
 0x0 bootloader/bootloader.bin
 0x20000 main.bin
 0x8000 partition_table/partition-table.bin
-0x19000 storage.bin

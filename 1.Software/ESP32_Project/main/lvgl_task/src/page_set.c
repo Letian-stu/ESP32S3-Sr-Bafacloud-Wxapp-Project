@@ -2,7 +2,7 @@
  * @Author: letian
  * @Date: 2023-01-18 20:41
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-12 11:09
+ * @LastEditTime: 2023-05-01 10:48
  * @FilePath: /ESP32_Project/main/lvgl_task/src/page_set.c
  * @Description: 
  * Copyright (c) 2023 by letian 1656733975@qq.com, All Rights Reserved. 
@@ -14,7 +14,6 @@
 #include "freertos/task.h"
 #include "gui_guider.h"
 #include "gui_anim.h"
-#include "tcp_mqtt.h"
 
 #define TAG "PAGE_CONTROL"
 
@@ -22,45 +21,6 @@ static void event_handler(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
-    if(obj == guider_ui.ledbtn)
-    {
-        if(lv_obj_has_state(obj, LV_STATE_CHECKED))
-        {
-            esp_mqtt_client_publish(mqtt_client, "DriverLED002", "on", 0, 1, 0);
-            ESP_LOGI(TAG,"led btn on");
-        }
-        else
-        {
-            esp_mqtt_client_publish(mqtt_client, "DriverLED002", "off", 0, 1, 0);
-            ESP_LOGI(TAG,"led btn off");
-        }
-    }
-    else if(obj == guider_ui.keybtn)
-    {
-        if(lv_obj_has_state(obj, LV_STATE_CHECKED))
-        {
-            esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "on", 0, 1, 0);
-            ESP_LOGI(TAG,"led btn on");
-        }
-        else
-        {
-            esp_mqtt_client_publish(mqtt_client, "DriverKEY006", "off", 0, 1, 0);
-            ESP_LOGI(TAG,"led btn off");
-        }
-    }
-    else if(obj == guider_ui.fanbtn)
-    {
-        if(lv_obj_has_state(obj, LV_STATE_CHECKED))
-        {
-            esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "on", 0, 1, 0);
-            ESP_LOGI(TAG,"led btn on");
-        }
-        else
-        {
-            esp_mqtt_client_publish(mqtt_client, "DriverFAN003", "off", 0, 1, 0);
-            ESP_LOGI(TAG,"led btn off");
-        }
-    }
 }
 
 void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay)
@@ -127,33 +87,6 @@ void setup_set_screen(lv_ui *ui, uint32_t time, uint32_t delay)
     lv_obj_align_to(ui->keybtn, ui->imgkey, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
     lv_obj_add_event_cb(ui->keybtn, event_handler, LV_EVENT_CLICKED, NULL);
 
-
-    if(Driver_state.led == 1)
-    {
-        lv_obj_add_state(ui->ledbtn, LV_STATE_CHECKED);
-    }
-    else
-    {
-        lv_obj_clear_state(ui->ledbtn, LV_STATE_CHECKED);
-    }
-
-    if(Driver_state.key == 1)
-    {
-        lv_obj_add_state(ui->keybtn, LV_STATE_CHECKED);
-    }
-    else
-    {
-        lv_obj_clear_state(ui->keybtn, LV_STATE_CHECKED);
-    }
-    
-    if(Driver_state.fan == 1)
-    {
-        lv_obj_add_state(ui->fanbtn, LV_STATE_CHECKED);
-    }
-    else
-    {
-        lv_obj_clear_state(ui->fanbtn, LV_STATE_CHECKED);
-    }
     page_screen_anim(ui->imgtemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
     page_screen_anim(ui->labeltemp, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
     page_screen_anim(ui->imghumi, -85, 40, time, delay+600, (lv_anim_exec_xcb_t)lv_obj_set_y, lv_anim_path_linear);
