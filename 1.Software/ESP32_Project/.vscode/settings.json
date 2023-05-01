@@ -1,15 +1,5 @@
 {
   "C_Cpp.intelliSenseEngine": "Tag Parser",
   "idf.adapterTargetName": "esp32s3",
-  "idf.openOcdConfigs": [
-    "interface/ftdi/esp32_devkitj_v1.cfg",
-    "target/esp32s3.cfg"
-  ],
-  "files.associations": {
-    "task.h": "c",
-    "gui_anim.h": "c",
-    "freertos.h": "c",
-    "random": "c"
-  },
   "idf.port": "/dev/ttyUSB0"
 }

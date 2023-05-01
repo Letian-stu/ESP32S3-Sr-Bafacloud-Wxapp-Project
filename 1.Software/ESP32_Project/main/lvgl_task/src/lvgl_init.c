@@ -2,7 +2,7 @@
  * @Author: StuTian
  * @Date: 2022-09-03 22:14
  * @LastEditors: Letian-stu
- * @LastEditTime: 2023-03-12 14:02
+ * @LastEditTime: 2023-05-01 10:15
  * @FilePath: /ESP32_Project/main/lvgl_task/src/lvgl_init.c
  * @Description:
  * Copyright (c) 2022 by StuTian 1656733975@qq.com, All Rights Reserved.
