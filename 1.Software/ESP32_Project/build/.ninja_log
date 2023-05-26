@@ -1532,3 +1532,5 @@
 24	87	1682909805516918614	/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader/bootloader.elf	481e1d650ed14495
 24	87	1682909805516918614	/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader/bootloader.bin	481e1d650ed14495
 24	87	1682909805516918614	/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/bootloader/bootloader.map	481e1d650ed14495
+0	445899	0	CMakeFiles/confserver	a3d27f761fa8621e
+0	445899	0	/home/letian/Desktop/software/github/ESP32S3-Sr-Bafacloud-Wxapp-Project/1.Software/ESP32_Project/build/CMakeFiles/confserver	a3d27f761fa8621e

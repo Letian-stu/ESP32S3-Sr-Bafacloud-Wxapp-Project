@@ -5,6 +5,7 @@
   "files.associations": {
     "*.inc": "c",
     "app_task.h": "c",
-    "lvgl.h": "c"
+    "lvgl.h": "c",
+    "random": "c"
   }
 }
